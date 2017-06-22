@@ -138,11 +138,12 @@
     MessagePrefix: 'message.id7.account-popover.'
   };
 
-  var fetchNotificationData = (function(endpoint, callback) {
+  var fetchNotificationData = (function(endpoint, callback, errorHandler) {
     // avoid fetch for compatibility
     $.ajax({
       url: endpoint,
       success: callback,
+      error: errorHandler,
       dataType: "json",
       xhrFields: {
         withCredentials: true
@@ -206,6 +207,10 @@
               that.options.iframelink = that.options.iframelink + 'notifications';
               $trigger.data('bs.popover').options.content = Config.Templates.Popover(that.options);
             }
+          }, function() {
+            $badge.find(".counter-value").removeClass('fa-spinner')
+              .removeClass('fa-spin').addClass('fa-exclamation-triangle');
+            $badge.attr('title', 'There was a problem communicating with the MyWarwick notifications service');
           });
         }
 
