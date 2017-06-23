@@ -9114,19 +9114,26 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
 .id7-utility-bar .dropdown-menu > li.divider {
   margin: 5px 0;
 }
-.id7-utility-bar .popover.account-information {
-  text-shadow: none;
-  max-width: 100%;
-  width: 375px;
-  height: 640px;
+.id7-utility-bar .popover.my-warwick {
+  width: 380px;
+  max-height: 640px;
+  height: 80vh;
   padding: 0;
 }
+.id7-utility-bar .popover.account-information,
+.id7-utility-bar .popover.my-warwick {
+  text-shadow: none;
+  max-width: 100%;
+}
 .id7-utility-bar .popover.account-information .popover-inner,
-.id7-utility-bar .popover.account-information .popover-content {
+.id7-utility-bar .popover.my-warwick .popover-inner,
+.id7-utility-bar .popover.account-information .popover-content,
+.id7-utility-bar .popover.my-warwick .popover-content {
   height: 100%;
   padding: 0;
 }
-.id7-utility-bar .popover.account-information .popover-content {
+.id7-utility-bar .popover.account-information .popover-content,
+.id7-utility-bar .popover.my-warwick .popover-content {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9137,59 +9144,72 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.id7-utility-bar .popover.account-information .popover-content .account-info {
+.id7-utility-bar .popover.account-information .popover-content .account-info,
+.id7-utility-bar .popover.my-warwick .popover-content .account-info {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
-.id7-utility-bar .popover.account-information .popover-content .actions {
+.id7-utility-bar .popover.account-information .popover-content .account-info iframe,
+.id7-utility-bar .popover.my-warwick .popover-content .account-info iframe {
+  height: 100%;
+  width: 100%;
+}
+.id7-utility-bar .popover.account-information .popover-content .actions,
+.id7-utility-bar .popover.my-warwick .popover-content .actions {
   -webkit-box-flex: 0;
   -webkit-flex: 0;
       -ms-flex: 0;
           flex: 0;
 }
-.id7-utility-bar .popover.account-information .account-info iframe {
-  height: 100%;
-  width: 100%;
-}
-.id7-utility-bar .popover.account-information .actions {
+.id7-utility-bar .actions {
   background: #f7f7f7;
   border-top: 1px solid #ebebeb;
 }
-.id7-utility-bar .popover.account-information .actions a,
-.id7-utility-bar .popover.account-information .actions a:link,
-.id7-utility-bar .popover.account-information .actions a:visited {
+.id7-utility-bar .actions a,
+.id7-utility-bar .actions a:link,
+.id7-utility-bar .actions a:visited {
   color: #333333;
 }
-.id7-utility-bar .popover.account-information .actions a:hover,
-.id7-utility-bar .popover.account-information .actions a:focus,
-.id7-utility-bar .popover.account-information .actions a:active {
+.id7-utility-bar .actions a:hover,
+.id7-utility-bar .actions a:focus,
+.id7-utility-bar .actions a:active {
   color: #000000;
 }
-.id7-utility-bar .popover.account-information .actions a:hover .new-window-link {
+.id7-utility-bar .actions a:hover .new-window-link {
   color: #000000;
 }
-.id7-utility-bar .popover.account-information .actions a,
-.id7-utility-bar .popover.account-information .actions a:link,
-.id7-utility-bar .popover.account-information .actions a:visited {
+.id7-utility-bar .actions a,
+.id7-utility-bar .actions a:link,
+.id7-utility-bar .actions a:visited {
   -webkit-text-decoration-color: #707070;
   -moz-text-decoration-color: #707070;
        text-decoration-color: #707070;
 }
-.id7-utility-bar .popover.account-information .actions a:hover,
-.id7-utility-bar .popover.account-information .actions a:focus,
-.id7-utility-bar .popover.account-information .actions a:active {
+.id7-utility-bar .actions a:hover,
+.id7-utility-bar .actions a:focus,
+.id7-utility-bar .actions a:active {
   -webkit-text-decoration-color: #000000;
   -moz-text-decoration-color: #000000;
        text-decoration-color: #000000;
 }
-.id7-utility-bar .popover.account-information .actions a:hover,
-.id7-utility-bar .popover.account-information .actions a:focus {
+.id7-utility-bar .actions a:hover,
+.id7-utility-bar .actions a:focus {
   text-decoration: none;
 }
-.id7-utility-bar .popover.account-information .actions .btn-group-justified {
+.id7-utility-bar .actions .btn-group-justified {
   border-spacing: 11px;
+}
+.id7-utility-bar .popover.account-information {
+  width: 320px;
+  height: auto;
+}
+.id7-utility-bar .popover.account-information .popover-content .account-info {
+  padding: 15px 19px;
+}
+.id7-utility-bar .popover.account-information .popover-content .account-info iframe {
+  height: 80px;
 }
 .id7-masthead {
   margin-right: auto;
