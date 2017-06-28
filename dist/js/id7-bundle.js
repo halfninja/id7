@@ -23048,7 +23048,7 @@ if(typeof Function.prototype.bind == 'undefined') {
 
       useMwIframe: true,
 
-      wireEventHandlers: function wireEventHandlers() {ID-228
+      wireEventHandlers: function wireEventHandlers() {
         var $trigger = this.$trigger;
 
         if (this.options.name) {
