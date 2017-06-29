@@ -9114,11 +9114,17 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
 .id7-utility-bar .dropdown-menu > li.divider {
   margin: 5px 0;
 }
-.id7-utility-bar .popover.my-warwick {
+.id7-utility-bar .popover.my-warwick:not(.account-information) {
   width: 390px;
   max-height: 640px;
   height: 80vh;
   padding: 0;
+}
+.id7-utility-bar .popover.my-warwick:not(.account-information) .arrow {
+  border-bottom-color: #8C6E96;
+}
+.id7-utility-bar .popover.my-warwick:not(.account-information) .arrow:after {
+  border-bottom-color: #8C6E96;
 }
 .id7-utility-bar .popover.account-information,
 .id7-utility-bar .popover.my-warwick {
