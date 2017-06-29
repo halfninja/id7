@@ -140,13 +140,13 @@
     MessagePrefix: 'message.id7.account-popover.'
   };
 
-  var fetchNotificationData = (function(endpoint, callback, errorHandler) {
+  var fetchNotificationData = (function (endpoint, callback, errorHandler) {
     // avoid fetch for compatibility
     $.ajax({
       url: endpoint,
       success: callback,
       error: errorHandler,
-      dataType: "json",
+      dataType: 'json',
       xhrFields: {
         withCredentials: true
       }
@@ -202,7 +202,7 @@
 
         if (this.options.showNotificationsBadge) {
           var that = this;
-          fetchNotificationData(this.options.notificationsApi, function(data) {
+          fetchNotificationData(this.options.notificationsApi, function (data) {
             var unreads = Math.min(data.unreads, 99);
             $badge.find('.counter-value').removeClass('fa-spinner').removeClass('fa-spin').addClass('slideInDown').text(unreads);
             if (unreads > 0) {
@@ -210,7 +210,7 @@
               that.options.iframelink = that.options.iframelink + 'notifications';
               $trigger.data('bs.popover').options.content = Config.Templates.Popover(that.options);
             }
-          }, function() {
+          }, function () {
             $badge.find('.counter-value').removeClass('fa-spinner')
               .removeClass('fa-spin').addClass('fa-exclamation-triangle');
             $badge.attr('title', 'There was a problem communicating with the MyWarwick notifications service');
@@ -227,7 +227,7 @@
 
         // Smaller screens get the old popover
         $(window).on('id7:reflow', $.proxy(function (e, screenConfig) {
-          this.options.useMwIframe = !(screenConfig.name === 'xs')
+          this.options.useMwIframe = screenConfig.name !== 'xs'
             && $(window).height() >= 700;
 
           if ($trigger.data('bs.popover') !== undefined) {
@@ -304,7 +304,7 @@
             var $trigger = $(this);
             var accountPopover = $trigger.data('id7.account-popover');
 
-            if (accountPopover.options.iframelink.indexOf(origin) !== 0 && accountPopover.options.legacyIframeLink.indexOf(origin)) {
+            if (accountPopover.options.iframelink.indexOf(origin) !== 0 && accountPopover.options.legacyIframeLink.indexOf(origin) !== 0) {
               console.error('Ignored message of type ' + messageType + ' because origin ' + origin + ' didn\'t match iframe link ' + accountPopover.options.iframelink);
             } else {
               accountPopover.onMessage(messageType, data);
