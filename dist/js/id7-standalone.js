@@ -181,11 +181,7 @@
           trigger: 'manual'
         };
         $trigger.popover(opts);
-      },
-
-      useMwIframe: true,
-
-      wireEventHandlers: function wireEventHandlers() {ID-228
+      }, wireEventHandlers: function wireEventHandlers() {
         var $trigger = this.$trigger;
 
         if (this.options.name) {
@@ -231,14 +227,14 @@
 
         // Smaller screens get the old popover
         $(window).on('id7:reflow', $.proxy(function (e, screenConfig) {
+          this.options.useMwIframe = !(screenConfig.name === 'xs')
+            && $(window).height() >= 700;
+
           if ($trigger.data('bs.popover') !== undefined) {
+            $trigger.data('bs.popover').options.content = Config.Templates.Popover(this.options);
+
+            var toAdd = this.options.useMwIframe ? 'my-warwick' : 'account-information';
             var $bsPopover = $trigger.data('bs.popover');
-
-            $bsPopover.options.content = Config.Templates.Popover(this.options);
-            $bsPopover.useMwIframe = !(screenConfig.name === 'xs')
-              && $(window).height() >= 700;
-
-            var toAdd = $bsPopover.useMwIframe ? 'my-warwick' : 'account-information';
             $bsPopover.tip().removeClass('account-information', 'my-warwick').addClass(toAdd);
 
             // trigger a reposition if the popover is open
