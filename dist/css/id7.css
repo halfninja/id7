@@ -9120,16 +9120,24 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
   height: 80vh;
   padding: 0;
 }
-.id7-utility-bar .popover.my-warwick:not(.account-information) .arrow {
+.id7-utility-bar .popover.my-warwick.loaded:not(.account-information) .arrow {
   border-bottom-color: #8C6E96;
 }
-.id7-utility-bar .popover.my-warwick:not(.account-information) .arrow:after {
+.id7-utility-bar .popover.my-warwick.loaded:not(.account-information) .arrow:after {
   border-bottom-color: #8C6E96;
 }
 .id7-utility-bar .popover.account-information,
 .id7-utility-bar .popover.my-warwick {
   text-shadow: none;
   max-width: 100%;
+}
+.id7-utility-bar .popover.account-information .arrow,
+.id7-utility-bar .popover.my-warwick .arrow,
+.id7-utility-bar .popover.account-information .arrow:after,
+.id7-utility-bar .popover.my-warwick .arrow:after {
+  -webkit-transition: 0.3s border ease-in-out;
+       -o-transition: 0.3s border ease-in-out;
+          transition: 0.3s border ease-in-out;
 }
 .id7-utility-bar .popover.account-information .popover-inner,
 .id7-utility-bar .popover.my-warwick .popover-inner,

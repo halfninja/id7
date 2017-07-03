@@ -22992,7 +22992,7 @@ if(typeof Function.prototype.bind == 'undefined') {
       useMwIframe: true,
       maxNumberNotifications: 99,
       template: [
-        '<div class="popover my-warwick">',
+        '<div class="popover my-warwick hybrid-overlay">',
         '<div class="arrow"></div>',
         '<div class="popover-inner">',
         '<div class="popover-content"><p></p></div>',
@@ -23101,8 +23101,10 @@ if(typeof Function.prototype.bind == 'undefined') {
             $bsPopover.tip().removeClass('account-information', 'my-warwick').addClass(toAdd);
 
             // trigger a reposition if the popover is open
+            // Note that this ends up reloading the iFrame, so remove the loaded class
             if ($bsPopover.tip().hasClass('in')) {
               $trigger.popover('show');
+              $trigger.next('.popover').removeClass('loading');
             }
           }
         }, this));
@@ -23121,6 +23123,9 @@ if(typeof Function.prototype.bind == 'undefined') {
             break;
           case 'resizeIframe':
             $popover.find('.account-info iframe').height(data.height);
+            break;
+          case 'layoutDidMount':
+            $popover.addClass("loaded");
             break;
           case 'signedOut':
             var loginlink = this.options.loginlink;
