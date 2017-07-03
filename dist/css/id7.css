@@ -9116,7 +9116,7 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
 }
 .id7-utility-bar .popover.my-warwick:not(.account-information) {
   width: 390px;
-  max-height: 640px;
+  max-height: 1200px;
   height: 80vh;
   padding: 0;
 }
