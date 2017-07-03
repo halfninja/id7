@@ -9160,6 +9160,7 @@ html.no-generatedcontent .id7-utility-bar > ul > li {
 }
 .id7-utility-bar .popover.account-information .popover-content .account-info,
 .id7-utility-bar .popover.my-warwick .popover-content .account-info {
+  height: 100%;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
