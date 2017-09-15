@@ -2631,7 +2631,8 @@ img {
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 0;
-  transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+          transition: all .2s ease-in-out;
 }
 .img-circle {
   border-radius: 50%;
@@ -3041,8 +3042,10 @@ a:active {
   text-decoration: underline;
 }
 a {
-  transition: all .3s linear;
-  transition: color .3s linear, text-decoration-color .15s linear;
+  -webkit-transition: all .3s linear;
+  -webkit-transition: color .3s linear, text-decoration-color .15s linear;
+          transition: all .3s linear;
+          transition: color .3s linear, text-decoration-color .15s linear;
 }
 a .new-window-link,
 a .insecure-link {
@@ -3052,7 +3055,8 @@ a .insecure-link {
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
   font-size: 12px;
-  transition: color .3s linear;
+  -webkit-transition: color .3s linear;
+          transition: color .3s linear;
 
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -4321,7 +4325,8 @@ output {
   border: 1px solid #ccc;
   border-radius: 0;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus {
   border-color: #66afe9;
@@ -5257,7 +5262,8 @@ input[type="button"].btn-block {
 }
 .fade {
   opacity: 0;
-  transition: opacity .15s linear;
+  -webkit-transition: opacity .15s linear;
+          transition: opacity .15s linear;
 }
 .fade.in {
   opacity: 1;
@@ -5278,9 +5284,12 @@ tbody.collapse.in {
   position: relative;
   height: 0;
   overflow: hidden;
-  transition-timing-function: ease;
-  transition-duration: .35s;
-  transition-property: height, visibility;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-duration: .35s;
+          transition-duration: .35s;
+  -webkit-transition-property: height, visibility;
+          transition-property: height, visibility;
 }
 .caret {
   display: inline-block;
@@ -6780,7 +6789,8 @@ a.badge:focus {
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 0;
-  transition: border .2s ease-in-out;
+  -webkit-transition: border .2s ease-in-out;
+          transition: border .2s ease-in-out;
 }
 .thumbnail > img,
 .thumbnail a > img {
@@ -6905,11 +6915,13 @@ a.thumbnail.active {
   text-align: center;
   background-color: #204f79;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-  transition: width .6s ease;
+  -webkit-transition: width .6s ease;
+          transition: width .6s ease;
 }
 .progress-striped .progress-bar,
 .progress-bar-striped {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .progress.active .progress-bar,
@@ -6921,25 +6933,29 @@ a.thumbnail.active {
   background-color: #596e31;
 }
 .progress-striped .progress-bar-success {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
   background-color: #239b92;
 }
 .progress-striped .progress-bar-info {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 .progress-bar-warning {
   background-color: #ee510f;
 }
 .progress-striped .progress-bar-warning {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 .progress-bar-danger {
   background-color: #af2723;
 }
 .progress-striped .progress-bar-danger {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 .media {
   margin-top: 15px;
@@ -7625,8 +7641,8 @@ button.close {
   outline: 0;
 }
 .modal.fade .modal-dialog {
-  transition: -webkit-transform .3s ease-out;
-  transition:         transform .3s ease-out;
+  -webkit-transition: -webkit-transform .3s ease-out;
+          transition:         transform .3s ease-out;
   -webkit-transform: translate(0, -25%);
       -ms-transform: translate(0, -25%);
           transform: translate(0, -25%);
@@ -7983,7 +7999,8 @@ button.close {
 .carousel-inner > .item {
   position: relative;
   display: none;
-  transition: .6s ease-in-out left;
+  -webkit-transition: .6s ease-in-out left;
+          transition: .6s ease-in-out left;
 }
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
@@ -7991,8 +8008,8 @@ button.close {
 }
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
-    transition: -webkit-transform .6s ease-in-out;
-    transition:         transform .6s ease-in-out;
+    -webkit-transition: -webkit-transform .6s ease-in-out;
+            transition:         transform .6s ease-in-out;
 
     -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -8064,14 +8081,16 @@ button.close {
   opacity: .5;
 }
 .carousel-control.left {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
+  background-image:         linear-gradient(to right, rgba(0, 0, 0, .5) 0%, rgba(0, 0, 0, .0001) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
   background-repeat: repeat-x;
 }
 .carousel-control.right {
   right: 0;
   left: auto;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
+  background-image:         linear-gradient(to right, rgba(0, 0, 0, .0001) 0%, rgba(0, 0, 0, .5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
   background-repeat: repeat-x;
 }
@@ -8619,7 +8638,8 @@ label.radio-inline {
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
   color: #333;
-  background-image: linear-gradient(to bottom, #d0d0d0 0%, #c3c3c3 100%);
+  background-image: -webkit-linear-gradient(top, #d0d0d0 0%, #c3c3c3 100%);
+  background-image:         linear-gradient(to bottom, #d0d0d0 0%, #c3c3c3 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd0d0d0', endColorstr='#ffc3c3c3', GradientType=0);
   background-repeat: repeat-x;
 }
@@ -8693,21 +8713,29 @@ body {
 }
 @media screen and (min-width: 768px) {
   html.flexbox .id7-fixed-width-container {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display:         flex;
     height: 100vh;
-        flex-direction: column;
+            flex-direction: column;
 
-    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
   }
   html.flexbox .id7-fixed-width-container .id7-main-content-area {
-    -ms-flex: 1 0 auto;
-        flex: 1 0 auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+        -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
   }
   html.flexbox .id7-fixed-width-container .id7-page-header,
   html.flexbox .id7-fixed-width-container .id7-page-footer {
+    -webkit-flex-shrink: 0;
     -ms-flex-negative: 0;
-    flex-shrink: 0;
+            flex-shrink: 0;
   }
 }
 @media (min-width: 768px) {
@@ -9031,7 +9059,8 @@ body {
 .id7-utility-bar .popover.my-warwick .arrow,
 .id7-utility-bar .popover.account-information .arrow:after,
 .id7-utility-bar .popover.my-warwick .arrow:after {
-  transition: .3s border ease-in-out;
+  -webkit-transition: .3s border ease-in-out;
+          transition: .3s border ease-in-out;
 }
 .id7-utility-bar .popover.account-information .popover-inner,
 .id7-utility-bar .popover.my-warwick .popover-inner,
@@ -9042,18 +9071,25 @@ body {
 }
 .id7-utility-bar .popover.account-information .popover-content,
 .id7-utility-bar .popover.my-warwick .popover-content {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
-      flex-direction: column;
+  display:         flex;
+          flex-direction: column;
 
-  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
 }
 .id7-utility-bar .popover.account-information .popover-content .account-info,
 .id7-utility-bar .popover.my-warwick .popover-content .account-info {
   height: 100%;
 
-  -ms-flex: 1;
-      flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .id7-utility-bar .popover.account-information .popover-content .account-info iframe,
 .id7-utility-bar .popover.my-warwick .popover-content .account-info iframe {
@@ -9062,8 +9098,10 @@ body {
 }
 .id7-utility-bar .popover.account-information .popover-content .actions,
 .id7-utility-bar .popover.my-warwick .popover-content .actions {
-  -ms-flex: 0 0 auto;
-      flex: 0 0 auto;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 .id7-utility-bar .actions {
   background: #f7f7f7;
@@ -9354,8 +9392,8 @@ html.safari .id7-masthead {
   }
 }
 .id7-masthead .id7-header-text h1.affix.headroom {
-  transition: -webkit-transform 200ms linear;
-  transition:         transform 200ms linear;
+  -webkit-transition: -webkit-transform 200ms linear;
+          transition:         transform 200ms linear;
 }
 .id7-masthead .id7-header-text h1.affix.headroom--pinned {
   -webkit-transform: translateY(0%);
@@ -9414,7 +9452,8 @@ html.safari .id7-masthead {
   font-size: 85%;
   filter: alpha(opacity=0);
   opacity: 0;
-  transition: opacity .15s linear;
+  -webkit-transition: opacity .15s linear;
+          transition: opacity .15s linear;
 }
 @media (min-width: 768px) {
   .id7-masthead .id7-logo-row nav {
@@ -9594,7 +9633,8 @@ html.safari .id7-masthead {
   right: 9px;
   color: #777;
   cursor: pointer;
-  transition: color .15s linear;
+  -webkit-transition: color .15s linear;
+          transition: color .15s linear;
 }
 .id7-search .twitter-typeahead:hover + .fa,
 .id7-search .fa:hover {
@@ -9680,8 +9720,8 @@ html.safari .id7-masthead {
   }
 }
 .id7-navigation.affix.headroom {
-  transition: -webkit-transform 200ms linear;
-  transition:         transform 200ms linear;
+  -webkit-transition: -webkit-transform 200ms linear;
+          transition:         transform 200ms linear;
 }
 .id7-navigation.affix.headroom--pinned {
   -webkit-transform: translateY(0%);
@@ -9706,8 +9746,10 @@ html.safari .id7-masthead {
     visibility: hidden;
     filter: alpha(opacity=0);
     opacity: 0;
-    transition: opacity .15s linear;
-    transition-delay: 250ms;
+    -webkit-transition: opacity .15s linear;
+            transition: opacity .15s linear;
+    -webkit-transition-delay: 250ms;
+            transition-delay: 250ms;
   }
   .id7-navigation .navbar-nav .dropdown:hover .dropdown-menu {
     height: auto;
@@ -9741,7 +9783,8 @@ html.safari .id7-masthead {
   padding-bottom: 6.5px;
   margin: 0;
   cursor: pointer;
-  transition: background-color .15s linear, color .15s linear;
+  -webkit-transition: background-color .15s linear, color .15s linear;
+          transition: background-color .15s linear, color .15s linear;
 }
 .id7-navigation .navbar-nav > li:hover + a {
   text-decoration: underline;
@@ -9871,7 +9914,8 @@ html.safari .id7-masthead {
   font-size: 13px;
 }
 .id7-navigation .navbar-secondary > li:first-child::after {
-  transition: background-color .15s linear, color .15s linear;
+  -webkit-transition: background-color .15s linear, color .15s linear;
+          transition: background-color .15s linear, color .15s linear;
 }
 .id7-navigation.affix + .id7-navigation-marker {
   display: block;
@@ -9885,7 +9929,8 @@ html.safari .id7-masthead {
   display: none;
 }
 .important-no-transition * {
-  transition: none !important;
+  -webkit-transition: none !important;
+          transition: none !important;
 }
 .id7-navigation-marker {
   display: none;
@@ -10738,84 +10783,129 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   margin-top: 0;
 }
 .equal-height-xs {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
+  display:         flex;
 }
 .equal-height-xs > [class*='col-'] {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: -ms-flexbox;
-  display: flex;
-      flex-direction: column;
+  display:         flex;
+          flex-direction: column;
 
-  -ms-flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
 }
 .equal-height-xs > [class*='col-'] > * {
-  -ms-flex: auto;
-      flex: auto;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+      -ms-flex: auto;
+          flex: auto;
 }
 @media (min-width: 768px) {
   .equal-height {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display:         flex;
   }
   .equal-height > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-        flex-direction: column;
+    display:         flex;
+            flex-direction: column;
 
-    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
   }
   .equal-height > [class*='col-'] > * {
-    -ms-flex: auto;
-        flex: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: auto;
+        -ms-flex: auto;
+            flex: auto;
   }
   .equal-height-sm {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display:         flex;
   }
   .equal-height-sm > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-        flex-direction: column;
+    display:         flex;
+            flex-direction: column;
 
-    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
   }
   .equal-height-sm > [class*='col-'] > * {
-    -ms-flex: auto;
-        flex: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: auto;
+        -ms-flex: auto;
+            flex: auto;
   }
 }
 @media (min-width: 992px) {
   .equal-height-md {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display:         flex;
   }
   .equal-height-md > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-        flex-direction: column;
+    display:         flex;
+            flex-direction: column;
 
-    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
   }
   .equal-height-md > [class*='col-'] > * {
-    -ms-flex: auto;
-        flex: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: auto;
+        -ms-flex: auto;
+            flex: auto;
   }
 }
 @media (min-width: 1200px) {
   .equal-height-lg {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
+    display:         flex;
   }
   .equal-height-lg > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-        flex-direction: column;
+    display:         flex;
+            flex-direction: column;
 
-    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
   }
   .equal-height-lg > [class*='col-'] > * {
-    -ms-flex: auto;
-        flex: auto;
+    -webkit-box-flex: 1;
+    -webkit-flex: auto;
+        -ms-flex: auto;
+            flex: auto;
   }
 }
 .pull-xs-left {
