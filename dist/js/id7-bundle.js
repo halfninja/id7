@@ -22497,15 +22497,17 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
         // ref https://stackoverflow.com/questions/45171905/
         return iPadInUse;
       },
-      isMwFeatureAvailable: function isMwFeatureAvailable($trigger) {
-        return $trigger.data('mw-functionality') && !this.isBlacklistedDevice();
+      isMwFeatureAvailable: function isMwFeatureAvailable() {
+        return !this.isBlacklistedDevice();
       },
       wireEventHandlers: function wireEventHandlers() {
         var $trigger = this.$trigger;
+        var that = this;
+        var iframeLink = this.options.iframelink;
 
         if (this.options.name) {
           var badgeHtml = '<span class="fa-stack id7-notifications-badge">  <i class="fa fa-circle fa-stack-2x"></i>  <strong class="fa-stack-1x fa fa-spinner fa-spin brand-text counter-value"></strong> </span>';
-          if (!this.isMwFeatureAvailable($trigger) || !this.options.showNotificationsBadge) {
+          if (!this.isMwFeatureAvailable() || !this.options.showNotificationsBadge) {
             badgeHtml = '';
           }
           $trigger.html(this.options.name + badgeHtml + '<span class="caret"></span>');
@@ -22517,19 +22519,20 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
           e.stopPropagation();
           $trigger.popover('toggle');
           $badge.find('.counter-value:not(.fa-exclamation-triangle):not(.fa-spinner)').text('0');
+          that.options.iframelink = iframeLink;
+          $trigger.data('bs.popover').options.content = Config.Templates.Popover(that.options);
           $badge.removeClass('animating');
           return false;
         });
         this.createPopover($trigger);
 
-        if (this.options.showNotificationsBadge && this.isMwFeatureAvailable($trigger)) {
-          var that = this;
+        if (this.options.showNotificationsBadge && this.isMwFeatureAvailable()) {
           fetchNotificationData(this.options.notificationsApi, function (data) {
             var unreads = Math.min(data.unreads, 99);
             $badge.find('.counter-value').removeClass('fa-spinner').removeClass('fa-spin').addClass('slideInDown').text(unreads);
             if (unreads > 0) {
               $badge.fadeIn().addClass('animating');
-              that.options.iframelink = that.options.iframelink + 'notifications';
+              that.options.iframelink = iframeLink + 'alerts';
               $trigger.data('bs.popover').options.content = Config.Templates.Popover(that.options);
             }
           }, function () {
@@ -22550,14 +22553,14 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
         // Smaller screens get the old popover
         $(window).on('id7:reflow', $.proxy(function (e, screenConfig) {
           this.options.useMwIframe = screenConfig.name !== 'xs'
-            && $(window).height() >= 600 && this.isMwFeatureAvailable($trigger);
+            && $(window).height() >= 600 && this.isMwFeatureAvailable();
 
           $trigger.find('.id7-notifications-badge').toggle(this.options.useMwIframe);
 
           if ($trigger.data('bs.popover') !== undefined) {
             $trigger.data('bs.popover').options.content = Config.Templates.Popover(this.options);
 
-            var toAdd = this.options.useMwIframe && this.isMwFeatureAvailable($trigger) ? 'my-warwick' : 'account-information';
+            var toAdd = this.options.useMwIframe && this.isMwFeatureAvailable() ? 'my-warwick' : 'account-information';
             var $bsPopover = $trigger.data('bs.popover');
             $bsPopover.tip().removeClass('account-information', 'my-warwick').addClass(toAdd);
 
@@ -22587,6 +22590,10 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
             break;
           case 'layoutDidMount':
             $popover.addClass('loaded');
+            this.updateColourTheme(data.colourTheme);
+            break;
+          case 'colourThemeChange':
+            this.updateColourTheme(data.colourTheme);
             break;
           case 'signedOut':
             var loginlink = this.options.loginlink;
@@ -22595,6 +22602,11 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
           default:
             console.error('Unexpected message type: ' + messageType);
         }
+      },
+      updateColourTheme: function updateColourTheme(colourTheme) {
+        this.$trigger.next('.popover').removeClass(function (i, className) {
+          return $.grep(className.split(' '), function (singleClass) { return singleClass.indexOf('theme-') === 0; }).join(' ');
+        }).addClass('theme-' + colourTheme);
       }
     });
 
@@ -23211,6 +23223,8 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
     $.extend(WideTables.prototype, {
       findWideTables: function findWideTables($container) {
         return $container.find('table').filter(function () {
+          return $(this).parents('.no-wide-tables').length === 0;
+        }).filter(function () {
           var $table = $(this);
           var originalMaxWidth = $table.css('max-width');
           $table.css('max-width', 'none');
