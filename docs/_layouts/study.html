@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="{% if page.nonbranded %}id7-non-branded {% endif %}no-js">
+<head>
+  {% include header.html %}
+
+  <link href="{{ site.prefix }}assets/study/hp.css" rel="stylesheet" type="text/css">
+  <script src="{{ site.prefix }}assets/study/hp.js"></script>
+</head>
+<body>
+<div class="id7-left-border"></div>
+<div class="id7-fixed-width-container">
+  <a class="sr-only sr-only-focusable" href="#main">Skip to main content</a>
+
+  <header class="id7-page-header">
+    {% include utility-masthead.html %}
+
+    <div class="id7-navigation">
+      <nav class="navbar navbar-primary{% if page.slug %} hidden-xs{% endif %}" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="#">Courses for 2018 entry</a></li>
+          <li><a href="#">Academic Life</a></li>
+          <li><a href="#">Campus Life</a></li>
+          <li><a href="#">Finance &amp; Funding</a></li>
+          <li><a href="#">Employability</a></li>
+          <li><a href="#">Visit Us</a></li>
+          <li><a href="#">How to Apply</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page content of course! -->
+  <main class="id7-main-content-area" id="main">
+    <header class="id7-main-content-header">
+      <div class="id7-horizontal-divider">
+        {% include divider.html %}
+      </div>
+
+      <div class="id7-page-title hidden">
+        <h1>{{ page.title }}</h1>
+      </div>
+    </header>
+
+    <div class="id7-main-content">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer class="id7-page-footer id7-footer-coloured">
+    <div class="id7-site-footer">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="row">
+            <h3 class="col-xs-12">Elsewhere on our site</h3>
+
+            <div class="col-sm-6">
+              <ul class="list-unstyled">
+                <li><a href="#">Academic departments</a></li>
+                <li><a href="#">Students' union</a></li>
+                <li><a href="#">Sports facilities</a></li>
+                <li><a href="#">Postgraduate study</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-6">
+              <ul class="list-unstyled">
+                <li><a href="#">Professional development</a></li>
+                <li><a href="#">International students</a></li>
+                <li><a href="#">Terms and Conditions - Applicants</a></li>
+                <li><a href="#">Terms and Conditions - Offer Holders</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <h3>Contact us</h3>
+
+          <div class="telephone">
+            Tel: <a href="tel:+442476523523" itemprop="telephone">+44 (0)24 7652 3723</a>
+          </div>
+          <div class="email" itemprop="email">
+            <a href="mailto:ugadmissions@warwick.ac.uk">ugadmissions@warwick.ac.uk</a>
+          </div>
+
+          <br />
+
+          <div class="social-media-icons">
+            <a href="#"><i class="fa fa-fw fa-2x fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-fw fa-2x fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-fw fa-2x fa-youtube"></i></a>
+            <a href="#"><i class="fa fa-fw fa-2x fa-user"></i></a>
+          </div>
+        </div>
+        <div class="col-sm-3 map-column">
+          <a href="#"><img class="img-responsive" src="/assets/study/uk-map.png"></a>
+        </div>
+      </div>
+    </div>
+    <div class="id7-app-footer">
+      <div class="id7-logo-bleed"></div>
+
+      <div class="id7-footer-utility">
+        <ul>
+          <li>Powered by <a href="http://github.com/UniversityofWarwick/id7">GitHub</a></li>
+          <li><a href="http://warwick.ac.uk/copyright">© MMXVII</a></li>
+          <li><a href="http://warwick.ac.uk/terms">Terms</a></li>
+          <li><a href="http://warwick.ac.uk/privacy">Privacy</a></li>
+          <li><a href="http://warwick.ac.uk/cookies">Cookies</a></li>
+          <li><a href="http://warwick.ac.uk/accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="id7-right-border"></div>
+
+</body>
+</html>

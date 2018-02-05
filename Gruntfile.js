@@ -183,14 +183,15 @@ module.exports = function (grunt) {
       },
       compileDocs: {
         options: {
-          paths: ['docs/assets/css', 'docs/assets/site', 'docs/assets/external-homepage']
+          paths: ['docs/assets/css', 'docs/assets/site', 'docs/assets/external-homepage', 'docs/assets/study']
         },
         files: {
           'docs/assets/css/config-options.css': 'docs/assets/css/config-options.less',
           'docs/assets/css/subsite.css': 'docs/assets/css/subsite.less',
           'docs/assets/site/docs-site.css': 'docs/assets/site/docs-site.less',
           'docs/assets/site/site.css': 'docs/assets/site/site.less',
-          'docs/assets/external-homepage/external-homepage-prod.css': 'docs/assets/external-homepage/external-homepage-prod.less'
+          'docs/assets/external-homepage/external-homepage-prod.css': 'docs/assets/external-homepage/external-homepage-prod.less',
+          'docs/assets/study/hp.css': 'docs/assets/study/hp.less'
         }
       }
     },
@@ -350,6 +351,12 @@ module.exports = function (grunt) {
     concurrent: {
       serve: {
         tasks: ['watch','exec:jekyllServe'],
+        options: {
+          logConcurrentOutput: true
+        }
+      },
+      study: {
+        tasks: ['watch','less:compileDocs'],
         options: {
           logConcurrentOutput: true
         }

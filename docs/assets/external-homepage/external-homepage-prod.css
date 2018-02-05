@@ -1,79 +1,19 @@
-.thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+@media screen and (max-width: 767px) {
 }
-.btn-group-lg > .btn {
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.3333333;
-  border-radius: 0px;
+@media (min-width: 768px) {
 }
-.btn-group-sm > .btn {
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 0px;
+@media (min-width: 768px) {
 }
-.btn-group-xs > .btn {
-  padding: 1px 5px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 0px;
+@media (max-width: 0px) {
 }
-.dl-horizontal dd:before,
-.dl-horizontal dd:after,
-.container:before,
-.container:after,
-.container-fluid:before,
-.container-fluid:after,
-.row:before,
-.row:after,
-.form-horizontal .form-group:before,
-.form-horizontal .form-group:after,
-.btn-toolbar:before,
-.btn-toolbar:after,
-.btn-group-vertical > .btn-group:before,
-.btn-group-vertical > .btn-group:after,
-.nav:before,
-.nav:after,
-.navbar:before,
-.navbar:after,
-.navbar-header:before,
-.navbar-header:after,
-.navbar-collapse:before,
-.navbar-collapse:after,
-.pager:before,
-.pager:after,
-.panel-body:before,
-.panel-body:after,
-.modal-header:before,
-.modal-header:after,
-.modal-footer:before,
-.modal-footer:after,
-.id7-fixed-width-container:before,
-.id7-fixed-width-container:after,
-.id7-utility-bar:before,
-.id7-utility-bar:after,
-.id7-masthead:before,
-.id7-masthead:after,
-.id7-masthead .id7-masthead-contents:before,
-.id7-masthead .id7-masthead-contents:after,
-.id7-masthead .id7-logo-row:before,
-.id7-masthead .id7-logo-row:after,
-.id7-main-content-area > header:before,
-.id7-main-content-area > header:after,
-.id7-main-content-area > .id7-main-content:before,
-.id7-main-content-area > .id7-main-content:after,
-.id7-paging:before,
-.id7-paging:after,
-footer .id7-site-footer:before,
-footer .id7-site-footer:after,
-footer .id7-app-footer:before,
-footer .id7-app-footer:after,
+@media (min-width: 768px) {
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 0px) {
+}
+@media (max-width: 0px) {
+}
 .id7-utility-bar:before,
 .id7-utility-bar:after,
 .id7-masthead:before,
@@ -81,43 +21,11 @@ footer .id7-app-footer:after,
   content: " ";
   display: table;
 }
-.dl-horizontal dd:after,
-.container:after,
-.container-fluid:after,
-.row:after,
-.form-horizontal .form-group:after,
-.btn-toolbar:after,
-.btn-group-vertical > .btn-group:after,
-.nav:after,
-.navbar:after,
-.navbar-header:after,
-.navbar-collapse:after,
-.pager:after,
-.panel-body:after,
-.modal-header:after,
-.modal-footer:after,
-.id7-fixed-width-container:after,
-.id7-utility-bar:after,
-.id7-masthead:after,
-.id7-masthead .id7-masthead-contents:after,
-.id7-masthead .id7-logo-row:after,
-.id7-main-content-area > header:after,
-.id7-main-content-area > .id7-main-content:after,
-.id7-paging:after,
-footer .id7-site-footer:after,
-footer .id7-app-footer:after,
 .id7-utility-bar:after,
 .id7-masthead:after {
   clear: both;
 }
-.btn-group-lg > .btn {
-  border-radius: 6px;
-}
-.btn-group-sm > .btn {
-  border-radius: 3px;
-}
-.btn-group-xs > .btn {
-  border-radius: 3px;
+@media (min-width: 768px) {
 }
 body {
   position: relative;
@@ -159,6 +67,7 @@ body {
   position: fixed;
   width: 100%;
   -webkit-transition: background-color 0.15s linear;
+  -o-transition: background-color 0.15s linear;
   transition: background-color 0.15s linear;
   z-index: 30;
   top: 0;
@@ -581,15 +490,8 @@ html.safari .id7-utility-masthead {
   html.flexbox .jumbotron-carousel .jumbotron {
     height: 800px;
     height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
   html.flexbox .jumbotron-carousel .jumbotron .container-fluid {
     width: 100%;
@@ -603,56 +505,24 @@ html.safari .id7-utility-masthead {
   html.flexbox .jumbotron-carousel .jumbotron .container-fluid > .row > * {
     height: 800px;
     height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
   }
   html.flexbox .jumbotron-carousel .jumbotron .container {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 0 auto;
-        -ms-flex: 1 0 auto;
-            flex: 1 0 auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    flex: 1 0 auto;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
   html.flexbox .jumbotron-carousel .jumbotron .container .row,
   html.flexbox .jumbotron-carousel .jumbotron .container .layout {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 0 auto;
-        -ms-flex: 1 0 auto;
-            flex: 1 0 auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    flex: 1 0 auto;
     display: flex;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
+    align-items: stretch;
   }
   html.flexbox .jumbotron-carousel .jumbotron .container .row > *,
   html.flexbox .jumbotron-carousel .jumbotron .container .layout > * {
-    -webkit-box-flex: 1;
-    -webkit-flex: auto;
-        -ms-flex: auto;
-            flex: auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    flex: auto;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-image,
   html.flexbox .jumbotron-carousel .jumbotron .jumbotron-image {
@@ -685,32 +555,16 @@ html.safari .id7-utility-masthead {
     left: 0;
     bottom: 0;
     right: 0;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     pointer-events: none;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-image > .iframe-container > iframe,
   html.flexbox .jumbotron-carousel .jumbotron .jumbotron-image > .iframe-container > iframe {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 auto;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    flex: 0 0 auto;
     max-width: none;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-image > a,
@@ -721,6 +575,7 @@ html.safari .id7-utility-masthead {
     top: 0;
     left: 0;
     -webkit-transition: background 0.15s linear;
+    -o-transition: background 0.15s linear;
     transition: background 0.15s linear;
     background-color: rgba(255, 255, 255, 0);
   }
@@ -733,48 +588,27 @@ html.safari .id7-utility-masthead {
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .container-fluid,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .container-fluid {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .row,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .row,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .layout,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .layout {
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
+    align-items: stretch;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .row > *,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .row > *,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .layout > *,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .layout > * {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
+    flex-direction: row;
+    align-items: stretch;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .row > *.flex-vertical,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .row > *.flex-vertical,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .layout > *.flex-vertical,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .layout > *.flex-vertical {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: stretch;
-    -webkit-align-items: stretch;
-        -ms-flex-align: stretch;
-            align-items: stretch;
+    flex-direction: column;
+    align-items: stretch;
     padding-top: 0;
     padding-bottom: 0;
   }
@@ -782,13 +616,7 @@ html.safari .id7-utility-masthead {
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .row > *.flex-vertical > .row,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container .layout > *.flex-vertical > .row,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid .layout > *.flex-vertical > .row {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-        -ms-flex: 1;
-            flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    flex: 1;
     display: flex;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container > .layout > .column-1,
@@ -817,17 +645,11 @@ html.safari .id7-utility-masthead {
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container > .layout > .column-1,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid > .layout > .column-1 {
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    justify-content: flex-end;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container > .layout > .column-2,
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel .container-fluid > .layout > .column-2 {
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
   }
   html.flexbox .jumbotron-carousel .jumbotron.jumbotron-panel > .container-fluid > .row > * {
     padding-top: 104px;
@@ -835,70 +657,37 @@ html.safari .id7-utility-masthead {
   html.flexbox .jumbotron-carousel .jumbotron .caption {
     margin-left: -10px;
     margin-right: -10px;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-        -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
+    flex: 1 1 auto;
     display: flex;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption,
   html.flexbox .jumbotron-carousel .jumbotron .caption.middle {
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.top {
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    align-items: flex-start;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.bottom {
-    -webkit-box-align: end;
-    -webkit-align-items: flex-end;
-        -ms-flex-align: end;
-            align-items: flex-end;
+    align-items: flex-end;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption,
   html.flexbox .jumbotron-carousel .jumbotron .caption.left {
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.center {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.right {
-    -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    justify-content: flex-end;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.top.right {
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption.top.center {
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    justify-content: flex-start;
   }
   html.flexbox .jumbotron-carousel .jumbotron .caption .caption-content {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 1 auto;
-        -ms-flex: 0 1 auto;
-            flex: 0 1 auto;
+    flex: 0 1 auto;
     width: 66%;
     margin: 20px;
     padding: 20px;
@@ -987,10 +776,7 @@ html.safari .id7-utility-masthead {
 }
 @media screen and (min-width: 768px) and (min-width: 992px) {
   html.flexbox .jumbotron-carousel .jumbotron .caption.top.center {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
   }
 }
 @media screen and (min-width: 768px) and (min-width: 992px) {
@@ -1228,15 +1014,12 @@ html.safari .id7-utility-masthead {
 .megamenu-links .more-links-sitemap {
   margin-left: -20px;
   margin-right: -20px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 .megamenu-links .more-links-sitemap a,
 .megamenu-links .more-links-sitemap a:link,
 .megamenu-links .more-links-sitemap a:visited {
-  color: #333333;
+  color: #333;
 }
 .megamenu-links .more-links-sitemap a:hover,
 .megamenu-links .more-links-sitemap a:focus,
@@ -1280,10 +1063,7 @@ html.safari .id7-utility-masthead {
   margin-bottom: 0;
 }
 .megamenu-links .more-links-sitemap > li {
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 .megamenu-links-address {
   text-align: center;
@@ -1291,7 +1071,7 @@ html.safari .id7-utility-masthead {
 .megamenu-links-address a,
 .megamenu-links-address a:link,
 .megamenu-links-address a:visited {
-  color: #333333;
+  color: #333;
 }
 .megamenu-links-address a:hover,
 .megamenu-links-address a:focus,
