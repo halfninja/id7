@@ -112,6 +112,12 @@ module.exports = function (grunt) {
           'docs/assets/external-homepage/more-links-popover.jquery.js'
         ],
         dest: 'dist/external-homepage/js/hp.js'
+      },
+      study: {
+        src: [
+          'docs/assets/study/hp.js'
+        ],
+        dest: 'dist/study/js/hp.js'
       }
     },
 
@@ -131,6 +137,10 @@ module.exports = function (grunt) {
       homepage: {
         src: '<%= concat.homepage.dest %>',
         dest: 'dist/external-homepage/js/hp.min.js'
+      },
+      study: {
+        src: '<%= concat.study.dest %>',
+        dest: 'dist/study/js/hp.min.js'
       }
     },
 
@@ -238,6 +248,13 @@ module.exports = function (grunt) {
           flatten: true
         },
         src: 'docs/assets/external-homepage/*.css'
+      },
+      study: {
+        options: {
+          expand: true,
+          flatten: true
+        },
+        src: 'docs/assets/study/*.css'
       }
     },
 
@@ -273,6 +290,10 @@ module.exports = function (grunt) {
       minifyHomepage: {
         src: 'dist/external-homepage/css/external-homepage-prod.css',
         dest: 'dist/external-homepage/css/hp.min.css'
+      },
+      minifyStudy: {
+        src: 'dist/study/css/hp.css',
+        dest: 'dist/study/css/hp.min.css'
       }
     },
 
@@ -291,6 +312,12 @@ module.exports = function (grunt) {
         cwd: 'docs/assets/external-homepage/',
         src: ['*.css', '!*.min.css'],
         dest: 'dist/external-homepage/css/'
+      },
+      distStudy: {
+        expand: true,
+        cwd: 'docs/assets/study/',
+        src: ['*.css', '!*.min.css'],
+        dest: 'dist/study/css/'
       }
     },
 
@@ -310,6 +337,24 @@ module.exports = function (grunt) {
             flatten: true,
             src: ['dist/external-homepage/css/*.css'],
             dest: 'dist/external-homepage/css/'
+          }
+        ]
+      },
+      study: {
+        options: {
+          patterns: [
+            {
+              match: /\/dist/g,
+              replacement: '/static_war/render/id7'
+            }
+          ]
+        },
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ['dist/study/css/*.css'],
+            dest: 'dist/study/css/'
           }
         ]
       }
