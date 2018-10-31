@@ -1,9 +1,7 @@
 /*!
  * University of Warwick ID7
  */
-
-
-/*global _:false, Modernizr:false */
+/* globals _:false, Modernizr:false */
 
 (function ($) {
   'use strict';
@@ -11,24 +9,16 @@
     Defaults: {
       screenSizes: [
         {
-          name: 'lg', test: function () {
-          return Modernizr.mq('only all and (min-width: 1200px)');
-        }, container: 1170
+          name: 'lg', test: function () { return Modernizr.mq('only all and (min-width: 1200px)'); }, container: 1170
         },
         {
-          name: 'md', test: function () {
-          return Modernizr.mq('only all and (min-width: 992px)');
-        }, container: 970
+          name: 'md', test: function () { return Modernizr.mq('only all and (min-width: 992px)'); }, container: 970
         },
         {
-          name: 'sm', test: function () {
-          return Modernizr.mq('only all and (min-width: 768px)');
-        }, container: 750
+          name: 'sm', test: function () { return Modernizr.mq('only all and (min-width: 768px)'); }, container: 750
         },
         {
-          name: 'xs', test: function () {
-          return true;
-        }
+          name: 'xs', test: function () { return true; }
         }
       ],
       eventName: 'id7:reflow'
@@ -71,7 +61,7 @@
         $(window).on('resize.id7.reflow.onScreenResize', $.proxy(this.onScreenResize, this));
 
         // ID-30 on load (i.e. after fonts have loaded) run this, forcing a resize
-        if (document.readyState == 'complete') {
+        if (document.readyState === 'complete') {
           this.reflow();
         } else {
           $(window).on('load', $.proxy(this.reflow, this));
@@ -213,6 +203,7 @@
           that.options.iframelink = iframeLink;
           $trigger.data('bs.popover').options.content = Config.Templates.Popover(that.options);
           $badge.removeClass('animating');
+          $trigger.blur();
           return false;
         });
         this.createPopover($trigger);
@@ -242,9 +233,9 @@
         });
 
         // Smaller screens get the old popover
-        $(window).on('id7:reflow', $.proxy(function (e, screenConfig) {
+        var onReflow = $.proxy(function (e, screenConfig) {
           this.options.useMwIframe = screenConfig.name !== 'xs'
-            && $(window).height() >= 600 && this.isMwFeatureAvailable();
+            && $(window).height() >= 580 && this.isMwFeatureAvailable();
 
           $trigger.find('.id7-notifications-badge').toggle(this.options.useMwIframe);
 
@@ -262,7 +253,16 @@
               $trigger.next('.popover').removeClass('loading');
             }
           }
-        }, this));
+        }, this);
+
+        $(window).on('id7:reflow', onReflow);
+
+        // If the document is already loaded this won't be fired as expected, so fire it manually
+        if (document.readyState === 'complete' && typeof $(window).data('id7.reflow') !== 'undefined') {
+          // Call reflow immediately
+          var screenConfig = $(window).data('id7.reflow')._screenConfig();
+          onReflow({}, screenConfig);
+        }
       },
       onMessage: function onMessage(messageType, data) {
         var $popover = this.$trigger.next('.popover');
@@ -356,31 +356,23 @@
   var Config = {
     ScreenSizes: [
       {
-        name: 'lg', test: function () {
-        return Modernizr.mq('only all and (min-width: 1200px)');
-      }, container: 1170
+        name: 'lg', test: function () { return Modernizr.mq('only all and (min-width: 1200px)'); }, container: 1170
       },
       {
-        name: 'md', test: function () {
-        return Modernizr.mq('only all and (min-width: 992px)');
-      }, container: 970
+        name: 'md', test: function () { return Modernizr.mq('only all and (min-width: 992px)'); }, container: 970
       },
       {
-        name: 'sm', test: function () {
-        return Modernizr.mq('only all and (min-width: 768px)');
-      }, container: 750
+        name: 'sm', test: function () { return Modernizr.mq('only all and (min-width: 768px)'); }, container: 750
       },
       {
-        name: 'xs', test: function () {
-        return true;
-      }
+        name: 'xs', test: function () { return true; }
       }
     ],
     Templates: {
       moreContainer: [
         '<ul class="nav navbar-nav navbar-right">',
         '<li class="dropdown">',
-        '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-caret-down"></i></a>',
+        '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fas fa-caret-down"></i></a>',
         '<ul class="dropdown-menu" role="menu"></ul>',
         '</li>',
         '</ul>'
@@ -567,7 +559,7 @@
         this.$container.find('.navbar').each(function () {
           var $navbar = $(this);
 
-          if (screenConfig.name == 'xs') {
+          if (screenConfig.name === 'xs') {
             // Require a click (tap) to open dropdowns
             $navbar.find('.dropdown-toggle')
               .attr('data-toggle', 'dropdown')
@@ -626,7 +618,7 @@
       },
 
       wireEventHandlers: function wireEventHandlers() {
-        if (document.readyState == 'complete') {
+        if (document.readyState === 'complete') {
           if (this.options.fixedNav) this.affixNav();
           if (this.options.fixedHeader) this.affixHeader();
           this.updateWrappedState();
@@ -638,13 +630,22 @@
           }, this));
         }
 
-        $(window).on('id7:reflow', $.proxy(function (e, screenConfig) {
+        var onReflow = $.proxy(function (e, screenConfig) {
           if (this.options.fitToWidth) this.fitToWidth(screenConfig);
           if (this.options.fixedHeader) this.markHeaderFixedPosition();
           if (this.options.fixedNav) this.markFixedPosition();
           this.updateWrappedState();
           this.updateDropdownBehaviour(screenConfig);
-        }, this));
+        }, this);
+
+        $(window).on('id7:reflow', onReflow);
+
+        // If the document is already loaded this won't be fired as expected, so fire it manually
+        if (document.readyState === 'complete' && typeof $(window).data('id7.reflow') !== 'undefined') {
+          // Call reflow immediately
+          var screenConfig = $(window).data('id7.reflow')._screenConfig();
+          onReflow({}, screenConfig);
+        }
 
         this.$container.on('click', '.nav > li', function (e) {
           var $targetLink = $(e.target).closest('a');
@@ -700,8 +701,12 @@
     }
 
     // Change hash for page-reload
-    $('.nav-tabs a').on('shown.bs.tab', function (e) {
-      window.location.hash = e.target.hash;
+    $('.nav-tabs a').on('shown.bs.tab.id7Navigation', function (e) {
+      if ('replaceState' in window.history) {
+        window.history.replaceState({}, null, e.target.hash);
+      } else {
+        window.location.hash = e.target.hash;
+      }
     });
   });
 })(jQuery);
