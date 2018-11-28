@@ -73,6 +73,13 @@
 .id7-main-content-area .slideshow .carousel-controls a:hover .insecure-link {
   color: #cccccc;
 }
+.id7-main-content-area .slideshow .carousel-controls .btn-link {
+  color: white;
+}
+.id7-main-content-area .slideshow .carousel-controls .btn-link:hover,
+.id7-main-content-area .slideshow .carousel-controls .btn-link:focus {
+  color: #cccccc;
+}
 .id7-main-content-area .slideshow .carousel-controls a,
 .id7-main-content-area .slideshow .carousel-controls a:link,
 .id7-main-content-area .slideshow .carousel-controls a:visited {

@@ -1679,6 +1679,27 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
 /***/ }),
 
+/***/ "./js/change-location-hash.js":
+/*!************************************!*\
+  !*** ./js/change-location-hash.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return changeLocationHash; });
+/* eslint-env browser */
+function changeLocationHash(hash) {
+  if ('replaceState' in window.history) {
+    window.history.replaceState({}, null, hash);
+  } else {
+    window.location.hash = hash;
+  }
+}
+
+/***/ }),
+
 /***/ "./js/id7-bundle.js":
 /*!**************************!*\
   !*** ./js/id7-bundle.js ***!
@@ -1832,6 +1853,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
 /* harmony import */ var _screen_sizes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screen-sizes */ "./js/screen-sizes.js");
+/* harmony import */ var _change_location_hash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./change-location-hash */ "./js/change-location-hash.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1841,6 +1863,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /* eslint-env browser */
+
 
 
 
@@ -2174,11 +2197,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 
 
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('.nav-tabs a').on('shown.bs.tab.id7Navigation', function (e) {
-    if ('replaceState' in window.history) {
-      window.history.replaceState({}, null, e.target.hash);
-    } else {
-      window.location.hash = e.target.hash;
-    }
+    return Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_3__["default"])(e.target.hash);
   });
 });
 
@@ -2430,8 +2449,10 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.searchSuggest = function search
   return this.each(attach);
 };
 
-jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[data-suggest="go"]').each(function (i, el) {
+jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.goSearchSuggest = function goSearchSuggestPlugin() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  function attach(i, el) {
     // ID-156 find the icon next to it
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).next('.fa').on('click', function (e) {
       e.preventDefault();
@@ -2447,7 +2468,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       maxResults = 6;
     }
 
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).searchSuggest({
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).searchSuggest(jquery__WEBPACK_IMPORTED_MODULE_0___default.a.extend(options, {
       source: function source(query, callback) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default.a.getJSON("//sitebuilder.warwick.ac.uk/sitebuilder2/api/go/redirects.json?maxResults=".concat(maxResults, "&prefix=").concat(encodeURIComponent(query), "&callback=?"), callback);
       },
@@ -2461,12 +2482,18 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
       itemLink: function itemLink(item) {
         return "https://go.warwick.ac.uk/".concat(item.path, "?goSearchReferer=").concat(encodeURIComponent(window.location), "&goSearchQuery=").concat(encodeURIComponent(jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).val()));
       }
-    }); // ID-145
+    })); // ID-145
 
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).width() < 88) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).attr('placeholder', 'Search');
     }
-  });
+  }
+
+  return this.each(attach);
+};
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
+  return jquery__WEBPACK_IMPORTED_MODULE_0___default()('input[data-suggest="go"]').goSearchSuggest();
 });
 
 /***/ }),

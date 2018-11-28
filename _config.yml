@@ -1,0 +1,17 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+
+# Server
+source:           "docs"
+destination:      ./_gh_pages
+host:             0.0.0.0
+port:             8080
+url:              "https://id7.warwick.ac.uk"
+encoding:         UTF-8
+
+# Custom variables
+current_version:  2.1.0

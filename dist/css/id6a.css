@@ -25,6 +25,16 @@
 #masthead.transparent a:hover .insecure-link {
   color: #050505;
 }
+#masthead .btn-link,
+#masthead.transparent .btn-link {
+  color: #383838;
+}
+#masthead .btn-link:hover,
+#masthead.transparent .btn-link:hover,
+#masthead .btn-link:focus,
+#masthead.transparent .btn-link:focus {
+  color: #050505;
+}
 #masthead a,
 #masthead.transparent a,
 #masthead a:link,
@@ -84,6 +94,13 @@ html.safari #warwick-logo-link {
 }
 #search-container ul.index-section li.active a:hover .new-window-link,
 #search-container ul.index-section li.active a:hover .insecure-link {
+  color: #cccccc;
+}
+#search-container ul.index-section li.active .btn-link {
+  color: white;
+}
+#search-container ul.index-section li.active .btn-link:hover,
+#search-container ul.index-section li.active .btn-link:focus {
   color: #cccccc;
 }
 #search-container ul.index-section li.active a,
