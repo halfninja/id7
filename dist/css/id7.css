@@ -6712,6 +6712,14 @@ body {
     display: none;
   }
 }
+.id7-page-header .alert {
+  padding: 0.3em;
+  text-align: center;
+  margin: 0;
+}
+.id7-page-header .alert a {
+  color: #204f79;
+}
 .id7-utility-masthead {
   position: relative;
   z-index: 40;
