@@ -1,10 +1,12 @@
 /* eslint-env node */
 /* eslint no-process-env: 0 */
 process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.FIREFOX_BIN = require('puppeteer-firefox').executablePath();
 
 const browsers = [
   // 'PhantomJS',
   'ChromeHeadless',
+  'FirefoxHeadless',
 ];
 
 const frameworks = [
@@ -45,6 +47,7 @@ const conf = {
 plugins.push(
   // 'karma-phantomjs-launcher',
   'karma-chrome-launcher',
+  'karma-firefox-launcher',
 );
 
 files = files.concat([
