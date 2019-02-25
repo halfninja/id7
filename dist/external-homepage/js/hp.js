@@ -880,8 +880,10 @@ module.exports = function (IS_INCLUDES) {
       value = O[index++]; // eslint-disable-next-line no-self-compare
 
       if (value != value) return true; // Array#indexOf ignores holes, Array#includes - not
-    } else for (; length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } else for (; length > index; index++) {
+      if (IS_INCLUDES || index in O) {
+        if (O[index] === el) return IS_INCLUDES || index || 0;
+      }
     }
     return !IS_INCLUDES && -1;
   };
@@ -906,7 +908,7 @@ var ARG = cof(function () {
   return arguments;
 }()) == 'Arguments'; // fallback for IE11 Script Access Denied error
 
-var tryGet = function (it, key) {
+var tryGet = function tryGet(it, key) {
   try {
     return it[key];
   } catch (e) {
@@ -947,7 +949,7 @@ module.exports = function (it) {
 /***/ (function(module, exports) {
 
 var core = module.exports = {
-  version: '2.6.3'
+  version: '2.6.5'
 };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
@@ -1038,7 +1040,7 @@ module.exports = function (it) {
 // Thank's IE8 for his funny defineProperty
 module.exports = !__webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js")(function () {
   return Object.defineProperty({}, 'a', {
-    get: function () {
+    get: function get() {
       return 7;
     }
   }).a != 7;
@@ -1097,7 +1099,7 @@ var ctx = __webpack_require__(/*! ./_ctx */ "./node_modules/core-js/modules/_ctx
 
 var PROTOTYPE = 'prototype';
 
-var $export = function (type, name, source) {
+var $export = function $export(type, name, source) {
   var IS_FORCED = type & $export.F;
   var IS_GLOBAL = type & $export.G;
   var IS_STATIC = type & $export.S;
@@ -1160,6 +1162,17 @@ module.exports = function (exec) {
     return true;
   }
 };
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_function-to-string.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/core-js/modules/_function-to-string.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./_shared */ "./node_modules/core-js/modules/_shared.js")('native-function-to-string', Function.toString);
 
 /***/ }),
 
@@ -1234,7 +1247,7 @@ module.exports = document && document.documentElement;
 
 module.exports = !__webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && !__webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js")(function () {
   return Object.defineProperty(__webpack_require__(/*! ./_dom-create */ "./node_modules/core-js/modules/_dom-create.js")('div'), 'a', {
-    get: function () {
+    get: function get() {
       return 7;
     }
   }).a != 7;
@@ -1286,8 +1299,10 @@ module.exports = function (it) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
+  return _typeof(it) === 'object' ? it !== null : typeof it === 'function';
 };
 
 /***/ }),
@@ -1379,14 +1394,14 @@ var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
 var VALUES = 'values';
 
-var returnThis = function () {
+var returnThis = function returnThis() {
   return this;
 };
 
 module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
   $iterCreate(Constructor, NAME, next);
 
-  var getMethod = function (kind) {
+  var getMethod = function getMethod(kind) {
     if (!BUGGY && kind in proto) return proto[kind];
 
     switch (kind) {
@@ -1553,13 +1568,13 @@ var enumBugKeys = __webpack_require__(/*! ./_enum-bug-keys */ "./node_modules/co
 
 var IE_PROTO = __webpack_require__(/*! ./_shared-key */ "./node_modules/core-js/modules/_shared-key.js")('IE_PROTO');
 
-var Empty = function () {
+var Empty = function Empty() {
   /* empty */
 };
 
 var PROTOTYPE = 'prototype'; // Create object with fake `null` prototype: use iframe Object with cleared prototype
 
-var createDict = function () {
+var _createDict = function createDict() {
   // Thrash, waste and sodomy: IE GC bug
   var iframe = __webpack_require__(/*! ./_dom-create */ "./node_modules/core-js/modules/_dom-create.js")('iframe');
 
@@ -1579,11 +1594,13 @@ var createDict = function () {
   iframeDocument.open();
   iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
   iframeDocument.close();
-  createDict = iframeDocument.F;
+  _createDict = iframeDocument.F;
 
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  while (i--) {
+    delete _createDict[PROTOTYPE][enumBugKeys[i]];
+  }
 
-  return createDict();
+  return _createDict();
 };
 
 module.exports = Object.create || function create(O, Properties) {
@@ -1595,7 +1612,7 @@ module.exports = Object.create || function create(O, Properties) {
     Empty[PROTOTYPE] = null; // add "__proto__" for Object.getPrototypeOf polyfill
 
     result[IE_PROTO] = O;
-  } else result = createDict();
+  } else result = _createDict();
 
   return Properties === undefined ? result : dPs(result, Properties);
 };
@@ -1652,7 +1669,9 @@ module.exports = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-
   var i = 0;
   var P;
 
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  while (length > i) {
+    dP.f(O, P = keys[i++], Properties[P]);
+  }
 
   return O;
 };
@@ -1709,11 +1728,15 @@ module.exports = function (object, names) {
   var result = [];
   var key;
 
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key); // Don't enum bug & hidden keys
+  for (key in O) {
+    if (key != IE_PROTO) has(O, key) && result.push(key);
+  } // Don't enum bug & hidden keys
 
 
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
+  while (names.length > i) {
+    if (has(O, key = names[i++])) {
+      ~arrayIndexOf(result, key) || result.push(key);
+    }
   }
 
   return result;
@@ -1772,8 +1795,9 @@ var has = __webpack_require__(/*! ./_has */ "./node_modules/core-js/modules/_has
 
 var SRC = __webpack_require__(/*! ./_uid */ "./node_modules/core-js/modules/_uid.js")('src');
 
+var $toString = __webpack_require__(/*! ./_function-to-string */ "./node_modules/core-js/modules/_function-to-string.js");
+
 var TO_STRING = 'toString';
-var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
 __webpack_require__(/*! ./_core */ "./node_modules/core-js/modules/_core.js").inspectSource = function (it) {
@@ -2030,12 +2054,12 @@ var store = __webpack_require__(/*! ./_shared */ "./node_modules/core-js/modules
 
 var uid = __webpack_require__(/*! ./_uid */ "./node_modules/core-js/modules/_uid.js");
 
-var Symbol = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js").Symbol;
+var _Symbol = __webpack_require__(/*! ./_global */ "./node_modules/core-js/modules/_global.js").Symbol;
 
-var USE_SYMBOL = typeof Symbol == 'function';
+var USE_SYMBOL = typeof _Symbol == 'function';
 
 var $exports = module.exports = function (name) {
-  return store[name] || (store[name] = USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+  return store[name] || (store[name] = USE_SYMBOL && _Symbol[name] || (USE_SYMBOL ? _Symbol : uid)('Symbol.' + name));
 };
 
 $exports.store = store;
@@ -2166,6 +2190,8 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * PanelSnap.js v1.2.1
  * Copyright (c) 2013-present, Guido Bouman
@@ -2174,7 +2200,11 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
  * LICENSE file in the root directory of this source tree.
  */
 !function (t, n) {
-   true ? module.exports = n() : undefined;
+  "object" == ( false ? undefined : _typeof(exports)) && "undefined" != typeof module ? module.exports = n() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (n),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
 }(this, function () {
   "use strict";
 
@@ -2197,7 +2227,9 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
   function e(t) {
     return function (t) {
       if (Array.isArray(t)) {
-        for (var n = 0, e = new Array(t.length); n < t.length; n++) e[n] = t[n];
+        for (var n = 0, e = new Array(t.length); n < t.length; n++) {
+          e[n] = t[n];
+        }
 
         return e;
       }
@@ -2231,22 +2263,22 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
 
     return i(t, [{
       key: "begin",
-      value: function () {
+      value: function value() {
         return this.isRunning || this.next === this.end || (this.frame = window.requestAnimationFrame(this._tick.bind(this))), this;
       }
     }, {
       key: "stop",
-      value: function () {
+      value: function value() {
         return window.cancelAnimationFrame(this.frame), this.isRunning = !1, this.frame = null, this.timeStart = null, this.next = null, this;
       }
     }, {
       key: "on",
-      value: function (t, n) {
+      value: function value(t, n) {
         return this.events[t] = this.events[t] || [], this.events[t].push(n), this;
       }
     }, {
       key: "emit",
-      value: function (t, n) {
+      value: function value(t, n) {
         var e = this,
             i = this.events[t];
         i && i.forEach(function (t) {
@@ -2255,14 +2287,14 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "_tick",
-      value: function (t) {
+      value: function value(t) {
         this.isRunning = !0;
         var n = this.next || this.start;
         this.timeStart || (this.timeStart = t), this.timeElapsed = t - this.timeStart, this.next = Math.round(this.ease(this.timeElapsed, this.start, this.end - this.start, this.duration)), this._shouldTick(n) ? (this.emit("tick", this.next), this.frame = window.requestAnimationFrame(this._tick.bind(this))) : (this.emit("tick", this.end), this.emit("done", null));
       }
     }, {
       key: "_shouldTick",
-      value: function (t) {
+      value: function value(t) {
         return {
           up: this.next < this.end && t <= this.next,
           down: this.next > this.end && t >= this.next
@@ -2270,7 +2302,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "_defaultEase",
-      value: function (t, n, e, i) {
+      value: function value(t, n, e, i) {
         return (t /= i / 2) < 1 ? e / 2 * t * t + n : -e / 2 * (--t * (t - 2) - 1) + n;
       }
     }]), t;
@@ -2296,7 +2328,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
 
     try {
       var n = Object.defineProperty({}, "passive", {
-        get: function () {
+        get: function get() {
           t = !0;
         }
       });
@@ -2312,7 +2344,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
     directionThreshold: 50,
     delay: 0,
     duration: 300,
-    easing: function (t) {
+    easing: function easing(t) {
       return t;
     }
   };
@@ -2359,23 +2391,23 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
     var c, u, f;
     return c = i, (u = [{
       key: "enable",
-      value: function () {
+      value: function value() {
         this.isEnabled = !0;
       }
     }, {
       key: "disable",
-      value: function () {
+      value: function value() {
         this.isEnabled = !1;
       }
     }, {
       key: "on",
-      value: function (t, n) {
+      value: function value(t, n) {
         var i = this.events[t] || [];
         this.events[t] = e(i).concat([n]), "activatePanel" === t && n.call(this, this.activePanel);
       }
     }, {
       key: "off",
-      value: function (t, n) {
+      value: function value(t, n) {
         var e = this.events[t] || [];
         this.events[t] = e.filter(function (t) {
           return t !== n;
@@ -2383,7 +2415,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "emit",
-      value: function (t, n) {
+      value: function value(t, n) {
         var e = this;
         (this.events[t] || []).forEach(function (t) {
           return t.call(e, n);
@@ -2391,27 +2423,27 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "onInteractStart",
-      value: function () {
+      value: function value() {
         this.stopAnimation(), this.isInteracting = !0;
       }
     }, {
       key: "onInteractStop",
-      value: function () {
+      value: function value() {
         this.isInteracting = !1, this.findSnapTarget();
       }
     }, {
       key: "onInteract",
-      value: function () {
+      value: function value() {
         this.stopAnimation(), this.onScroll();
       }
     }, {
       key: "onScroll",
-      value: function () {
+      value: function value() {
         clearTimeout(this.scrollTimeout), this.isInteracting || this.animation || (this.scrollTimeout = setTimeout(this.findSnapTarget.bind(this), 50 + this.options.delay));
       }
     }, {
       key: "findSnapTarget",
-      value: function () {
+      value: function value() {
         var t = this.scrollContainer.scrollTop - this.currentScrollOffset.top,
             n = this.scrollContainer.scrollLeft - this.currentScrollOffset.left;
         this.currentScrollOffset = {
@@ -2442,7 +2474,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "snapToPanel",
-      value: function (t) {
+      value: function value(t) {
         var n = this,
             e = arguments.length > 1 && void 0 !== arguments[1] && arguments[1],
             i = arguments.length > 2 && void 0 !== arguments[2] && arguments[2];
@@ -2470,7 +2502,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "animationTick",
-      value: function (t) {
+      value: function value(t) {
         var n = this.targetScrollOffset.top - this.currentScrollOffset.top,
             e = this.currentScrollOffset.top + n * t / 1e4;
         this.scrollContainer.scrollTop = e;
@@ -2480,12 +2512,12 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "stopAnimation",
-      value: function () {
+      value: function value() {
         this.animation && (this.animation.stop(), this.resetAnimation());
       }
     }, {
       key: "resetAnimation",
-      value: function () {
+      value: function value() {
         this.currentScrollOffset = {
           top: this.scrollContainer.scrollTop,
           left: this.scrollContainer.scrollLeft
@@ -2496,7 +2528,7 @@ __webpack_require__(/*! ./_iter-define */ "./node_modules/core-js/modules/_iter-
       }
     }, {
       key: "activatePanel",
-      value: function (t) {
+      value: function value(t) {
         this.activePanel !== t && (this.emit("activatePanel", t), this.activePanel = t);
       }
     }]) && t(c.prototype, u), f && t(c, f), i;

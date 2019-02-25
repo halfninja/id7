@@ -1770,7 +1770,11 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.modal.Constructor.prototype.bac
 
 __webpack_require__(/*! bootstrap/js/tooltip */ "./node_modules/bootstrap/js/tooltip.js");
 
-__webpack_require__(/*! bootstrap/js/popover */ "./node_modules/bootstrap/js/popover.js");
+__webpack_require__(/*! bootstrap/js/popover */ "./node_modules/bootstrap/js/popover.js"); // ID-285 Allow iframes in popovers https://getbootstrap.com/docs/3.4/javascript/#js-sanitizer
+
+
+var defaultWhitelist = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.tooltip.Constructor.DEFAULTS.whiteList;
+defaultWhitelist.iframe = ['src', 'scrolling', 'frameborder', 'allowtransparency', 'seamless', 'sandbox'];
 
 __webpack_require__(/*! bootstrap/js/scrollspy */ "./node_modules/bootstrap/js/scrollspy.js");
 
@@ -2657,7 +2661,9 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============================================================
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* =============================================================
  * bootstrap3-typeahead.js v4.0.2
  * https://github.com/bassjobsen/Bootstrap-3-Typeahead
  * =============================================================
@@ -2695,7 +2701,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   /* TYPEAHEAD PUBLIC CLASS DEFINITION
    * ================================= */
 
-  var Typeahead = function (element, options) {
+  var Typeahead = function Typeahead(element, options) {
     this.$element = $(element);
     this.options = $.extend({}, Typeahead.defaults, options);
     this.matcher = this.options.matcher || this.matcher;
@@ -2733,7 +2739,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
   Typeahead.prototype = {
     constructor: Typeahead,
-    setDefault: function (val) {
+    setDefault: function setDefault(val) {
       // var val = this.$menu.find('.active').data('value');
       this.$element.data('active', val);
 
@@ -2751,7 +2757,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return this.hide();
     },
-    select: function () {
+    select: function select() {
       var val = this.$menu.find('.active').data('value');
       this.$element.data('active', val);
 
@@ -2786,13 +2792,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return this.hide();
     },
-    updater: function (item) {
+    updater: function updater(item) {
       return item;
     },
-    setSource: function (source) {
+    setSource: function setSource(source) {
       this.source = source;
     },
-    show: function () {
+    show: function show() {
       var pos = $.extend({}, this.$element.position(), {
         height: this.$element[0].offsetHeight
       });
@@ -2838,12 +2844,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       this.shown = true;
       return this;
     },
-    hide: function () {
+    hide: function hide() {
       this.$menu.hide();
       this.shown = false;
       return this;
     },
-    lookup: function (query) {
+    lookup: function lookup(query) {
       if (typeof query != 'undefined' && query !== null) {
         this.query = query;
       } else {
@@ -2869,7 +2875,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       clearTimeout(this.lookupWorker);
       this.lookupWorker = setTimeout(worker, this.delay);
     },
-    process: function (items) {
+    process: function process(items) {
       var that = this;
       items = $.grep(items, function (item) {
         return that.matcher(item);
@@ -2897,11 +2903,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return this.render(items).show();
     },
-    matcher: function (item) {
+    matcher: function matcher(item) {
       var it = this.displayText(item);
       return ~it.toLowerCase().indexOf(this.query.toLowerCase());
     },
-    sorter: function (items) {
+    sorter: function sorter(items) {
       var beginswith = [];
       var caseSensitive = [];
       var caseInsensitive = [];
@@ -2921,7 +2927,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return beginswith.concat(caseSensitive, caseInsensitive);
     },
-    highlighter: function (item) {
+    highlighter: function highlighter(item) {
       var text = this.query;
 
       if (text === '') {
@@ -2968,7 +2974,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return item;
     },
-    render: function (items) {
+    render: function render(items) {
       var that = this;
       var self = this;
       var activeFound = false;
@@ -3030,16 +3036,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       this.$menu.html(items);
       return this;
     },
-    displayText: function (item) {
+    displayText: function displayText(item) {
       return typeof item !== 'undefined' && typeof item.name != 'undefined' ? item.name : item;
     },
-    itemLink: function (item) {
+    itemLink: function itemLink(item) {
       return null;
     },
-    itemTitle: function (item) {
+    itemTitle: function itemTitle(item) {
       return null;
     },
-    next: function (event) {
+    next: function next(event) {
       var active = this.$menu.find('.active').removeClass('active');
       var next = active.next();
 
@@ -3059,7 +3065,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.$element.val(this.displayText(newVal) || newVal);
       }
     },
-    prev: function (event) {
+    prev: function prev(event) {
       var active = this.$menu.find('.active').removeClass('active');
       var prev = active.prev();
 
@@ -3079,7 +3085,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.$element.val(this.displayText(newVal) || newVal);
       }
     },
-    listen: function () {
+    listen: function listen() {
       this.$element.on('focus.bootstrap3Typeahead', $.proxy(this.focus, this)).on('blur.bootstrap3Typeahead', $.proxy(this.blur, this)).on('keypress.bootstrap3Typeahead', $.proxy(this.keypress, this)).on('propertychange.bootstrap3Typeahead input.bootstrap3Typeahead', $.proxy(this.input, this)).on('keyup.bootstrap3Typeahead', $.proxy(this.keyup, this));
 
       if (this.eventSupported('keydown')) {
@@ -3097,7 +3103,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.$menu.on('click', eventSelector, $.proxy(this.click, this)).on('mouseenter', eventSelector, $.proxy(this.mouseenter, this)).on('mouseleave', eventSelector, $.proxy(this.mouseleave, this)).on('mousedown', $.proxy(this.mousedown, this));
       }
     },
-    destroy: function () {
+    destroy: function destroy() {
       this.$element.data('typeahead', null);
       this.$element.data('active', null);
       this.$element.unbind('focus.bootstrap3Typeahead').unbind('blur.bootstrap3Typeahead').unbind('keypress.bootstrap3Typeahead').unbind('propertychange.bootstrap3Typeahead input.bootstrap3Typeahead').unbind('keyup.bootstrap3Typeahead');
@@ -3109,7 +3115,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       this.$menu.remove();
       this.destroyed = true;
     },
-    eventSupported: function (eventName) {
+    eventSupported: function eventSupported(eventName) {
       var isSupported = eventName in this.$element;
 
       if (!isSupported) {
@@ -3119,7 +3125,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
       return isSupported;
     },
-    move: function (e) {
+    move: function move(e) {
       if (!this.shown) {
         return;
       }
@@ -3157,7 +3163,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
           break;
       }
     },
-    keydown: function (e) {
+    keydown: function keydown(e) {
       /**
        * Prevent to make an ajax call while copying and pasting.
        *
@@ -3178,14 +3184,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.move(e);
       }
     },
-    keypress: function (e) {
+    keypress: function keypress(e) {
       if (this.suppressKeyPressRepeat) {
         return;
       }
 
       this.move(e);
     },
-    input: function (e) {
+    input: function input(e) {
       // This is a fixed for IE10/11 that fires the input event when a placehoder is changed
       // (https://connect.microsoft.com/IE/feedback/details/810538/ie-11-fires-input-event-on-focus)
       var currentValue = this.$element.val() || this.$element.text();
@@ -3195,7 +3201,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.lookup();
       }
     },
-    keyup: function (e) {
+    keyup: function keyup(e) {
       if (this.destroyed) {
         return;
       }
@@ -3241,7 +3247,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
           break;
       }
     },
-    focus: function (e) {
+    focus: function focus(e) {
       if (!this.focused) {
         this.focused = true;
         this.keyPressed = false;
@@ -3259,7 +3265,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.skipShowHintOnFocus = false;
       }
     },
-    blur: function (e) {
+    blur: function blur(e) {
       if (!this.mousedover && !this.mouseddown && this.shown) {
         if (this.selectOnBlur) {
           this.select();
@@ -3276,19 +3282,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
         this.mouseddown = false;
       }
     },
-    click: function (e) {
+    click: function click(e) {
       e.preventDefault();
       this.skipShowHintOnFocus = true;
       this.select();
       this.$element.focus();
       this.hide();
     },
-    mouseenter: function (e) {
+    mouseenter: function mouseenter(e) {
       this.mousedover = true;
       this.$menu.find('.active').removeClass('active');
       $(e.currentTarget).addClass('active');
     },
-    mouseleave: function (e) {
+    mouseleave: function mouseleave(e) {
       this.mousedover = false;
 
       if (!this.focused && this.shown) {
@@ -3299,19 +3305,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     /**
      * We track the mousedown for IE. When clicking on the menu scrollbar, IE makes the input blur thus hiding the menu.
      */
-    mousedown: function (e) {
+    mousedown: function mousedown(e) {
       this.mouseddown = true;
       this.$menu.one('mouseup', function (e) {
         // IE won't fire this, but FF and Chrome will so we reset our flag for them here
         this.mouseddown = false;
       }.bind(this));
     },
-    touchstart: function (e) {
+    touchstart: function touchstart(e) {
       e.preventDefault();
       this.$menu.find('.active').removeClass('active');
       $(e.currentTarget).addClass('active');
     },
-    touchend: function (e) {
+    touchend: function touchend(e) {
       e.preventDefault();
       this.select();
       this.$element.focus();
@@ -3332,7 +3338,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('typeahead');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
 
       if (!data) {
         $this.data('typeahead', data = new Typeahead(this, options));
@@ -3415,18 +3421,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: affix.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: affix.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#affix
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // AFFIX CLASS DEFINITION
   // ======================
 
-  var Affix = function (element, options) {
+  var Affix = function Affix(element, options) {
     this.options = $.extend({}, Affix.DEFAULTS, options);
     var target = this.options.target === Affix.DEFAULTS.target ? $(this.options.target) : $(document).find(this.options.target);
     this.$target = target.on('scroll.bs.affix.data-api', $.proxy(this.checkPosition, this)).on('click.bs.affix.data-api', $.proxy(this.checkPositionWithEventLoop, this));
@@ -3437,7 +3445,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.checkPosition();
   };
 
-  Affix.VERSION = '3.4.0';
+  Affix.VERSION = '3.4.1';
   Affix.RESET = 'affix affix-top affix-bottom';
   Affix.DEFAULTS = {
     offset: 0,
@@ -3482,7 +3490,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     var offsetTop = offset.top;
     var offsetBottom = offset.bottom;
     var scrollHeight = Math.max($(document).height(), $(document.body).height());
-    if (typeof offset != 'object') offsetBottom = offsetTop = offset;
+    if (_typeof(offset) != 'object') offsetBottom = offsetTop = offset;
     if (typeof offsetTop == 'function') offsetTop = offset.top(this.$element);
     if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element);
     var affix = this.getState(scrollHeight, height, offsetTop, offsetBottom);
@@ -3511,7 +3519,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.affix');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
       if (!data) $this.data('bs.affix', data = new Affix(this, options));
       if (typeof option == 'string') data[option]();
     });
@@ -3552,10 +3560,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: alert.js v3.4.0
+ * Bootstrap: alert.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#alerts
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
@@ -3564,11 +3572,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 
   var dismiss = '[data-dismiss="alert"]';
 
-  var Alert = function (el) {
+  var Alert = function Alert(el) {
     $(el).on('click', dismiss, this.close);
   };
 
-  Alert.VERSION = '3.4.0';
+  Alert.VERSION = '3.4.1';
   Alert.TRANSITION_DURATION = 150;
 
   Alert.prototype.close = function (e) {
@@ -3636,24 +3644,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: button.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: button.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#buttons
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // BUTTON PUBLIC CLASS DEFINITION
   // ==============================
 
-  var Button = function (element, options) {
+  var Button = function Button(element, options) {
     this.$element = $(element);
     this.options = $.extend({}, Button.DEFAULTS, options);
     this.isLoading = false;
   };
 
-  Button.VERSION = '3.4.0';
+  Button.VERSION = '3.4.1';
   Button.DEFAULTS = {
     loadingText: 'loading...'
   };
@@ -3709,7 +3719,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.button');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
       if (!data) $this.data('bs.button', data = new Button(this, options));
       if (option == 'toggle') data.toggle();else if (option) data.setState(option);
     });
@@ -3752,18 +3762,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: carousel.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: carousel.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#carousel
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // CAROUSEL CLASS DEFINITION
   // =========================
 
-  var Carousel = function (element, options) {
+  var Carousel = function Carousel(element, options) {
     this.$element = $(element);
     this.$indicators = this.$element.find('.carousel-indicators');
     this.options = options;
@@ -3776,7 +3788,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.options.pause == 'hover' && !('ontouchstart' in document.documentElement) && this.$element.on('mouseenter.bs.carousel', $.proxy(this.pause, this)).on('mouseleave.bs.carousel', $.proxy(this.cycle, this));
   };
 
-  Carousel.VERSION = '3.4.0';
+  Carousel.VERSION = '3.4.1';
   Carousel.TRANSITION_DURATION = 600;
   Carousel.DEFAULTS = {
     interval: 5000,
@@ -3890,7 +3902,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     if ($.support.transition && this.$element.hasClass('slide')) {
       $next.addClass(type);
 
-      if (typeof $next === 'object' && $next.length) {
+      if (_typeof($next) === 'object' && $next.length) {
         $next[0].offsetWidth; // force reflow
       }
 
@@ -3921,7 +3933,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.carousel');
-      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), typeof option == 'object' && option);
+      var options = $.extend({}, Carousel.DEFAULTS, $this.data(), _typeof(option) == 'object' && option);
       var action = typeof option == 'string' ? option : options.slide;
       if (!data) $this.data('bs.carousel', data = new Carousel(this, options));
       if (typeof option == 'number') data.to(option);else if (action) data[action]();else if (options.interval) data.pause().cycle();
@@ -3940,7 +3952,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   // =================
 
 
-  var clickHandler = function (e) {
+  var clickHandler = function clickHandler(e) {
     var $this = $(this);
     var href = $this.attr('href');
 
@@ -3982,11 +3994,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: collapse.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: collapse.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#collapse
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -3995,7 +4009,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   'use strict'; // COLLAPSE PUBLIC CLASS DEFINITION
   // ================================
 
-  var Collapse = function (element, options) {
+  var Collapse = function Collapse(element, options) {
     this.$element = $(element);
     this.options = $.extend({}, Collapse.DEFAULTS, options);
     this.$trigger = $('[data-toggle="collapse"][href="#' + element.id + '"],' + '[data-toggle="collapse"][data-target="#' + element.id + '"]');
@@ -4010,7 +4024,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     if (this.options.toggle) this.toggle();
   };
 
-  Collapse.VERSION = '3.4.0';
+  Collapse.VERSION = '3.4.1';
   Collapse.TRANSITION_DURATION = 350;
   Collapse.DEFAULTS = {
     toggle: true
@@ -4045,7 +4059,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.$trigger.removeClass('collapsed').attr('aria-expanded', true);
     this.transitioning = 1;
 
-    var complete = function () {
+    var complete = function complete() {
       this.$element.removeClass('collapsing').addClass('collapse in')[dimension]('');
       this.transitioning = 0;
       this.$element.trigger('shown.bs.collapse');
@@ -4067,7 +4081,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.$trigger.addClass('collapsed').attr('aria-expanded', false);
     this.transitioning = 1;
 
-    var complete = function () {
+    var complete = function complete() {
       this.transitioning = 0;
       this.$element.removeClass('collapsing').addClass('collapse').trigger('hidden.bs.collapse');
     };
@@ -4106,7 +4120,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.collapse');
-      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option);
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), _typeof(option) == 'object' && option);
       if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false;
       if (!data) $this.data('bs.collapse', data = new Collapse(this, options));
       if (typeof option == 'string') data[option]();
@@ -4146,10 +4160,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: dropdown.js v3.4.0
+ * Bootstrap: dropdown.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#dropdowns
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
@@ -4159,11 +4173,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   var backdrop = '.dropdown-backdrop';
   var toggle = '[data-toggle="dropdown"]';
 
-  var Dropdown = function (element) {
+  var Dropdown = function Dropdown(element) {
     $(element).on('click.bs.dropdown', this.toggle);
   };
 
-  Dropdown.VERSION = '3.4.0';
+  Dropdown.VERSION = '3.4.1';
 
   function getParent($this) {
     var selector = $this.attr('data-target');
@@ -4173,7 +4187,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, ''); // strip for ie7
     }
 
-    var $parent = selector && $(document).find(selector);
+    var $parent = selector !== '#' ? $(document).find(selector) : null;
     return $parent && $parent.length ? $parent : $this.parent();
   }
 
@@ -4284,18 +4298,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: modal.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: modal.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#modals
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // MODAL CLASS DEFINITION
   // ======================
 
-  var Modal = function (element, options) {
+  var Modal = function Modal(element, options) {
     this.options = options;
     this.$body = $(document.body);
     this.$element = $(element);
@@ -4314,7 +4330,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     }
   };
 
-  Modal.VERSION = '3.4.0';
+  Modal.VERSION = '3.4.1';
   Modal.TRANSITION_DURATION = 300;
   Modal.BACKDROP_TRANSITION_DURATION = 150;
   Modal.DEFAULTS = {
@@ -4453,7 +4469,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     } else if (!this.isShown && this.$backdrop) {
       this.$backdrop.removeClass('in');
 
-      var callbackRemove = function () {
+      var callbackRemove = function callbackRemove() {
         that.removeBackdrop();
         callback && callback();
       };
@@ -4537,7 +4553,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.modal');
-      var options = $.extend({}, Modal.DEFAULTS, $this.data(), typeof option == 'object' && option);
+      var options = $.extend({}, Modal.DEFAULTS, $this.data(), _typeof(option) == 'object' && option);
       if (!data) $this.data('bs.modal', data = new Modal(this, options));
       if (typeof option == 'string') data[option](_relatedTarget);else if (options.show) data.show(_relatedTarget);
     });
@@ -4586,23 +4602,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: popover.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: popover.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#popovers
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // POPOVER PUBLIC CLASS DEFINITION
   // ===============================
 
-  var Popover = function (element, options) {
+  var Popover = function Popover(element, options) {
     this.init('popover', element, options);
   };
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js');
-  Popover.VERSION = '3.4.0';
+  Popover.VERSION = '3.4.1';
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
     trigger: 'click',
@@ -4622,9 +4640,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     var $tip = this.tip();
     var title = this.getTitle();
     var content = this.getContent();
-    $tip.find('.popover-title')[this.options.html ? 'html' : 'text'](title);
-    $tip.find('.popover-content').children().detach().end()[// we use append for html objects to maintain js events
-    this.options.html ? typeof content == 'string' ? 'html' : 'append' : 'text'](content);
+
+    if (this.options.html) {
+      var typeContent = _typeof(content);
+
+      if (this.options.sanitize) {
+        title = this.sanitizeHtml(title);
+
+        if (typeContent === 'string') {
+          content = this.sanitizeHtml(content);
+        }
+      }
+
+      $tip.find('.popover-title').html(title);
+      $tip.find('.popover-content').children().detach().end()[typeContent === 'string' ? 'html' : 'append'](content);
+    } else {
+      $tip.find('.popover-title').text(title);
+      $tip.find('.popover-content').children().detach().end().text(content);
+    }
+
     $tip.removeClass('fade top bottom left right in'); // IE8 doesn't accept hiding via the `:empty` pseudo selector, we have to do
     // this manually by checking the contents.
 
@@ -4651,7 +4685,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.popover');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
       if (!data && /destroy|hide/.test(option)) return;
       if (!data) $this.data('bs.popover', data = new Popover(this, options));
       if (typeof option == 'string') data[option]();
@@ -4679,11 +4713,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: scrollspy.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: scrollspy.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#scrollspy
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
@@ -4704,7 +4740,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.process();
   }
 
-  ScrollSpy.VERSION = '3.4.0';
+  ScrollSpy.VERSION = '3.4.1';
   ScrollSpy.DEFAULTS = {
     offset: 10
   };
@@ -4789,7 +4825,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.scrollspy');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
       if (!data) $this.data('bs.scrollspy', data = new ScrollSpy(this, options));
       if (typeof option == 'string') data[option]();
     });
@@ -4826,22 +4862,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: tab.js v3.4.0
+ * Bootstrap: tab.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tabs
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
   'use strict'; // TAB CLASS DEFINITION
   // ====================
 
-  var Tab = function (element) {
+  var Tab = function Tab(element) {
     // jscs:disable requireDollarBeforejQueryAssignment
     this.element = $(element); // jscs:enable requireDollarBeforejQueryAssignment
   };
 
-  Tab.VERSION = '3.4.0';
+  Tab.VERSION = '3.4.1';
   Tab.TRANSITION_DURATION = 150;
 
   Tab.prototype.show = function () {
@@ -4929,7 +4965,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   // ============
 
 
-  var clickHandler = function (e) {
+  var clickHandler = function clickHandler(e) {
     e.preventDefault();
     Plugin.call($(this), 'show');
   };
@@ -4947,19 +4983,142 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: tooltip.js v3.4.0
+/* WEBPACK VAR INJECTION */(function(jQuery) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* ========================================================================
+ * Bootstrap: tooltip.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
-  'use strict'; // TOOLTIP PUBLIC CLASS DEFINITION
+  'use strict';
+
+  var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
+  var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
+  var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
+  var DefaultWhitelist = {
+    // Global attributes allowed on any supplied element below.
+    '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
+    a: ['target', 'href', 'title', 'rel'],
+    area: [],
+    b: [],
+    br: [],
+    col: [],
+    code: [],
+    div: [],
+    em: [],
+    hr: [],
+    h1: [],
+    h2: [],
+    h3: [],
+    h4: [],
+    h5: [],
+    h6: [],
+    i: [],
+    img: ['src', 'alt', 'title', 'width', 'height'],
+    li: [],
+    ol: [],
+    p: [],
+    pre: [],
+    s: [],
+    small: [],
+    span: [],
+    sub: [],
+    sup: [],
+    strong: [],
+    u: [],
+    ul: []
+    /**
+     * A pattern that recognizes a commonly useful subset of URLs that are safe.
+     *
+     * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+     */
+
+  };
+  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
+  /**
+   * A pattern that matches safe data URLs. Only matches image, video and audio types.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+
+  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+/]+=*$/i;
+
+  function allowedAttribute(attr, allowedAttributeList) {
+    var attrName = attr.nodeName.toLowerCase();
+
+    if ($.inArray(attrName, allowedAttributeList) !== -1) {
+      if ($.inArray(attrName, uriAttrs) !== -1) {
+        return Boolean(attr.nodeValue.match(SAFE_URL_PATTERN) || attr.nodeValue.match(DATA_URL_PATTERN));
+      }
+
+      return true;
+    }
+
+    var regExp = $(allowedAttributeList).filter(function (index, value) {
+      return value instanceof RegExp;
+    }); // Check if a regular expression validates the attribute.
+
+    for (var i = 0, l = regExp.length; i < l; i++) {
+      if (attrName.match(regExp[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  function sanitizeHtml(unsafeHtml, whiteList, sanitizeFn) {
+    if (unsafeHtml.length === 0) {
+      return unsafeHtml;
+    }
+
+    if (sanitizeFn && typeof sanitizeFn === 'function') {
+      return sanitizeFn(unsafeHtml);
+    } // IE 8 and below don't support createHTMLDocument
+
+
+    if (!document.implementation || !document.implementation.createHTMLDocument) {
+      return unsafeHtml;
+    }
+
+    var createdDocument = document.implementation.createHTMLDocument('sanitization');
+    createdDocument.body.innerHTML = unsafeHtml;
+    var whitelistKeys = $.map(whiteList, function (el, i) {
+      return i;
+    });
+    var elements = $(createdDocument.body).find('*');
+
+    for (var i = 0, len = elements.length; i < len; i++) {
+      var el = elements[i];
+      var elName = el.nodeName.toLowerCase();
+
+      if ($.inArray(elName, whitelistKeys) === -1) {
+        el.parentNode.removeChild(el);
+        continue;
+      }
+
+      var attributeList = $.map(el.attributes, function (el) {
+        return el;
+      });
+      var whitelistedAttributes = [].concat(whiteList['*'] || [], whiteList[elName] || []);
+
+      for (var j = 0, len2 = attributeList.length; j < len2; j++) {
+        if (!allowedAttribute(attributeList[j], whitelistedAttributes)) {
+          el.removeAttribute(attributeList[j].nodeName);
+        }
+      }
+    }
+
+    return createdDocument.body.innerHTML;
+  } // TOOLTIP PUBLIC CLASS DEFINITION
   // ===============================
 
-  var Tooltip = function (element, options) {
+
+  var Tooltip = function Tooltip(element, options) {
     this.type = null;
     this.options = null;
     this.enabled = null;
@@ -4970,7 +5129,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     this.init('tooltip', element, options);
   };
 
-  Tooltip.VERSION = '3.4.0';
+  Tooltip.VERSION = '3.4.1';
   Tooltip.TRANSITION_DURATION = 150;
   Tooltip.DEFAULTS = {
     animation: true,
@@ -4985,7 +5144,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     viewport: {
       selector: 'body',
       padding: 0
-    }
+    },
+    sanitize: true,
+    sanitizeFn: null,
+    whiteList: DefaultWhitelist
   };
 
   Tooltip.prototype.init = function (type, element, options) {
@@ -5030,13 +5192,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   };
 
   Tooltip.prototype.getOptions = function (options) {
-    options = $.extend({}, this.getDefaults(), this.$element.data(), options);
+    var dataAttributes = this.$element.data();
+
+    for (var dataAttr in dataAttributes) {
+      if (dataAttributes.hasOwnProperty(dataAttr) && $.inArray(dataAttr, DISALLOWED_ATTRIBUTES) !== -1) {
+        delete dataAttributes[dataAttr];
+      }
+    }
+
+    options = $.extend({}, this.getDefaults(), dataAttributes, options);
 
     if (options.delay && typeof options.delay == 'number') {
       options.delay = {
         show: options.delay,
         hide: options.delay
       };
+    }
+
+    if (options.sanitize) {
+      options.template = sanitizeHtml(options.template, options.whiteList, options.sanitizeFn);
     }
 
     return options;
@@ -5144,7 +5318,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       var calculatedOffset = this.getCalculatedOffset(placement, pos, actualWidth, actualHeight);
       this.applyPlacement(calculatedOffset, placement);
 
-      var complete = function () {
+      var complete = function complete() {
         var prevHoverState = that.hoverState;
         that.$element.trigger('shown.bs.' + that.type);
         that.hoverState = null;
@@ -5170,7 +5344,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     // so we use setOffset directly with our own function B-0
 
     $.offset.setOffset($tip[0], $.extend({
-      using: function (props) {
+      using: function using(props) {
         $tip.css({
           top: Math.round(props.top),
           left: Math.round(props.left)
@@ -5202,7 +5376,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   Tooltip.prototype.setContent = function () {
     var $tip = this.tip();
     var title = this.getTitle();
-    $tip.find('.tooltip-inner')[this.options.html ? 'html' : 'text'](title);
+
+    if (this.options.html) {
+      if (this.options.sanitize) {
+        title = sanitizeHtml(title, this.options.whiteList, this.options.sanitizeFn);
+      }
+
+      $tip.find('.tooltip-inner').html(title);
+    } else {
+      $tip.find('.tooltip-inner').text(title);
+    }
+
     $tip.removeClass('fade in top bottom left right');
   };
 
@@ -5336,7 +5520,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
   };
 
   Tooltip.prototype.getUID = function (prefix) {
-    do prefix += ~~(Math.random() * 1000000); while (document.getElementById(prefix));
+    do {
+      prefix += ~~(Math.random() * 1000000);
+    } while (document.getElementById(prefix));
 
     return prefix;
   };
@@ -5404,6 +5590,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       that.$viewport = null;
       that.$element = null;
     });
+  };
+
+  Tooltip.prototype.sanitizeHtml = function (unsafeHtml) {
+    return sanitizeHtml(unsafeHtml, this.options.whiteList, this.options.sanitizeFn);
   }; // TOOLTIP PLUGIN DEFINITION
   // =========================
 
@@ -5412,7 +5602,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.tooltip');
-      var options = typeof option == 'object' && option;
+      var options = _typeof(option) == 'object' && option;
       if (!data && /destroy|hide/.test(option)) return;
       if (!data) $this.data('bs.tooltip', data = new Tooltip(this, options));
       if (typeof option == 'string') data[option]();
@@ -5441,10 +5631,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* ========================================================================
- * Bootstrap: transition.js v3.4.0
+ * Bootstrap: transition.js v3.4.1
  * https://getbootstrap.com/docs/3.4/javascript/#transitions
  * ========================================================================
- * Copyright 2011-2018 Twitter, Inc.
+ * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 +function ($) {
@@ -5479,7 +5669,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
       called = true;
     });
 
-    var callback = function () {
+    var callback = function callback() {
       if (!called) $($el).trigger($.support.transition.end);
     };
 
@@ -5493,7 +5683,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
     $.event.special.bsTransitionEnd = {
       bindType: $.support.transition.end,
       delegateType: $.support.transition.end,
-      handle: function (e) {
+      handle: function handle(e) {
         if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments);
       }
     };
@@ -5510,7 +5700,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* =============
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
  * headroom.js v0.9.4 - Give your page some headroom. Hide your header until you need it
  * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/headroom.js
  * License: MIT
@@ -5553,7 +5745,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * dispatches the event to the supplied callback
      * @private
      */
-    update: function () {
+    update: function update() {
       this.callback && this.callback();
       this.ticking = false;
     },
@@ -5562,7 +5754,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * ensures events don't get stacked
      * @private
      */
-    requestTick: function () {
+    requestTick: function requestTick() {
       if (!this.ticking) {
         requestAnimationFrame(this.rafCallback || (this.rafCallback = this.update.bind(this)));
         this.ticking = true;
@@ -5572,7 +5764,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Attach this as the event listeners
      */
-    handleEvent: function () {
+    handleEvent: function handleEvent() {
       this.requestTick();
     }
   };
@@ -5606,7 +5798,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
       for (key in replacement) {
         // Recurse into object except if the object is a DOM element
-        if (typeof result[key] === 'object' && !isDOMElement(result[key])) {
+        if (_typeof(result[key]) === 'object' && !isDOMElement(result[key])) {
           result[key] = extend(result[key], replacement[key]);
         } else {
           result[key] = result[key] || replacement[key];
@@ -5660,7 +5852,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Initialises the widget
      */
-    init: function () {
+    init: function init() {
       if (!Headroom.cutsTheMustard) {
         return;
       }
@@ -5676,7 +5868,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Unattaches events and removes any classes that were added
      */
-    destroy: function () {
+    destroy: function destroy() {
       var classes = this.classes;
       this.initialised = false;
 
@@ -5693,7 +5885,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * Attaches the scroll event
      * @private
      */
-    attachEvent: function () {
+    attachEvent: function attachEvent() {
       if (!this.initialised) {
         this.lastKnownScrollY = this.getScrollY();
         this.initialised = true;
@@ -5705,7 +5897,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Unpins the header if it's currently pinned
      */
-    unpin: function () {
+    unpin: function unpin() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5719,7 +5911,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Pins the header if it's currently unpinned
      */
-    pin: function () {
+    pin: function pin() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5733,7 +5925,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Handles the top states
      */
-    top: function () {
+    top: function top() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5747,7 +5939,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Handles the not top state
      */
-    notTop: function () {
+    notTop: function notTop() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5757,7 +5949,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         this.onNotTop && this.onNotTop.call(this);
       }
     },
-    bottom: function () {
+    bottom: function bottom() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5771,7 +5963,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Handles the not top state
      */
-    notBottom: function () {
+    notBottom: function notBottom() {
       var classList = this.elem.classList,
           classes = this.classes;
 
@@ -5787,7 +5979,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @see https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY
      * @return {Number} pixels the page has scrolled along the Y-axis
      */
-    getScrollY: function () {
+    getScrollY: function getScrollY() {
       return this.scroller.pageYOffset !== undefined ? this.scroller.pageYOffset : this.scroller.scrollTop !== undefined ? this.scroller.scrollTop : (document.documentElement || document.body.parentNode || document.body).scrollTop;
     },
 
@@ -5796,7 +5988,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @see http://andylangton.co.uk/blog/development/get-viewport-size-width-and-height-javascript
      * @return {int} the height of the viewport in pixels
      */
-    getViewportHeight: function () {
+    getViewportHeight: function getViewportHeight() {
       return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     },
 
@@ -5805,7 +5997,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {Object}  elm the element to calculate the physical height of which
      * @return {int}     the physical height of the element in pixels
      */
-    getElementPhysicalHeight: function (elm) {
+    getElementPhysicalHeight: function getElementPhysicalHeight(elm) {
       return Math.max(elm.offsetHeight, elm.clientHeight);
     },
 
@@ -5813,7 +6005,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * Gets the physical height of the scroller element
      * @return {int} the physical height of the scroller element in pixels
      */
-    getScrollerPhysicalHeight: function () {
+    getScrollerPhysicalHeight: function getScrollerPhysicalHeight() {
       return this.scroller === window || this.scroller === document.body ? this.getViewportHeight() : this.getElementPhysicalHeight(this.scroller);
     },
 
@@ -5822,7 +6014,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @see http://james.padolsey.com/javascript/get-document-height-cross-browser/
      * @return {int} the height of the document in pixels
      */
-    getDocumentHeight: function () {
+    getDocumentHeight: function getDocumentHeight() {
       var body = document.body,
           documentElement = document.documentElement;
       return Math.max(body.scrollHeight, documentElement.scrollHeight, body.offsetHeight, documentElement.offsetHeight, body.clientHeight, documentElement.clientHeight);
@@ -5833,7 +6025,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {Object}  elm the element to calculate the height of which
      * @return {int}     the height of the element in pixels
      */
-    getElementHeight: function (elm) {
+    getElementHeight: function getElementHeight(elm) {
       return Math.max(elm.scrollHeight, elm.offsetHeight, elm.clientHeight);
     },
 
@@ -5841,7 +6033,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * Gets the height of the scroller element
      * @return {int} the height of the scroller element in pixels
      */
-    getScrollerHeight: function () {
+    getScrollerHeight: function getScrollerHeight() {
       return this.scroller === window || this.scroller === document.body ? this.getDocumentHeight() : this.getElementHeight(this.scroller);
     },
 
@@ -5850,7 +6042,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {int}  currentScrollY the current y scroll position
      * @return {bool} true if out of bounds, false otherwise
      */
-    isOutOfBounds: function (currentScrollY) {
+    isOutOfBounds: function isOutOfBounds(currentScrollY) {
       var pastTop = currentScrollY < 0,
           pastBottom = currentScrollY + this.getScrollerPhysicalHeight() > this.getScrollerHeight();
       return pastTop || pastBottom;
@@ -5861,7 +6053,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {int} currentScrollY the current scroll y position
      * @return {bool} true if tolerance exceeded, false otherwise
      */
-    toleranceExceeded: function (currentScrollY, direction) {
+    toleranceExceeded: function toleranceExceeded(currentScrollY, direction) {
       return Math.abs(currentScrollY - this.lastKnownScrollY) >= this.tolerance[direction];
     },
 
@@ -5871,7 +6063,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {bool} toleranceExceeded has the tolerance been exceeded?
      * @return {bool} true if should unpin, false otherwise
      */
-    shouldUnpin: function (currentScrollY, toleranceExceeded) {
+    shouldUnpin: function shouldUnpin(currentScrollY, toleranceExceeded) {
       var scrollingDown = currentScrollY > this.lastKnownScrollY,
           pastOffset = currentScrollY >= this.offset;
       return scrollingDown && pastOffset && toleranceExceeded;
@@ -5883,7 +6075,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
      * @param  {bool} toleranceExceeded has the tolerance been exceeded?
      * @return {bool} true if should pin, false otherwise
      */
-    shouldPin: function (currentScrollY, toleranceExceeded) {
+    shouldPin: function shouldPin(currentScrollY, toleranceExceeded) {
       var scrollingUp = currentScrollY < this.lastKnownScrollY,
           pastOffset = currentScrollY <= this.offset;
       return scrollingUp && toleranceExceeded || pastOffset;
@@ -5892,7 +6084,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     /**
      * Handles updating the state of the widget
      */
-    update: function () {
+    update: function update() {
       var currentScrollY = this.getScrollY(),
           scrollDirection = currentScrollY > this.lastKnownScrollY ? 'down' : 'up',
           toleranceExceeded = this.toleranceExceeded(currentScrollY, scrollDirection);
@@ -5958,6 +6150,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /*!
  * headroom.js v0.9.4 - Give your page some headroom. Hide your header until you need it
  * Copyright (c) 2017 Nick Williams - http://wicky.nillia.ms/headroom.js
@@ -5975,7 +6169,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.each(function () {
       var $this = $(this),
           data = $this.data('headroom'),
-          options = typeof option === 'object' && option;
+          options = _typeof(option) === 'object' && option;
       options = $.extend(true, {}, Headroom.options, options);
 
       if (!data) {
@@ -6059,7 +6253,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       topScrollBarInnerSelector: '.doubleScroll-scroll'
     });
 
-    var _showScrollBar = function ($self, options) {
+    var _showScrollBar = function _showScrollBar($self, options) {
       if (options.onlyIfScroll && $self.get(0).scrollWidth <= $self.width()) {
         // content doesn't scroll
         // remove any existing occurrence...
@@ -6084,7 +6278,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           $self.scrollLeft($topScrollBar.scrollLeft());
         }); // bind bottom scroll to upper scroll
 
-        var selfScrollHandler = function () {
+        var selfScrollHandler = function selfScrollHandler() {
           $topScrollBar.scrollLeft($self.scrollLeft());
         };
 
@@ -6116,7 +6310,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (options.resetOnWindowResize) {
         var id;
 
-        var handler = function (e) {
+        var handler = function handler(e) {
           _showScrollBar($self, options);
         };
 
@@ -6141,7 +6335,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*!
  * jQuery JavaScript Library v3.3.1
  * https://jquery.com/
  *
@@ -6157,7 +6353,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 (function (global, factory) {
   "use strict";
 
-  if ( true && typeof module.exports === "object") {
+  if (( false ? undefined : _typeof(module)) === "object" && _typeof(module.exports) === "object") {
     // For CommonJS and CommonJS-like environments where a proper `window`
     // is present, execute the factory and get jQuery.
     // For environments that do not have a `window` with a `document`
@@ -6186,7 +6382,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   var arr = [];
   var document = window.document;
   var getProto = Object.getPrototypeOf;
-  var slice = arr.slice;
+  var _slice = arr.slice;
   var concat = arr.concat;
   var push = arr.push;
   var indexOf = arr.indexOf;
@@ -6238,7 +6434,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     } // Support: Android <=2.3 only (functionish RegExp)
 
 
-    return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
+    return _typeof(obj) === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : _typeof(obj);
   }
   /* global Symbol */
   // Defining this global in .eslintrc.json would create a danger of using the global
@@ -6247,7 +6443,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   var version = "3.3.1",
       // Define a local copy of jQuery
-  jQuery = function (selector, context) {
+  jQuery = function jQuery(selector, context) {
     // The jQuery object is actually just the init constructor 'enhanced'
     // Need init if jQuery is called (just allow error to be thrown if not included)
     return new jQuery.fn.init(selector, context);
@@ -6262,15 +6458,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     constructor: jQuery,
     // The default length of a jQuery object is 0
     length: 0,
-    toArray: function () {
-      return slice.call(this);
+    toArray: function toArray() {
+      return _slice.call(this);
     },
     // Get the Nth element in the matched element set OR
     // Get the whole matched element set as a clean array
-    get: function (num) {
+    get: function get(num) {
       // Return all the elements in a clean array
       if (num == null) {
-        return slice.call(this);
+        return _slice.call(this);
       } // Return just the one element from the set
 
 
@@ -6278,7 +6474,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     },
     // Take an array of elements and push it onto the stack
     // (returning the new matched element set)
-    pushStack: function (elems) {
+    pushStack: function pushStack(elems) {
       // Build a new jQuery matched element set
       var ret = jQuery.merge(this.constructor(), elems); // Add the old object onto the stack (as a reference)
 
@@ -6287,29 +6483,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return ret;
     },
     // Execute a callback for every element in the matched set.
-    each: function (callback) {
+    each: function each(callback) {
       return jQuery.each(this, callback);
     },
-    map: function (callback) {
+    map: function map(callback) {
       return this.pushStack(jQuery.map(this, function (elem, i) {
         return callback.call(elem, i, elem);
       }));
     },
-    slice: function () {
-      return this.pushStack(slice.apply(this, arguments));
+    slice: function slice() {
+      return this.pushStack(_slice.apply(this, arguments));
     },
-    first: function () {
+    first: function first() {
       return this.eq(0);
     },
-    last: function () {
+    last: function last() {
       return this.eq(-1);
     },
-    eq: function (i) {
+    eq: function eq(i) {
       var len = this.length,
           j = +i + (i < 0 ? len : 0);
       return this.pushStack(j >= 0 && j < len ? [this[j]] : []);
     },
-    end: function () {
+    end: function end() {
       return this.prevObject || this.constructor();
     },
     // For internal use only.
@@ -6339,7 +6535,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     } // Handle case when target is a string or something (possible in deep copy)
 
 
-    if (typeof target !== "object" && !isFunction(target)) {
+    if (_typeof(target) !== "object" && !isFunction(target)) {
       target = {};
     } // Extend jQuery itself if only one argument is passed
 
@@ -6388,11 +6584,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     expando: "jQuery" + (version + Math.random()).replace(/\D/g, ""),
     // Assume jQuery is ready without the ready module
     isReady: true,
-    error: function (msg) {
+    error: function error(msg) {
       throw new Error(msg);
     },
-    noop: function () {},
-    isPlainObject: function (obj) {
+    noop: function noop() {},
+    isPlainObject: function isPlainObject(obj) {
       var proto, Ctor; // Detect obvious negatives
       // Use toString instead of jQuery.type to catch host objects
 
@@ -6410,7 +6606,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       Ctor = hasOwn.call(proto, "constructor") && proto.constructor;
       return typeof Ctor === "function" && fnToString.call(Ctor) === ObjectFunctionString;
     },
-    isEmptyObject: function (obj) {
+    isEmptyObject: function isEmptyObject(obj) {
       /* eslint-disable no-unused-vars */
       // See https://github.com/eslint/eslint/issues/6125
       var name;
@@ -6422,10 +6618,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return true;
     },
     // Evaluates a script in a global context
-    globalEval: function (code) {
+    globalEval: function globalEval(code) {
       DOMEval(code);
     },
-    each: function (obj, callback) {
+    each: function each(obj, callback) {
       var length,
           i = 0;
 
@@ -6448,11 +6644,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return obj;
     },
     // Support: Android <=4.0 only
-    trim: function (text) {
+    trim: function trim(text) {
       return text == null ? "" : (text + "").replace(rtrim, "");
     },
     // results is for internal usage only
-    makeArray: function (arr, results) {
+    makeArray: function makeArray(arr, results) {
       var ret = results || [];
 
       if (arr != null) {
@@ -6465,12 +6661,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return ret;
     },
-    inArray: function (elem, arr, i) {
+    inArray: function inArray(elem, arr, i) {
       return arr == null ? -1 : indexOf.call(arr, elem, i);
     },
     // Support: Android <=4.0 only, PhantomJS 1 only
     // push.apply(_, arraylike) throws on ancient WebKit
-    merge: function (first, second) {
+    merge: function merge(first, second) {
       var len = +second.length,
           j = 0,
           i = first.length;
@@ -6482,7 +6678,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       first.length = i;
       return first;
     },
-    grep: function (elems, callback, invert) {
+    grep: function grep(elems, callback, invert) {
       var callbackInverse,
           matches = [],
           i = 0,
@@ -6501,7 +6697,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return matches;
     },
     // arg is for internal usage only
-    map: function (elems, callback, arg) {
+    map: function map(elems, callback, arg) {
       var length,
           value,
           i = 0,
@@ -6602,7 +6798,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         classCache = createCache(),
         tokenCache = createCache(),
         compilerCache = createCache(),
-        sortOrder = function (a, b) {
+        sortOrder = function sortOrder(a, b) {
       if (a === b) {
         hasDuplicate = true;
       }
@@ -6618,7 +6814,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         slice = arr.slice,
         // Use a stripped-down indexOf as it's faster than native
     // https://jsperf.com/thor-indexof-vs-for/5
-    indexOf = function (list, elem) {
+    indexOf = function indexOf(list, elem) {
       var i = 0,
           len = list.length;
 
@@ -6674,7 +6870,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // CSS escapes
     // http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
     runescape = new RegExp("\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig"),
-        funescape = function (_, escaped, escapedWhitespace) {
+        funescape = function funescape(_, escaped, escapedWhitespace) {
       var high = "0x" + escaped - 0x10000; // NaN means non-codepoint
       // Support: Firefox<24
       // Workaround erroneous numeric interpretation of +"0x"
@@ -6686,7 +6882,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // CSS string/identifier serialization
     // https://drafts.csswg.org/cssom/#common-serializing-idioms
     rcssescape = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
-        fcssescape = function (ch, asCodePoint) {
+        fcssescape = function fcssescape(ch, asCodePoint) {
       if (asCodePoint) {
         // U+0000 NULL becomes U+FFFD REPLACEMENT CHARACTER
         if (ch === "\0") {
@@ -6704,7 +6900,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // See setDocument()
     // Removing the function wrapper causes a "Permission Denied"
     // error in IE
-    unloadHandler = function () {
+    unloadHandler = function unloadHandler() {
       setDocument();
     },
         disabledAncestor = addCombinator(function (elem) {
@@ -7574,7 +7770,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       },
       preFilter: {
-        "ATTR": function (match) {
+        "ATTR": function ATTR(match) {
           match[1] = match[1].replace(runescape, funescape); // Move the given value to match[3] whether quoted or unquoted
 
           match[3] = (match[3] || match[4] || match[5] || "").replace(runescape, funescape);
@@ -7585,7 +7781,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           return match.slice(0, 4);
         },
-        "CHILD": function (match) {
+        "CHILD": function CHILD(match) {
           /* matches from matchExpr["CHILD"]
           	1 type (only|nth|...)
           	2 what (child|of-type)
@@ -7614,7 +7810,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           return match;
         },
-        "PSEUDO": function (match) {
+        "PSEUDO": function PSEUDO(match) {
           var excess,
               unquoted = !match[6] && match[2];
 
@@ -7638,7 +7834,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       },
       filter: {
-        "TAG": function (nodeNameSelector) {
+        "TAG": function TAG(nodeNameSelector) {
           var nodeName = nodeNameSelector.replace(runescape, funescape).toLowerCase();
           return nodeNameSelector === "*" ? function () {
             return true;
@@ -7646,13 +7842,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
           };
         },
-        "CLASS": function (className) {
+        "CLASS": function CLASS(className) {
           var pattern = classCache[className + " "];
           return pattern || (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) && classCache(className, function (elem) {
             return pattern.test(typeof elem.className === "string" && elem.className || typeof elem.getAttribute !== "undefined" && elem.getAttribute("class") || "");
           });
         },
-        "ATTR": function (name, operator, check) {
+        "ATTR": function ATTR(name, operator, check) {
           return function (elem) {
             var result = Sizzle.attr(elem, name);
 
@@ -7668,7 +7864,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             return operator === "=" ? result === check : operator === "!=" ? result !== check : operator === "^=" ? check && result.indexOf(check) === 0 : operator === "*=" ? check && result.indexOf(check) > -1 : operator === "$=" ? check && result.slice(-check.length) === check : operator === "~=" ? (" " + result.replace(rwhitespace, " ") + " ").indexOf(check) > -1 : operator === "|=" ? result === check || result.slice(0, check.length + 1) === check + "-" : false;
           };
         },
-        "CHILD": function (type, what, argument, first, last) {
+        "CHILD": function CHILD(type, what, argument, first, last) {
           var simple = type.slice(0, 3) !== "nth",
               forward = type.slice(-4) !== "last",
               ofType = what === "of-type";
@@ -7773,7 +7969,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             }
           };
         },
-        "PSEUDO": function (pseudo, argument) {
+        "PSEUDO": function PSEUDO(pseudo, argument) {
           // pseudo-class names are case-insensitive
           // http://www.w3.org/TR/selectors/#pseudo-classes
           // Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
@@ -7873,26 +8069,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           };
         }),
         // Miscellaneous
-        "target": function (elem) {
+        "target": function target(elem) {
           var hash = window.location && window.location.hash;
           return hash && hash.slice(1) === elem.id;
         },
-        "root": function (elem) {
+        "root": function root(elem) {
           return elem === docElem;
         },
-        "focus": function (elem) {
+        "focus": function focus(elem) {
           return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
         },
         // Boolean properties
         "enabled": createDisabledPseudo(false),
         "disabled": createDisabledPseudo(true),
-        "checked": function (elem) {
+        "checked": function checked(elem) {
           // In CSS3, :checked should return both checked and selected elements
           // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
           var nodeName = elem.nodeName.toLowerCase();
           return nodeName === "input" && !!elem.checked || nodeName === "option" && !!elem.selected;
         },
-        "selected": function (elem) {
+        "selected": function selected(elem) {
           // Accessing this property makes selected-by-default
           // options in Safari work properly
           if (elem.parentNode) {
@@ -7902,7 +8098,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return elem.selected === true;
         },
         // Contents
-        "empty": function (elem) {
+        "empty": function empty(elem) {
           // http://www.w3.org/TR/selectors/#empty-pseudo
           // :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
           //   but not by others (comment: 8; processing instruction: 7; etc.)
@@ -7915,21 +8111,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           return true;
         },
-        "parent": function (elem) {
+        "parent": function parent(elem) {
           return !Expr.pseudos["empty"](elem);
         },
         // Element/input types
-        "header": function (elem) {
+        "header": function header(elem) {
           return rheader.test(elem.nodeName);
         },
-        "input": function (elem) {
+        "input": function input(elem) {
           return rinputs.test(elem.nodeName);
         },
-        "button": function (elem) {
+        "button": function button(elem) {
           var name = elem.nodeName.toLowerCase();
           return name === "input" && elem.type === "button" || name === "button";
         },
-        "text": function (elem) {
+        "text": function text(elem) {
           var attr;
           return elem.nodeName.toLowerCase() === "input" && elem.type === "text" && ( // Support: IE<8
           // New HTML5 attribute values (e.g., "search") appear with elem.type === "text"
@@ -8328,7 +8524,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     function matcherFromGroupMatchers(elementMatchers, setMatchers) {
       var bySet = setMatchers.length > 0,
           byElement = elementMatchers.length > 0,
-          superMatcher = function (seed, context, xml, results, outermost) {
+          superMatcher = function superMatcher(seed, context, xml, results, outermost) {
         var elem,
             j,
             matcher,
@@ -8611,11 +8807,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   jQuery.contains = Sizzle.contains;
   jQuery.escapeSelector = Sizzle.escape;
 
-  var dir = function (elem, dir, until) {
+  var dir = function dir(elem, _dir, until) {
     var matched = [],
         truncate = until !== undefined;
 
-    while ((elem = elem[dir]) && elem.nodeType !== 9) {
+    while ((elem = elem[_dir]) && elem.nodeType !== 9) {
       if (elem.nodeType === 1) {
         if (truncate && jQuery(elem).is(until)) {
           break;
@@ -8628,7 +8824,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     return matched;
   };
 
-  var siblings = function (n, elem) {
+  var _siblings = function siblings(n, elem) {
     var matched = [];
 
     for (; n; n = n.nextSibling) {
@@ -8691,7 +8887,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 
   jQuery.fn.extend({
-    find: function (selector) {
+    find: function find(selector) {
       var i,
           ret,
           len = this.length,
@@ -8715,13 +8911,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return len > 1 ? jQuery.uniqueSort(ret) : ret;
     },
-    filter: function (selector) {
+    filter: function filter(selector) {
       return this.pushStack(winnow(this, selector || [], false));
     },
-    not: function (selector) {
+    not: function not(selector) {
       return this.pushStack(winnow(this, selector || [], true));
     },
-    is: function (selector) {
+    is: function is(selector) {
       return !!winnow(this, // If this is a positional/relative selector, check membership in the returned set
       // so $("p:first").is("p:last") won't return true for a doc with two "p".
       typeof selector === "string" && rneedsContext.test(selector) ? jQuery(selector) : selector || [], false).length;
@@ -8820,7 +9016,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     prev: true
   };
   jQuery.fn.extend({
-    has: function (target) {
+    has: function has(target) {
       var targets = jQuery(target, this),
           l = targets.length;
       return this.filter(function () {
@@ -8833,7 +9029,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    closest: function (selectors, context) {
+    closest: function closest(selectors, context) {
       var cur,
           i = 0,
           l = this.length,
@@ -8856,7 +9052,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return this.pushStack(matched.length > 1 ? jQuery.uniqueSort(matched) : matched);
     },
     // Determine the position of an element within the set
-    index: function (elem) {
+    index: function index(elem) {
       // No argument, return index in parent
       if (!elem) {
         return this[0] && this[0].parentNode ? this.first().prevAll().length : -1;
@@ -8871,10 +9067,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return indexOf.call(this, // If it receives a jQuery object, the first element is used
       elem.jquery ? elem[0] : elem);
     },
-    add: function (selector, context) {
+    add: function add(selector, context) {
       return this.pushStack(jQuery.uniqueSort(jQuery.merge(this.get(), jQuery(selector, context))));
     },
-    addBack: function (selector) {
+    addBack: function addBack(selector) {
       return this.add(selector == null ? this.prevObject : this.prevObject.filter(selector));
     }
   });
@@ -8886,41 +9082,41 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.each({
-    parent: function (elem) {
+    parent: function parent(elem) {
       var parent = elem.parentNode;
       return parent && parent.nodeType !== 11 ? parent : null;
     },
-    parents: function (elem) {
+    parents: function parents(elem) {
       return dir(elem, "parentNode");
     },
-    parentsUntil: function (elem, i, until) {
+    parentsUntil: function parentsUntil(elem, i, until) {
       return dir(elem, "parentNode", until);
     },
-    next: function (elem) {
+    next: function next(elem) {
       return sibling(elem, "nextSibling");
     },
-    prev: function (elem) {
+    prev: function prev(elem) {
       return sibling(elem, "previousSibling");
     },
-    nextAll: function (elem) {
+    nextAll: function nextAll(elem) {
       return dir(elem, "nextSibling");
     },
-    prevAll: function (elem) {
+    prevAll: function prevAll(elem) {
       return dir(elem, "previousSibling");
     },
-    nextUntil: function (elem, i, until) {
+    nextUntil: function nextUntil(elem, i, until) {
       return dir(elem, "nextSibling", until);
     },
-    prevUntil: function (elem, i, until) {
+    prevUntil: function prevUntil(elem, i, until) {
       return dir(elem, "previousSibling", until);
     },
-    siblings: function (elem) {
-      return siblings((elem.parentNode || {}).firstChild, elem);
+    siblings: function siblings(elem) {
+      return _siblings((elem.parentNode || {}).firstChild, elem);
     },
-    children: function (elem) {
-      return siblings(elem.firstChild);
+    children: function children(elem) {
+      return _siblings(elem.firstChild);
     },
-    contents: function (elem) {
+    contents: function contents(elem) {
       if (nodeName(elem, "iframe")) {
         return elem.contentDocument;
       } // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
@@ -9004,9 +9200,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // Last fire value for non-forgettable lists
     memory,
         // Flag to know if list was already fired
-    fired,
+    _fired,
         // Flag to prevent firing
-    locked,
+    _locked,
         // Actual callback list
     list = [],
         // Queue of execution data for repeatable lists
@@ -9014,12 +9210,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // Index of currently firing callback (modified by add/remove as needed)
     firingIndex = -1,
         // Fire callbacks
-    fire = function () {
+    fire = function fire() {
       // Enforce single-firing
-      locked = locked || options.once; // Execute callbacks for all pending executions,
+      _locked = _locked || options.once; // Execute callbacks for all pending executions,
       // respecting firingIndex overrides and runtime changes
 
-      fired = firing = true;
+      _fired = firing = true;
 
       for (; queue.length; firingIndex = -1) {
         memory = queue.shift();
@@ -9041,7 +9237,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       firing = false; // Clean up if we're done firing for good
 
-      if (locked) {
+      if (_locked) {
         // Keep an empty list if we have data for future add calls
         if (memory) {
           list = []; // Otherwise, this object is spent
@@ -9053,7 +9249,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // Actual Callbacks object
     self = {
       // Add a callback or a collection of callbacks to the list
-      add: function () {
+      add: function add() {
         if (list) {
           // If we have memory from a past run, we should fire after adding
           if (memory && !firing) {
@@ -9082,7 +9278,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return this;
       },
       // Remove a callback from the list
-      remove: function () {
+      remove: function remove() {
         jQuery.each(arguments, function (_, arg) {
           var index;
 
@@ -9098,11 +9294,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       },
       // Check if a given callback is in the list.
       // If no argument is given, return whether or not list has callbacks attached.
-      has: function (fn) {
+      has: function has(fn) {
         return fn ? jQuery.inArray(fn, list) > -1 : list.length > 0;
       },
       // Remove all callbacks from the list
-      empty: function () {
+      empty: function empty() {
         if (list) {
           list = [];
         }
@@ -9112,19 +9308,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       // Disable .fire and .add
       // Abort any current/pending executions
       // Clear all callbacks and values
-      disable: function () {
-        locked = queue = [];
+      disable: function disable() {
+        _locked = queue = [];
         list = memory = "";
         return this;
       },
-      disabled: function () {
+      disabled: function disabled() {
         return !list;
       },
       // Disable .fire
       // Also disable .add unless we have memory (since it would have no effect)
       // Abort any pending executions
-      lock: function () {
-        locked = queue = [];
+      lock: function lock() {
+        _locked = queue = [];
 
         if (!memory && !firing) {
           list = memory = "";
@@ -9132,12 +9328,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         return this;
       },
-      locked: function () {
-        return !!locked;
+      locked: function locked() {
+        return !!_locked;
       },
       // Call all callbacks with the given context and arguments
-      fireWith: function (context, args) {
-        if (!locked) {
+      fireWith: function fireWith(context, args) {
+        if (!_locked) {
           args = args || [];
           args = [context, args.slice ? args.slice() : args];
           queue.push(args);
@@ -9150,13 +9346,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return this;
       },
       // Call all the callbacks with the given arguments
-      fire: function () {
+      fire: function fire() {
         self.fireWith(this, arguments);
         return this;
       },
       // To know if the callbacks have already been called at least once
-      fired: function () {
-        return !!fired;
+      fired: function fired() {
+        return !!_fired;
       }
     };
 
@@ -9197,24 +9393,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.extend({
-    Deferred: function (func) {
+    Deferred: function Deferred(func) {
       var tuples = [// action, add listener, callbacks,
       // ... .then handlers, argument index, [final state]
       ["notify", "progress", jQuery.Callbacks("memory"), jQuery.Callbacks("memory"), 2], ["resolve", "done", jQuery.Callbacks("once memory"), jQuery.Callbacks("once memory"), 0, "resolved"], ["reject", "fail", jQuery.Callbacks("once memory"), jQuery.Callbacks("once memory"), 1, "rejected"]],
-          state = "pending",
-          promise = {
-        state: function () {
-          return state;
+          _state = "pending",
+          _promise = {
+        state: function state() {
+          return _state;
         },
-        always: function () {
+        always: function always() {
           deferred.done(arguments).fail(arguments);
           return this;
         },
-        "catch": function (fn) {
-          return promise.then(null, fn);
+        "catch": function _catch(fn) {
+          return _promise.then(null, fn);
         },
         // Keep pipe for back-compat
-        pipe: function ()
+        pipe: function pipe()
         /* fnDone, fnFail, fnProgress */
         {
           var fns = arguments;
@@ -9238,14 +9434,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             fns = null;
           }).promise();
         },
-        then: function (onFulfilled, onRejected, onProgress) {
+        then: function then(onFulfilled, onRejected, onProgress) {
           var maxDepth = 0;
 
           function resolve(depth, deferred, handler, special) {
             return function () {
               var that = this,
                   args = arguments,
-                  mightThrow = function () {
+                  mightThrow = function mightThrow() {
                 var returned, then; // Support: Promises/A+ section 2.3.3.3.3
                 // https://promisesaplus.com/#point-59
                 // Ignore double-resolution attempts
@@ -9268,7 +9464,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
                 then = returned && ( // Support: Promises/A+ section 2.3.4
                 // https://promisesaplus.com/#point-64
                 // Only check objects and functions for thenability
-                typeof returned === "object" || typeof returned === "function") && returned.then; // Handle a returned thenable
+                _typeof(returned) === "object" || typeof returned === "function") && returned.then; // Handle a returned thenable
 
                 if (isFunction(then)) {
                   // Special processors (notify) just wait for resolution
@@ -9347,8 +9543,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         },
         // Get a promise for this deferred
         // If obj is provided, the promise aspect is added to the object
-        promise: function (obj) {
-          return obj != null ? jQuery.extend(obj, promise) : promise;
+        promise: function promise(obj) {
+          return obj != null ? jQuery.extend(obj, _promise) : _promise;
         }
       },
           deferred = {}; // Add list-specific methods
@@ -9359,13 +9555,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         // promise.done = list.add
         // promise.fail = list.add
 
-        promise[tuple[1]] = list.add; // Handle state
+        _promise[tuple[1]] = list.add; // Handle state
 
         if (stateString) {
           list.add(function () {
             // state = "resolved" (i.e., fulfilled)
             // state = "rejected"
-            state = stateString;
+            _state = stateString;
           }, // rejected_callbacks.disable
           // fulfilled_callbacks.disable
           tuples[3 - i][2].disable, // rejected_handlers.disable
@@ -9393,7 +9589,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         deferred[tuple[0] + "With"] = list.fireWith;
       }); // Make the deferred a promise
 
-      promise.promise(deferred); // Call given func if any
+      _promise.promise(deferred); // Call given func if any
+
 
       if (func) {
         func.call(deferred, deferred);
@@ -9403,21 +9600,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return deferred;
     },
     // Deferred helper
-    when: function (singleValue) {
+    when: function when(singleValue) {
       var // count of uncompleted subordinates
       remaining = arguments.length,
           // count of unprocessed arguments
       i = remaining,
           // subordinate fulfillment data
       resolveContexts = Array(i),
-          resolveValues = slice.call(arguments),
+          resolveValues = _slice.call(arguments),
           // the master Deferred
       master = jQuery.Deferred(),
           // subordinate callback factory
-      updateFunc = function (i) {
+      updateFunc = function updateFunc(i) {
         return function (value) {
           resolveContexts[i] = this;
-          resolveValues[i] = arguments.length > 1 ? slice.call(arguments) : value;
+          resolveValues[i] = arguments.length > 1 ? _slice.call(arguments) : value;
 
           if (! --remaining) {
             master.resolveWith(resolveContexts, resolveValues);
@@ -9480,7 +9677,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // the ready event fires. See #6781
     readyWait: 1,
     // Handle when the DOM is ready
-    ready: function (wait) {
+    ready: function ready(wait) {
       // Abort if there are pending holds or we're already ready
       if (wait === true ? --jQuery.readyWait : jQuery.isReady) {
         return;
@@ -9521,7 +9718,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   // The value/s can optionally be executed if it's a function
 
 
-  var access = function (elems, fn, key, value, chainable, emptyGet, raw) {
+  var access = function access(elems, fn, key, value, chainable, emptyGet, raw) {
     var i = 0,
         len = elems.length,
         bulk = key == null; // Sets many values
@@ -9548,7 +9745,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         } else {
           bulk = fn;
 
-          fn = function (elem, key, value) {
+          fn = function fn(elem, key, value) {
             return bulk.call(jQuery(elem), value);
           };
         }
@@ -9588,7 +9785,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     return string.replace(rmsPrefix, "ms-").replace(rdashAlpha, fcamelCase);
   }
 
-  var acceptData = function (owner) {
+  var acceptData = function acceptData(owner) {
     // Accepts only:
     //  - Node
     //    - Node.ELEMENT_NODE
@@ -9604,7 +9801,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   Data.uid = 1;
   Data.prototype = {
-    cache: function (owner) {
+    cache: function cache(owner) {
       // Check if the owner object already has a cache
       var value = owner[this.expando]; // If not, create one
 
@@ -9631,7 +9828,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return value;
     },
-    set: function (owner, data, value) {
+    set: function set(owner, data, value) {
       var prop,
           cache = this.cache(owner); // Handle: [ owner, key, value ] args
       // Always use camelCase key (gh-2257)
@@ -9647,11 +9844,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return cache;
     },
-    get: function (owner, key) {
+    get: function get(owner, key) {
       return key === undefined ? this.cache(owner) : // Always use camelCase key (gh-2257)
       owner[this.expando] && owner[this.expando][camelCase(key)];
     },
-    access: function (owner, key, value) {
+    access: function access(owner, key, value) {
       // In cases where either:
       //
       //   1. No key was specified
@@ -9678,7 +9875,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return value !== undefined ? value : key;
     },
-    remove: function (owner, key) {
+    remove: function remove(owner, key) {
       var i,
           cache = owner[this.expando];
 
@@ -9719,7 +9916,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       }
     },
-    hasData: function (owner) {
+    hasData: function hasData(owner) {
       var cache = owner[this.expando];
       return cache !== undefined && !jQuery.isEmptyObject(cache);
     }
@@ -9787,26 +9984,26 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.extend({
-    hasData: function (elem) {
+    hasData: function hasData(elem) {
       return dataUser.hasData(elem) || dataPriv.hasData(elem);
     },
-    data: function (elem, name, data) {
-      return dataUser.access(elem, name, data);
+    data: function data(elem, name, _data) {
+      return dataUser.access(elem, name, _data);
     },
-    removeData: function (elem, name) {
+    removeData: function removeData(elem, name) {
       dataUser.remove(elem, name);
     },
     // TODO: Now that all calls to _data and _removeData have been replaced
     // with direct calls to dataPriv methods, these can be deprecated.
-    _data: function (elem, name, data) {
+    _data: function _data(elem, name, data) {
       return dataPriv.access(elem, name, data);
     },
-    _removeData: function (elem, name) {
+    _removeData: function _removeData(elem, name) {
       dataPriv.remove(elem, name);
     }
   });
   jQuery.fn.extend({
-    data: function (key, value) {
+    data: function data(key, value) {
       var i,
           name,
           data,
@@ -9841,7 +10038,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       } // Sets multiple values
 
 
-      if (typeof key === "object") {
+      if (_typeof(key) === "object") {
         return this.each(function () {
           dataUser.set(this, key);
         });
@@ -9882,14 +10079,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         });
       }, null, value, arguments.length > 1, null, true);
     },
-    removeData: function (key) {
+    removeData: function removeData(key) {
       return this.each(function () {
         dataUser.remove(this, key);
       });
     }
   });
   jQuery.extend({
-    queue: function (elem, type, data) {
+    queue: function queue(elem, type, data) {
       var queue;
 
       if (elem) {
@@ -9907,14 +10104,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return queue || [];
       }
     },
-    dequeue: function (elem, type) {
+    dequeue: function dequeue(elem, type) {
       type = type || "fx";
 
       var queue = jQuery.queue(elem, type),
           startLength = queue.length,
           fn = queue.shift(),
           hooks = jQuery._queueHooks(elem, type),
-          next = function () {
+          next = function next() {
         jQuery.dequeue(elem, type);
       }; // If the fx queue is dequeued, always remove the progress sentinel
 
@@ -9941,7 +10138,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       }
     },
     // Not public - generate a queueHooks object, or return the current one
-    _queueHooks: function (elem, type) {
+    _queueHooks: function _queueHooks(elem, type) {
       var key = type + "queueHooks";
       return dataPriv.get(elem, key) || dataPriv.access(elem, key, {
         empty: jQuery.Callbacks("once memory").add(function () {
@@ -9951,7 +10148,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     }
   });
   jQuery.fn.extend({
-    queue: function (type, data) {
+    queue: function queue(type, data) {
       var setter = 2;
 
       if (typeof type !== "string") {
@@ -9974,23 +10171,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    dequeue: function (type) {
+    dequeue: function dequeue(type) {
       return this.each(function () {
         jQuery.dequeue(this, type);
       });
     },
-    clearQueue: function (type) {
+    clearQueue: function clearQueue(type) {
       return this.queue(type || "fx", []);
     },
     // Get a promise resolved when queues of a certain type
     // are emptied (fx is the type by default)
-    promise: function (type, obj) {
+    promise: function promise(type, obj) {
       var tmp,
           count = 1,
           defer = jQuery.Deferred(),
           elements = this,
           i = this.length,
-          resolve = function () {
+          resolve = function resolve() {
         if (! --count) {
           defer.resolveWith(elements, [elements]);
         }
@@ -10020,7 +10217,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   var rcssNum = new RegExp("^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i");
   var cssExpand = ["Top", "Right", "Bottom", "Left"];
 
-  var isHiddenWithinTree = function (elem, el) {
+  var isHiddenWithinTree = function isHiddenWithinTree(elem, el) {
     // isHiddenWithinTree might be called from jQuery#filter function;
     // in that case, element will be second argument
     elem = el || elem; // Inline style trumps all
@@ -10032,7 +10229,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     jQuery.contains(elem.ownerDocument, elem) && jQuery.css(elem, "display") === "none";
   };
 
-  var swap = function (elem, options, callback, args) {
+  var swap = function swap(elem, options, callback, args) {
     var ret,
         name,
         old = {}; // Remember the old values, and insert the new ones
@@ -10182,13 +10379,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.fn.extend({
-    show: function () {
+    show: function show() {
       return showHide(this, true);
     },
-    hide: function () {
+    hide: function hide() {
       return showHide(this);
     },
-    toggle: function (state) {
+    toggle: function toggle(state) {
       if (typeof state === "boolean") {
         return state ? this.show() : this.hide();
       }
@@ -10381,10 +10578,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     } catch (err) {}
   }
 
-  function on(elem, types, selector, data, fn, one) {
+  function _on(elem, types, selector, data, fn, one) {
     var origFn, type; // Types can be a map of types/handlers
 
-    if (typeof types === "object") {
+    if (_typeof(types) === "object") {
       // ( types-Object, selector, data )
       if (typeof selector !== "string") {
         // ( types-Object, data )
@@ -10393,7 +10590,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       }
 
       for (type in types) {
-        on(elem, type, selector, data, types[type], one);
+        _on(elem, type, selector, data, types[type], one);
       }
 
       return elem;
@@ -10425,7 +10622,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     if (one === 1) {
       origFn = fn;
 
-      fn = function (event) {
+      fn = function fn(event) {
         // Can use an empty set, since event contains the info
         jQuery().off(event);
         return origFn.apply(this, arguments);
@@ -10447,7 +10644,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   jQuery.event = {
     global: {},
-    add: function (elem, types, handler, data, selector) {
+    add: function add(elem, types, handler, data, selector) {
       var handleObjIn,
           eventHandle,
           tmp,
@@ -10558,7 +10755,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       }
     },
     // Detach an event or set of events from an element
-    remove: function (elem, types, handler, selector, mappedTypes) {
+    remove: function remove(elem, types, handler, selector, mappedTypes) {
       var j,
           origCount,
           tmp,
@@ -10632,7 +10829,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         dataPriv.remove(elem, "handle events");
       }
     },
-    dispatch: function (nativeEvent) {
+    dispatch: function dispatch(nativeEvent) {
       // Make a writable jQuery.Event from the native event object
       var event = jQuery.event.fix(nativeEvent);
       var i,
@@ -10691,14 +10888,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return event.result;
     },
-    handlers: function (event, handlers) {
+    handlers: function handlers(event, _handlers) {
       var i,
           handleObj,
           sel,
           matchedHandlers,
           matchedSelectors,
           handlerQueue = [],
-          delegateCount = handlers.delegateCount,
+          delegateCount = _handlers.delegateCount,
           cur = event.target; // Find delegate handlers
 
       if (delegateCount && // Support: IE <=9
@@ -10717,7 +10914,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             matchedSelectors = {};
 
             for (i = 0; i < delegateCount; i++) {
-              handleObj = handlers[i]; // Don't conflict with Object.prototype properties (#13203)
+              handleObj = _handlers[i]; // Don't conflict with Object.prototype properties (#13203)
 
               sel = handleObj.selector + " ";
 
@@ -10743,16 +10940,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       cur = this;
 
-      if (delegateCount < handlers.length) {
+      if (delegateCount < _handlers.length) {
         handlerQueue.push({
           elem: cur,
-          handlers: handlers.slice(delegateCount)
+          handlers: _handlers.slice(delegateCount)
         });
       }
 
       return handlerQueue;
     },
-    addProp: function (name, hook) {
+    addProp: function addProp(name, hook) {
       Object.defineProperty(jQuery.Event.prototype, name, {
         enumerable: true,
         configurable: true,
@@ -10765,7 +10962,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             return this.originalEvent[name];
           }
         },
-        set: function (value) {
+        set: function set(value) {
           Object.defineProperty(this, name, {
             enumerable: true,
             configurable: true,
@@ -10775,7 +10972,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    fix: function (originalEvent) {
+    fix: function fix(originalEvent) {
       return originalEvent[jQuery.expando] ? originalEvent : new jQuery.Event(originalEvent);
     },
     special: {
@@ -10785,7 +10982,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       },
       focus: {
         // Fire native event if possible so blur/focus sequence is correct
-        trigger: function () {
+        trigger: function trigger() {
           if (this !== safeActiveElement() && this.focus) {
             this.focus();
             return false;
@@ -10794,7 +10991,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         delegateType: "focusin"
       },
       blur: {
-        trigger: function () {
+        trigger: function trigger() {
           if (this === safeActiveElement() && this.blur) {
             this.blur();
             return false;
@@ -10804,19 +11001,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       },
       click: {
         // For checkbox, fire native event so checked state will be right
-        trigger: function () {
+        trigger: function trigger() {
           if (this.type === "checkbox" && this.click && nodeName(this, "input")) {
             this.click();
             return false;
           }
         },
         // For cross-browser consistency, don't fire native .click() on links
-        _default: function (event) {
+        _default: function _default(event) {
           return nodeName(event.target, "a");
         }
       },
       beforeunload: {
-        postDispatch: function (event) {
+        postDispatch: function postDispatch(event) {
           // Support: Firefox 20+
           // Firefox doesn't alert if the returnValue field is not set.
           if (event.result !== undefined && event.originalEvent) {
@@ -10877,7 +11074,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     isPropagationStopped: returnFalse,
     isImmediatePropagationStopped: returnFalse,
     isSimulated: false,
-    preventDefault: function () {
+    preventDefault: function preventDefault() {
       var e = this.originalEvent;
       this.isDefaultPrevented = returnTrue;
 
@@ -10885,7 +11082,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         e.preventDefault();
       }
     },
-    stopPropagation: function () {
+    stopPropagation: function stopPropagation() {
       var e = this.originalEvent;
       this.isPropagationStopped = returnTrue;
 
@@ -10893,7 +11090,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         e.stopPropagation();
       }
     },
-    stopImmediatePropagation: function () {
+    stopImmediatePropagation: function stopImmediatePropagation() {
       var e = this.originalEvent;
       this.isImmediatePropagationStopped = returnTrue;
 
@@ -10935,7 +11132,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     targetTouches: true,
     toElement: true,
     touches: true,
-    which: function (event) {
+    which: function which(event) {
       var button = event.button; // Add which for key events
 
       if (event.which == null && rkeyEvent.test(event.type)) {
@@ -10979,7 +11176,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     jQuery.event.special[orig] = {
       delegateType: fix,
       bindType: fix,
-      handle: function (event) {
+      handle: function handle(event) {
         var ret,
             target = this,
             related = event.relatedTarget,
@@ -10997,13 +11194,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     };
   });
   jQuery.fn.extend({
-    on: function (types, selector, data, fn) {
-      return on(this, types, selector, data, fn);
+    on: function on(types, selector, data, fn) {
+      return _on(this, types, selector, data, fn);
     },
-    one: function (types, selector, data, fn) {
-      return on(this, types, selector, data, fn, 1);
+    one: function one(types, selector, data, fn) {
+      return _on(this, types, selector, data, fn, 1);
     },
-    off: function (types, selector, fn) {
+    off: function off(types, selector, fn) {
       var handleObj, type;
 
       if (types && types.preventDefault && types.handleObj) {
@@ -11013,7 +11210,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return this;
       }
 
-      if (typeof types === "object") {
+      if (_typeof(types) === "object") {
         // ( types-object [, selector] )
         for (type in types) {
           this.off(type, selector, types[type]);
@@ -11203,7 +11400,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     return collection;
   }
 
-  function remove(elem, selector, keepData) {
+  function _remove(elem, selector, keepData) {
     var node,
         nodes = selector ? jQuery.filter(selector, elem) : elem,
         i = 0;
@@ -11226,10 +11423,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.extend({
-    htmlPrefilter: function (html) {
+    htmlPrefilter: function htmlPrefilter(html) {
       return html.replace(rxhtmlTag, "<$1></$2>");
     },
-    clone: function (elem, dataAndEvents, deepDataAndEvents) {
+    clone: function clone(elem, dataAndEvents, deepDataAndEvents) {
       var i,
           l,
           srcElements,
@@ -11271,7 +11468,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return clone;
     },
-    cleanData: function (elems) {
+    cleanData: function cleanData(elems) {
       var data,
           elem,
           type,
@@ -11306,13 +11503,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     }
   });
   jQuery.fn.extend({
-    detach: function (selector) {
-      return remove(this, selector, true);
+    detach: function detach(selector) {
+      return _remove(this, selector, true);
     },
-    remove: function (selector) {
-      return remove(this, selector);
+    remove: function remove(selector) {
+      return _remove(this, selector);
     },
-    text: function (value) {
+    text: function text(value) {
       return access(this, function (value) {
         return value === undefined ? jQuery.text(this) : this.empty().each(function () {
           if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
@@ -11321,7 +11518,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         });
       }, null, value, arguments.length);
     },
-    append: function () {
+    append: function append() {
       return domManip(this, arguments, function (elem) {
         if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
           var target = manipulationTarget(this, elem);
@@ -11329,7 +11526,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    prepend: function () {
+    prepend: function prepend() {
       return domManip(this, arguments, function (elem) {
         if (this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9) {
           var target = manipulationTarget(this, elem);
@@ -11337,21 +11534,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    before: function () {
+    before: function before() {
       return domManip(this, arguments, function (elem) {
         if (this.parentNode) {
           this.parentNode.insertBefore(elem, this);
         }
       });
     },
-    after: function () {
+    after: function after() {
       return domManip(this, arguments, function (elem) {
         if (this.parentNode) {
           this.parentNode.insertBefore(elem, this.nextSibling);
         }
       });
     },
-    empty: function () {
+    empty: function empty() {
       var elem,
           i = 0;
 
@@ -11366,14 +11563,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return this;
     },
-    clone: function (dataAndEvents, deepDataAndEvents) {
+    clone: function clone(dataAndEvents, deepDataAndEvents) {
       dataAndEvents = dataAndEvents == null ? false : dataAndEvents;
       deepDataAndEvents = deepDataAndEvents == null ? dataAndEvents : deepDataAndEvents;
       return this.map(function () {
         return jQuery.clone(this, dataAndEvents, deepDataAndEvents);
       });
     },
-    html: function (value) {
+    html: function html(value) {
       return access(this, function (value) {
         var elem = this[0] || {},
             i = 0,
@@ -11406,7 +11603,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       }, null, value, arguments.length);
     },
-    replaceWith: function () {
+    replaceWith: function replaceWith() {
       var ignored = []; // Make the changes, replacing each non-ignored context element with the new content
 
       return domManip(this, arguments, function (elem) {
@@ -11450,7 +11647,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   });
   var rnumnonpx = new RegExp("^(" + pnum + ")(?!px)[a-z%]+$", "i");
 
-  var getStyles = function (elem) {
+  var getStyles = function getStyles(elem) {
     // Support: IE <=11 only, Firefox <=30 (#15098, #14150)
     // IE throws on elements created in popups
     // FF meanwhile throws on frame elements through "defaultView.getComputedStyle"
@@ -11520,23 +11717,23 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     div.cloneNode(true).style.backgroundClip = "";
     support.clearCloneStyle = div.style.backgroundClip === "content-box";
     jQuery.extend(support, {
-      boxSizingReliable: function () {
+      boxSizingReliable: function boxSizingReliable() {
         computeStyleTests();
         return boxSizingReliableVal;
       },
-      pixelBoxStyles: function () {
+      pixelBoxStyles: function pixelBoxStyles() {
         computeStyleTests();
         return pixelBoxStylesVal;
       },
-      pixelPosition: function () {
+      pixelPosition: function pixelPosition() {
         computeStyleTests();
         return pixelPositionVal;
       },
-      reliableMarginLeft: function () {
+      reliableMarginLeft: function reliableMarginLeft() {
         computeStyleTests();
         return reliableMarginLeftVal;
       },
-      scrollboxSize: function () {
+      scrollboxSize: function scrollboxSize() {
         computeStyleTests();
         return scrollboxSizeVal;
       }
@@ -11592,7 +11789,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   function addGetHookIf(conditionFn, hookFn) {
     // Define the hook, we'll check on the first run if it's really needed.
     return {
-      get: function () {
+      get: function get() {
         if (conditionFn()) {
           // Hook not needed (or it's not possible to use it due
           // to missing dependency), remove it.
@@ -11753,7 +11950,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // behavior of getting and setting a style property
     cssHooks: {
       opacity: {
-        get: function (elem, computed) {
+        get: function get(elem, computed) {
           if (computed) {
             // We should always get a number back from opacity
             var ret = curCSS(elem, "opacity");
@@ -11782,7 +11979,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // setting or getting the value
     cssProps: {},
     // Get and set the style property on a DOM Node
-    style: function (elem, name, value, extra) {
+    style: function style(elem, name, value, extra) {
       // Don't set styles on text and comment nodes
       if (!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style) {
         return;
@@ -11806,7 +12003,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       hooks = jQuery.cssHooks[name] || jQuery.cssHooks[origName]; // Check if we're setting a value
 
       if (value !== undefined) {
-        type = typeof value; // Convert "+=" or "-=" to relative numbers (#7345)
+        type = _typeof(value); // Convert "+=" or "-=" to relative numbers (#7345)
 
         if (type === "string" && (ret = rcssNum.exec(value)) && ret[1]) {
           value = adjustCSS(elem, name, ret); // Fixes bug #9237
@@ -11847,7 +12044,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return style[name];
       }
     },
-    css: function (elem, name, extra, styles) {
+    css: function css(elem, name, extra, styles) {
       var val,
           num,
           hooks,
@@ -11888,7 +12085,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   });
   jQuery.each(["height", "width"], function (i, dimension) {
     jQuery.cssHooks[dimension] = {
-      get: function (elem, computed, extra) {
+      get: function get(elem, computed, extra) {
         if (computed) {
           // Certain elements can have dimension info if we invisibly show them
           // but it must have a current display style that would benefit
@@ -11903,7 +12100,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           }) : getWidthOrHeight(elem, dimension, extra);
         }
       },
-      set: function (elem, value, extra) {
+      set: function set(elem, value, extra) {
         var matches,
             styles = getStyles(elem),
             isBorderBox = jQuery.css(elem, "boxSizing", false, styles) === "border-box",
@@ -11940,7 +12137,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     border: "Width"
   }, function (prefix, suffix) {
     jQuery.cssHooks[prefix + suffix] = {
-      expand: function (value) {
+      expand: function expand(value) {
         var i = 0,
             expanded = {},
             // Assumes a single number if not a string
@@ -11959,7 +12156,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     }
   });
   jQuery.fn.extend({
-    css: function (name, value) {
+    css: function css(name, value) {
       return access(this, function (elem, name, value) {
         var styles,
             len,
@@ -11989,7 +12186,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   jQuery.Tween = Tween;
   Tween.prototype = {
     constructor: Tween,
-    init: function (elem, options, prop, end, easing, unit) {
+    init: function init(elem, options, prop, end, easing, unit) {
       this.elem = elem;
       this.prop = prop;
       this.easing = easing || jQuery.easing._default;
@@ -11998,11 +12195,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       this.end = end;
       this.unit = unit || (jQuery.cssNumber[prop] ? "" : "px");
     },
-    cur: function () {
+    cur: function cur() {
       var hooks = Tween.propHooks[this.prop];
       return hooks && hooks.get ? hooks.get(this) : Tween.propHooks._default.get(this);
     },
-    run: function (percent) {
+    run: function run(percent) {
       var eased,
           hooks = Tween.propHooks[this.prop];
 
@@ -12030,7 +12227,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   Tween.prototype.init.prototype = Tween.prototype;
   Tween.propHooks = {
     _default: {
-      get: function (tween) {
+      get: function get(tween) {
         var result; // Use a property on the element directly when it is not a DOM element,
         // or when there is no matching style property that exists.
 
@@ -12046,7 +12243,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         return !result || result === "auto" ? 0 : result;
       },
-      set: function (tween) {
+      set: function set(tween) {
         // Use step hook for back compat.
         // Use cssHook if its there.
         // Use .style if available and use plain properties where available.
@@ -12063,17 +12260,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   // Panic based approach to setting things on disconnected nodes
 
   Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
-    set: function (tween) {
+    set: function set(tween) {
       if (tween.elem.nodeType && tween.elem.parentNode) {
         tween.elem[tween.prop] = tween.now;
       }
     }
   };
   jQuery.easing = {
-    linear: function (p) {
+    linear: function linear(p) {
       return p;
     },
-    swing: function (p) {
+    swing: function swing(p) {
       return 0.5 - Math.cos(p * Math.PI) / 2;
     },
     _default: "swing"
@@ -12375,7 +12572,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       // Don't match elem in the :animated selector
       delete tick.elem;
     }),
-        tick = function () {
+        tick = function tick() {
       if (stopped) {
         return false;
       }
@@ -12420,12 +12617,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       startTime: fxNow || createFxNow(),
       duration: options.duration,
       tweens: [],
-      createTween: function (prop, end) {
+      createTween: function createTween(prop, end) {
         var tween = jQuery.Tween(elem, animation.opts, prop, end, animation.opts.specialEasing[prop] || animation.opts.easing);
         animation.tweens.push(tween);
         return tween;
       },
-      stop: function (gotoEnd) {
+      stop: function stop(gotoEnd) {
         var index = 0,
             // If we are going to the end, we want to run all the tweens
         // otherwise we skip this part
@@ -12492,7 +12689,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         return tween;
       }]
     },
-    tweener: function (props, callback) {
+    tweener: function tweener(props, callback) {
       if (isFunction(props)) {
         callback = props;
         props = ["*"];
@@ -12511,7 +12708,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       }
     },
     prefilters: [defaultPrefilter],
-    prefilter: function (callback, prepend) {
+    prefilter: function prefilter(callback, prepend) {
       if (prepend) {
         Animation.prefilters.unshift(callback);
       } else {
@@ -12521,7 +12718,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   });
 
   jQuery.speed = function (speed, easing, fn) {
-    var opt = speed && typeof speed === "object" ? jQuery.extend({}, speed) : {
+    var opt = speed && _typeof(speed) === "object" ? jQuery.extend({}, speed) : {
       complete: fn || !fn && easing || isFunction(speed) && speed,
       duration: speed,
       easing: fn && easing || easing && !isFunction(easing) && easing
@@ -12561,17 +12758,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 
   jQuery.fn.extend({
-    fadeTo: function (speed, to, easing, callback) {
+    fadeTo: function fadeTo(speed, to, easing, callback) {
       // Show any hidden elements after setting opacity to 0
       return this.filter(isHiddenWithinTree).css("opacity", 0).show() // Animate to the value specified
       .end().animate({
         opacity: to
       }, speed, easing, callback);
     },
-    animate: function (prop, speed, easing, callback) {
+    animate: function animate(prop, speed, easing, callback) {
       var empty = jQuery.isEmptyObject(prop),
           optall = jQuery.speed(speed, easing, callback),
-          doAnimation = function () {
+          doAnimation = function doAnimation() {
         // Operate on a copy of prop so per-property easing won't be lost
         var anim = Animation(this, jQuery.extend({}, prop), optall); // Empty animations, or finishing resolves immediately
 
@@ -12583,8 +12780,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       doAnimation.finish = doAnimation;
       return empty || optall.queue === false ? this.each(doAnimation) : this.queue(optall.queue, doAnimation);
     },
-    stop: function (type, clearQueue, gotoEnd) {
-      var stopQueue = function (hooks) {
+    stop: function stop(type, clearQueue, gotoEnd) {
+      var stopQueue = function stopQueue(hooks) {
         var stop = hooks.stop;
         delete hooks.stop;
         stop(gotoEnd);
@@ -12634,7 +12831,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    finish: function (type) {
+    finish: function finish(type) {
       if (type !== false) {
         type = type || "fx";
       }
@@ -12786,17 +12983,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   var boolHook,
       attrHandle = jQuery.expr.attrHandle;
   jQuery.fn.extend({
-    attr: function (name, value) {
+    attr: function attr(name, value) {
       return access(this, jQuery.attr, name, value, arguments.length > 1);
     },
-    removeAttr: function (name) {
+    removeAttr: function removeAttr(name) {
       return this.each(function () {
         jQuery.removeAttr(this, name);
       });
     }
   });
   jQuery.extend({
-    attr: function (elem, name, value) {
+    attr: function attr(elem, name, value) {
       var ret,
           hooks,
           nType = elem.nodeType; // Don't get/set attributes on text, comment and attribute nodes
@@ -12840,7 +13037,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     },
     attrHooks: {
       type: {
-        set: function (elem, value) {
+        set: function set(elem, value) {
           if (!support.radioValue && value === "radio" && nodeName(elem, "input")) {
             var val = elem.value;
             elem.setAttribute("type", value);
@@ -12854,7 +13051,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       }
     },
-    removeAttr: function (elem, value) {
+    removeAttr: function removeAttr(elem, value) {
       var name,
           i = 0,
           // Attribute names can contain non-HTML whitespace characters
@@ -12870,7 +13067,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }); // Hooks for boolean attributes
 
   boolHook = {
-    set: function (elem, value, name) {
+    set: function set(elem, value, name) {
       if (value === false) {
         // Remove boolean attributes when set to false
         jQuery.removeAttr(elem, name);
@@ -12903,17 +13100,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   var rfocusable = /^(?:input|select|textarea|button)$/i,
       rclickable = /^(?:a|area)$/i;
   jQuery.fn.extend({
-    prop: function (name, value) {
+    prop: function prop(name, value) {
       return access(this, jQuery.prop, name, value, arguments.length > 1);
     },
-    removeProp: function (name) {
+    removeProp: function removeProp(name) {
       return this.each(function () {
         delete this[jQuery.propFix[name] || name];
       });
     }
   });
   jQuery.extend({
-    prop: function (elem, name, value) {
+    prop: function prop(elem, name, value) {
       var ret,
           hooks,
           nType = elem.nodeType; // Don't get/set properties on text, comment and attribute nodes
@@ -12944,7 +13141,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     },
     propHooks: {
       tabIndex: {
-        get: function (elem) {
+        get: function get(elem) {
           // Support: IE <=9 - 11 only
           // elem.tabIndex doesn't always return the
           // correct value when it hasn't been explicitly set
@@ -12979,7 +13176,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   if (!support.optSelected) {
     jQuery.propHooks.selected = {
-      get: function (elem) {
+      get: function get(elem) {
         /* eslint no-unused-expressions: "off" */
         var parent = elem.parentNode;
 
@@ -12989,7 +13186,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
         return null;
       },
-      set: function (elem) {
+      set: function set(elem) {
         /* eslint no-unused-expressions: "off" */
         var parent = elem.parentNode;
 
@@ -13031,7 +13228,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   }
 
   jQuery.fn.extend({
-    addClass: function (value) {
+    addClass: function addClass(value) {
       var classes,
           elem,
           cur,
@@ -13075,7 +13272,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return this;
     },
-    removeClass: function (value) {
+    removeClass: function removeClass(value) {
       var classes,
           elem,
           cur,
@@ -13125,8 +13322,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return this;
     },
-    toggleClass: function (value, stateVal) {
-      var type = typeof value,
+    toggleClass: function toggleClass(value, stateVal) {
+      var type = _typeof(value),
           isValidValue = type === "string" || Array.isArray(value);
 
       if (typeof stateVal === "boolean" && isValidValue) {
@@ -13175,7 +13372,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    hasClass: function (selector) {
+    hasClass: function hasClass(selector) {
       var className,
           elem,
           i = 0;
@@ -13192,7 +13389,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   });
   var rreturn = /\r/g;
   jQuery.fn.extend({
-    val: function (value) {
+    val: function val(value) {
       var hooks,
           ret,
           valueIsFunction,
@@ -13255,7 +13452,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   jQuery.extend({
     valHooks: {
       option: {
-        get: function (elem) {
+        get: function get(elem) {
           var val = jQuery.find.attr(elem, "value");
           return val != null ? val : // Support: IE <=10 - 11 only
           // option.text throws exceptions (#14686, #14858)
@@ -13265,7 +13462,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       },
       select: {
-        get: function (elem) {
+        get: function get(elem) {
           var value,
               option,
               i,
@@ -13302,7 +13499,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           return values;
         },
-        set: function (elem, value) {
+        set: function set(elem, value) {
           var optionSet,
               option,
               options = elem.options,
@@ -13333,7 +13530,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   jQuery.each(["radio", "checkbox"], function () {
     jQuery.valHooks[this] = {
-      set: function (elem, value) {
+      set: function set(elem, value) {
         if (Array.isArray(value)) {
           return elem.checked = jQuery.inArray(jQuery(elem).val(), value) > -1;
         }
@@ -13350,12 +13547,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   support.focusin = "onfocusin" in window;
 
   var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
-      stopPropagationCallback = function (e) {
+      stopPropagationCallback = function stopPropagationCallback(e) {
     e.stopPropagation();
   };
 
   jQuery.extend(jQuery.event, {
-    trigger: function (event, data, elem, onlyHandlers) {
+    trigger: function trigger(event, data, elem, onlyHandlers) {
       var i,
           cur,
           tmp,
@@ -13387,7 +13584,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       ontype = type.indexOf(":") < 0 && "on" + type; // Caller can pass in a jQuery.Event object, Object, or just an event type string
 
-      event = event[jQuery.expando] ? event : new jQuery.Event(type, typeof event === "object" && event); // Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
+      event = event[jQuery.expando] ? event : new jQuery.Event(type, _typeof(event) === "object" && event); // Trigger bitmask: & 1 for native handlers; & 2 for jQuery (always true)
 
       event.isTrigger = onlyHandlers ? 2 : 3;
       event.namespace = namespaces.join(".");
@@ -13493,7 +13690,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     },
     // Piggyback on a donor event to simulate a different one
     // Used only for `focus(in | out)` events
-    simulate: function (type, elem, event) {
+    simulate: function simulate(type, elem, event) {
       var e = jQuery.extend(new jQuery.Event(), event, {
         type: type,
         isSimulated: true
@@ -13502,12 +13699,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     }
   });
   jQuery.fn.extend({
-    trigger: function (type, data) {
+    trigger: function trigger(type, data) {
       return this.each(function () {
         jQuery.event.trigger(type, data, this);
       });
     },
-    triggerHandler: function (type, data) {
+    triggerHandler: function triggerHandler(type, data) {
       var elem = this[0];
 
       if (elem) {
@@ -13529,12 +13726,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       blur: "focusout"
     }, function (orig, fix) {
       // Attach a single capturing handler on the document while someone wants focusin/focusout
-      var handler = function (event) {
+      var handler = function handler(event) {
         jQuery.event.simulate(fix, event.target, jQuery.event.fix(event));
       };
 
       jQuery.event.special[fix] = {
-        setup: function () {
+        setup: function setup() {
           var doc = this.ownerDocument || this,
               attaches = dataPriv.access(doc, fix);
 
@@ -13544,7 +13741,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           dataPriv.access(doc, fix, (attaches || 0) + 1);
         },
-        teardown: function () {
+        teardown: function teardown() {
           var doc = this.ownerDocument || this,
               attaches = dataPriv.access(doc, fix) - 1;
 
@@ -13601,7 +13798,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           add(prefix, v);
         } else {
           // Item is non-scalar (array or object), encode its numeric index.
-          buildParams(prefix + "[" + (typeof v === "object" && v != null ? i : "") + "]", v, traditional, add);
+          buildParams(prefix + "[" + (_typeof(v) === "object" && v != null ? i : "") + "]", v, traditional, add);
         }
       });
     } else if (!traditional && toType(obj) === "object") {
@@ -13620,7 +13817,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   jQuery.param = function (a, traditional) {
     var prefix,
         s = [],
-        add = function (key, valueOrFunction) {
+        add = function add(key, valueOrFunction) {
       // If value is a function, invoke it and use its return value
       var value = isFunction(valueOrFunction) ? valueOrFunction() : valueOrFunction;
       s[s.length] = encodeURIComponent(key) + "=" + encodeURIComponent(value == null ? "" : value);
@@ -13645,10 +13842,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 
   jQuery.fn.extend({
-    serialize: function () {
+    serialize: function serialize() {
       return jQuery.param(this.serializeArray());
     },
-    serializeArray: function () {
+    serializeArray: function serializeArray() {
       return this.map(function () {
         // Can add propHook for "elements" to filter or add form elements
         var elements = jQuery.prop(this, "elements");
@@ -14008,7 +14205,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // Creates a full fledged settings object into target
     // with both ajaxSettings and settings fields.
     // If target is omitted, writes into ajaxSettings.
-    ajaxSetup: function (target, settings) {
+    ajaxSetup: function ajaxSetup(target, settings) {
       return settings ? // Building a settings object
       ajaxExtend(ajaxExtend(target, jQuery.ajaxSettings), settings) : // Extending ajaxSettings
       ajaxExtend(jQuery.ajaxSettings, target);
@@ -14016,15 +14213,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     ajaxPrefilter: addToPrefiltersOrTransports(prefilters),
     ajaxTransport: addToPrefiltersOrTransports(transports),
     // Main method
-    ajax: function (url, options) {
+    ajax: function ajax(url, options) {
       // If url is an object, simulate pre-1.5 signature
-      if (typeof url === "object") {
+      if (_typeof(url) === "object") {
         options = url;
         url = undefined;
       } // Force options to be an object
 
 
       options = options || {};
+
       var transport,
           // URL without anti-cache param
       cacheURL,
@@ -14053,7 +14251,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       deferred = jQuery.Deferred(),
           completeDeferred = jQuery.Callbacks("once memory"),
           // Status-dependent callbacks
-      statusCode = s.statusCode || {},
+      _statusCode = s.statusCode || {},
           // Headers (they are sent all at once)
       requestHeaders = {},
           requestHeadersNames = {},
@@ -14063,7 +14261,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       jqXHR = {
         readyState: 0,
         // Builds headers hashtable if needed
-        getResponseHeader: function (key) {
+        getResponseHeader: function getResponseHeader(key) {
           var match;
 
           if (completed) {
@@ -14081,11 +14279,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return match == null ? null : match;
         },
         // Raw string
-        getAllResponseHeaders: function () {
+        getAllResponseHeaders: function getAllResponseHeaders() {
           return completed ? responseHeadersString : null;
         },
         // Caches the header
-        setRequestHeader: function (name, value) {
+        setRequestHeader: function setRequestHeader(name, value) {
           if (completed == null) {
             name = requestHeadersNames[name.toLowerCase()] = requestHeadersNames[name.toLowerCase()] || name;
             requestHeaders[name] = value;
@@ -14094,7 +14292,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return this;
         },
         // Overrides response content-type header
-        overrideMimeType: function (type) {
+        overrideMimeType: function overrideMimeType(type) {
           if (completed == null) {
             s.mimeType = type;
           }
@@ -14102,7 +14300,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return this;
         },
         // Status-dependent callbacks
-        statusCode: function (map) {
+        statusCode: function statusCode(map) {
           var code;
 
           if (map) {
@@ -14112,7 +14310,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
             } else {
               // Lazy-add the new callbacks in a way that preserves old ones
               for (code in map) {
-                statusCode[code] = [statusCode[code], map[code]];
+                _statusCode[code] = [_statusCode[code], map[code]];
               }
             }
           }
@@ -14120,7 +14318,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return this;
         },
         // Cancel the request
-        abort: function (statusText) {
+        abort: function abort(statusText) {
           var finalText = statusText || strAbort;
 
           if (transport) {
@@ -14131,6 +14329,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           return this;
         }
       }; // Attach deferreds
+
 
       deferred.promise(jqXHR); // Add protocol if not provided (prefilters might expect it)
       // Handle falsy url in the settings object (#10093: consistency with old signature)
@@ -14371,8 +14570,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         } // Status-dependent callbacks
 
 
-        jqXHR.statusCode(statusCode);
-        statusCode = undefined;
+        jqXHR.statusCode(_statusCode);
+        _statusCode = undefined;
 
         if (fireGlobals) {
           globalEventContext.trigger(isSuccess ? "ajaxSuccess" : "ajaxError", [jqXHR, s, isSuccess ? success : error]);
@@ -14392,10 +14591,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return jqXHR;
     },
-    getJSON: function (url, data, callback) {
+    getJSON: function getJSON(url, data, callback) {
       return jQuery.get(url, data, callback, "json");
     },
-    getScript: function (url, callback) {
+    getScript: function getScript(url, callback) {
       return jQuery.get(url, undefined, callback, "script");
     }
   });
@@ -14433,7 +14632,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 
   jQuery.fn.extend({
-    wrapAll: function (html) {
+    wrapAll: function wrapAll(html) {
       var wrap;
 
       if (this[0]) {
@@ -14461,7 +14660,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
       return this;
     },
-    wrapInner: function (html) {
+    wrapInner: function wrapInner(html) {
       if (isFunction(html)) {
         return this.each(function (i) {
           jQuery(this).wrapInner(html.call(this, i));
@@ -14479,13 +14678,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         }
       });
     },
-    wrap: function (html) {
+    wrap: function wrap(html) {
       var htmlIsFunction = isFunction(html);
       return this.each(function (i) {
         jQuery(this).wrapAll(htmlIsFunction ? html.call(this, i) : html);
       });
     },
-    unwrap: function (selector) {
+    unwrap: function unwrap(selector) {
       this.parent(selector).not("body").each(function () {
         jQuery(this).replaceWith(this.childNodes);
       });
@@ -14518,11 +14717,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   support.cors = !!xhrSupported && "withCredentials" in xhrSupported;
   support.ajax = xhrSupported = !!xhrSupported;
   jQuery.ajaxTransport(function (options) {
-    var callback, errorCallback; // Cross domain only allowed if supported through XMLHttpRequest
+    var _callback, errorCallback; // Cross domain only allowed if supported through XMLHttpRequest
+
 
     if (support.cors || xhrSupported && !options.crossDomain) {
       return {
-        send: function (headers, complete) {
+        send: function send(headers, complete) {
           var i,
               xhr = options.xhr();
           xhr.open(options.type, options.url, options.async, options.username, options.password); // Apply custom fields if provided
@@ -14553,10 +14753,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           } // Callback
 
 
-          callback = function (type) {
+          _callback = function callback(type) {
             return function () {
-              if (callback) {
-                callback = errorCallback = xhr.onload = xhr.onerror = xhr.onabort = xhr.ontimeout = xhr.onreadystatechange = null;
+              if (_callback) {
+                _callback = errorCallback = xhr.onload = xhr.onerror = xhr.onabort = xhr.ontimeout = xhr.onreadystatechange = null;
 
                 if (type === "abort") {
                   xhr.abort();
@@ -14585,8 +14785,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           }; // Listen to events
 
 
-          xhr.onload = callback();
-          errorCallback = xhr.onerror = xhr.ontimeout = callback("error"); // Support: IE 9 only
+          xhr.onload = _callback();
+          errorCallback = xhr.onerror = xhr.ontimeout = _callback("error"); // Support: IE 9 only
           // Use onreadystatechange to replace onabort
           // to handle uncaught aborts
 
@@ -14601,7 +14801,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
                 // Also, save errorCallback to a variable
                 // as xhr.onerror cannot be accessed
                 window.setTimeout(function () {
-                  if (callback) {
+                  if (_callback) {
                     errorCallback();
                   }
                 });
@@ -14610,21 +14810,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
           } // Create the abort callback
 
 
-          callback = callback("abort");
+          _callback = _callback("abort");
 
           try {
             // Do send the request (this may raise an exception)
             xhr.send(options.hasContent && options.data || null);
           } catch (e) {
             // #14683: Only rethrow if this hasn't been notified as an error yet
-            if (callback) {
+            if (_callback) {
               throw e;
             }
           }
         },
-        abort: function () {
-          if (callback) {
-            callback();
+        abort: function abort() {
+          if (_callback) {
+            _callback();
           }
         }
       };
@@ -14645,7 +14845,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       script: /\b(?:java|ecma)script\b/
     },
     converters: {
-      "text script": function (text) {
+      "text script": function textScript(text) {
         jQuery.globalEval(text);
         return text;
       }
@@ -14665,15 +14865,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   jQuery.ajaxTransport("script", function (s) {
     // This transport only deals with cross domain requests
     if (s.crossDomain) {
-      var script, callback;
+      var script, _callback2;
+
       return {
-        send: function (_, complete) {
+        send: function send(_, complete) {
           script = jQuery("<script>").prop({
             charset: s.scriptCharset,
             src: s.url
-          }).on("load error", callback = function (evt) {
+          }).on("load error", _callback2 = function callback(evt) {
             script.remove();
-            callback = null;
+            _callback2 = null;
 
             if (evt) {
               complete(evt.type === "error" ? 404 : 200, evt.type);
@@ -14682,9 +14883,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
           document.head.appendChild(script[0]);
         },
-        abort: function () {
-          if (callback) {
-            callback();
+        abort: function abort() {
+          if (_callback2) {
+            _callback2();
           }
         }
       };
@@ -14695,7 +14896,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   jQuery.ajaxSetup({
     jsonp: "callback",
-    jsonpCallback: function () {
+    jsonpCallback: function jsonpCallback() {
       var callback = oldCallbacks.pop() || jQuery.expando + "_" + nonce++;
       this[callback] = true;
       return callback;
@@ -14844,7 +15045,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       // We assume that it's the callback
       callback = params;
       params = undefined; // Otherwise, build a param string
-    } else if (params && typeof params === "object") {
+    } else if (params && _typeof(params) === "object") {
       type = "POST";
     } // If we have elements to modify, make the request
 
@@ -14891,7 +15092,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
 
   jQuery.offset = {
-    setOffset: function (elem, options, i) {
+    setOffset: function setOffset(elem, options, i) {
       var curPosition,
           curLeft,
           curCSSTop,
@@ -14944,7 +15145,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   };
   jQuery.fn.extend({
     // offset() relates an element's border box to the document origin
-    offset: function (options) {
+    offset: function offset(options) {
       // Preserve chaining for setter
       if (arguments.length) {
         return options === undefined ? this : this.each(function (i) {
@@ -14981,7 +15182,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     },
     // position() relates an element's margin box to its offset parent's padding box
     // This corresponds to the behavior of CSS absolute positioning
-    position: function () {
+    position: function position() {
       if (!this[0]) {
         return;
       }
@@ -15033,7 +15234,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     // and might be considered as more preferable results.
     //
     // This logic, however, is not guaranteed and can change at any point in the future
-    offsetParent: function () {
+    offsetParent: function offsetParent() {
       return this.map(function () {
         var offsetParent = this.offsetParent;
 
@@ -15134,21 +15335,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     };
   });
   jQuery.fn.extend({
-    hover: function (fnOver, fnOut) {
+    hover: function hover(fnOver, fnOut) {
       return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);
     }
   });
   jQuery.fn.extend({
-    bind: function (types, data, fn) {
+    bind: function bind(types, data, fn) {
       return this.on(types, null, data, fn);
     },
-    unbind: function (types, fn) {
+    unbind: function unbind(types, fn) {
       return this.off(types, null, fn);
     },
-    delegate: function (selector, types, data, fn) {
+    delegate: function delegate(selector, types, data, fn) {
       return this.on(types, selector, data, fn);
     },
-    undelegate: function (selector, types, fn) {
+    undelegate: function undelegate(selector, types, fn) {
       // ( namespace ) or ( selector, types [, fn] )
       return arguments.length === 1 ? this.off(selector, "**") : this.off(types, selector || "**", fn);
     }
@@ -15173,10 +15374,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     } // Simulated bind
 
 
-    args = slice.call(arguments, 2);
+    args = _slice.call(arguments, 2);
 
-    proxy = function () {
-      return fn.apply(context || this, args.concat(slice.call(arguments)));
+    proxy = function proxy() {
+      return fn.apply(context || this, args.concat(_slice.call(arguments)));
     }; // Set the guid of unique handler to the same of original handler, so it can be removed
 
 
@@ -15256,6 +15457,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
   return jQuery;
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
 /***/ }),
 
@@ -15657,8 +15859,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /** Built-in value references. */
 
-var Symbol = _root_js__WEBPACK_IMPORTED_MODULE_0__["default"].Symbol;
-/* harmony default export */ __webpack_exports__["default"] = (Symbol);
+var _Symbol = _root_js__WEBPACK_IMPORTED_MODULE_0__["default"].Symbol;
+/* harmony default export */ __webpack_exports__["default"] = (_Symbol);
 
 /***/ }),
 
@@ -18677,6 +18879,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _identity_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./identity.js */ "./node_modules/lodash-es/identity.js");
 /* harmony import */ var _isArray_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isArray.js */ "./node_modules/lodash-es/isArray.js");
 /* harmony import */ var _property_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./property.js */ "./node_modules/lodash-es/property.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 
@@ -18701,7 +18905,7 @@ function baseIteratee(value) {
     return _identity_js__WEBPACK_IMPORTED_MODULE_2__["default"];
   }
 
-  if (typeof value == 'object') {
+  if (_typeof(value) == 'object') {
     return Object(_isArray_js__WEBPACK_IMPORTED_MODULE_3__["default"])(value) ? Object(_baseMatchesProperty_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value[0], value[1]) : Object(_baseMatches_js__WEBPACK_IMPORTED_MODULE_0__["default"])(value);
   }
 
@@ -21134,13 +21338,15 @@ function cloneArrayBuffer(arrayBuffer) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 /** Detect free variable `exports`. */
 
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+var freeExports = (typeof exports === "undefined" ? "undefined" : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
 /** Detect free variable `module`. */
 
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+var freeModule = freeExports && ( false ? undefined : _typeof(module)) == 'object' && module && !module.nodeType && module;
 /** Detect the popular CommonJS extension `module.exports`. */
 
 var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -22166,7 +22372,7 @@ function createFind(findIndexFunc) {
       var iteratee = Object(_baseIteratee_js__WEBPACK_IMPORTED_MODULE_0__["default"])(predicate, 3);
       collection = Object(_keys_js__WEBPACK_IMPORTED_MODULE_2__["default"])(collection);
 
-      predicate = function (key) {
+      predicate = function predicate(key) {
         return iteratee(iterable[key], key, iterable);
       };
     }
@@ -23245,134 +23451,134 @@ var deburredLetters = {
   '\xfe': 'th',
   '\xdf': 'ss',
   // Latin Extended-A block.
-  '\u0100': 'A',
-  '\u0102': 'A',
-  '\u0104': 'A',
-  '\u0101': 'a',
-  '\u0103': 'a',
-  '\u0105': 'a',
-  '\u0106': 'C',
-  '\u0108': 'C',
-  '\u010a': 'C',
-  '\u010c': 'C',
-  '\u0107': 'c',
-  '\u0109': 'c',
-  '\u010b': 'c',
-  '\u010d': 'c',
-  '\u010e': 'D',
-  '\u0110': 'D',
-  '\u010f': 'd',
-  '\u0111': 'd',
-  '\u0112': 'E',
-  '\u0114': 'E',
-  '\u0116': 'E',
-  '\u0118': 'E',
-  '\u011a': 'E',
-  '\u0113': 'e',
-  '\u0115': 'e',
-  '\u0117': 'e',
-  '\u0119': 'e',
-  '\u011b': 'e',
-  '\u011c': 'G',
-  '\u011e': 'G',
-  '\u0120': 'G',
-  '\u0122': 'G',
-  '\u011d': 'g',
-  '\u011f': 'g',
-  '\u0121': 'g',
-  '\u0123': 'g',
-  '\u0124': 'H',
-  '\u0126': 'H',
-  '\u0125': 'h',
-  '\u0127': 'h',
-  '\u0128': 'I',
-  '\u012a': 'I',
-  '\u012c': 'I',
-  '\u012e': 'I',
-  '\u0130': 'I',
-  '\u0129': 'i',
-  '\u012b': 'i',
-  '\u012d': 'i',
-  '\u012f': 'i',
-  '\u0131': 'i',
-  '\u0134': 'J',
-  '\u0135': 'j',
-  '\u0136': 'K',
-  '\u0137': 'k',
-  '\u0138': 'k',
-  '\u0139': 'L',
-  '\u013b': 'L',
-  '\u013d': 'L',
-  '\u013f': 'L',
-  '\u0141': 'L',
-  '\u013a': 'l',
-  '\u013c': 'l',
-  '\u013e': 'l',
-  '\u0140': 'l',
-  '\u0142': 'l',
-  '\u0143': 'N',
-  '\u0145': 'N',
-  '\u0147': 'N',
-  '\u014a': 'N',
-  '\u0144': 'n',
-  '\u0146': 'n',
-  '\u0148': 'n',
-  '\u014b': 'n',
-  '\u014c': 'O',
-  '\u014e': 'O',
-  '\u0150': 'O',
-  '\u014d': 'o',
-  '\u014f': 'o',
-  '\u0151': 'o',
-  '\u0154': 'R',
-  '\u0156': 'R',
-  '\u0158': 'R',
-  '\u0155': 'r',
-  '\u0157': 'r',
-  '\u0159': 'r',
-  '\u015a': 'S',
-  '\u015c': 'S',
-  '\u015e': 'S',
-  '\u0160': 'S',
-  '\u015b': 's',
-  '\u015d': 's',
-  '\u015f': 's',
-  '\u0161': 's',
-  '\u0162': 'T',
-  '\u0164': 'T',
-  '\u0166': 'T',
-  '\u0163': 't',
-  '\u0165': 't',
-  '\u0167': 't',
-  '\u0168': 'U',
-  '\u016a': 'U',
-  '\u016c': 'U',
-  '\u016e': 'U',
-  '\u0170': 'U',
-  '\u0172': 'U',
-  '\u0169': 'u',
-  '\u016b': 'u',
-  '\u016d': 'u',
-  '\u016f': 'u',
-  '\u0171': 'u',
-  '\u0173': 'u',
-  '\u0174': 'W',
-  '\u0175': 'w',
-  '\u0176': 'Y',
-  '\u0177': 'y',
-  '\u0178': 'Y',
-  '\u0179': 'Z',
-  '\u017b': 'Z',
-  '\u017d': 'Z',
-  '\u017a': 'z',
-  '\u017c': 'z',
-  '\u017e': 'z',
-  '\u0132': 'IJ',
-  '\u0133': 'ij',
-  '\u0152': 'Oe',
-  '\u0153': 'oe',
-  '\u0149': "'n",
-  '\u017f': 's'
+  "\u0100": 'A',
+  "\u0102": 'A',
+  "\u0104": 'A',
+  "\u0101": 'a',
+  "\u0103": 'a',
+  "\u0105": 'a',
+  "\u0106": 'C',
+  "\u0108": 'C',
+  "\u010A": 'C',
+  "\u010C": 'C',
+  "\u0107": 'c',
+  "\u0109": 'c',
+  "\u010B": 'c',
+  "\u010D": 'c',
+  "\u010E": 'D',
+  "\u0110": 'D',
+  "\u010F": 'd',
+  "\u0111": 'd',
+  "\u0112": 'E',
+  "\u0114": 'E',
+  "\u0116": 'E',
+  "\u0118": 'E',
+  "\u011A": 'E',
+  "\u0113": 'e',
+  "\u0115": 'e',
+  "\u0117": 'e',
+  "\u0119": 'e',
+  "\u011B": 'e',
+  "\u011C": 'G',
+  "\u011E": 'G',
+  "\u0120": 'G',
+  "\u0122": 'G',
+  "\u011D": 'g',
+  "\u011F": 'g',
+  "\u0121": 'g',
+  "\u0123": 'g',
+  "\u0124": 'H',
+  "\u0126": 'H',
+  "\u0125": 'h',
+  "\u0127": 'h',
+  "\u0128": 'I',
+  "\u012A": 'I',
+  "\u012C": 'I',
+  "\u012E": 'I',
+  "\u0130": 'I',
+  "\u0129": 'i',
+  "\u012B": 'i',
+  "\u012D": 'i',
+  "\u012F": 'i',
+  "\u0131": 'i',
+  "\u0134": 'J',
+  "\u0135": 'j',
+  "\u0136": 'K',
+  "\u0137": 'k',
+  "\u0138": 'k',
+  "\u0139": 'L',
+  "\u013B": 'L',
+  "\u013D": 'L',
+  "\u013F": 'L',
+  "\u0141": 'L',
+  "\u013A": 'l',
+  "\u013C": 'l',
+  "\u013E": 'l',
+  "\u0140": 'l',
+  "\u0142": 'l',
+  "\u0143": 'N',
+  "\u0145": 'N',
+  "\u0147": 'N',
+  "\u014A": 'N',
+  "\u0144": 'n',
+  "\u0146": 'n',
+  "\u0148": 'n',
+  "\u014B": 'n',
+  "\u014C": 'O',
+  "\u014E": 'O',
+  "\u0150": 'O',
+  "\u014D": 'o',
+  "\u014F": 'o',
+  "\u0151": 'o',
+  "\u0154": 'R',
+  "\u0156": 'R',
+  "\u0158": 'R',
+  "\u0155": 'r',
+  "\u0157": 'r',
+  "\u0159": 'r',
+  "\u015A": 'S',
+  "\u015C": 'S',
+  "\u015E": 'S',
+  "\u0160": 'S',
+  "\u015B": 's',
+  "\u015D": 's',
+  "\u015F": 's',
+  "\u0161": 's',
+  "\u0162": 'T',
+  "\u0164": 'T',
+  "\u0166": 'T',
+  "\u0163": 't',
+  "\u0165": 't',
+  "\u0167": 't',
+  "\u0168": 'U',
+  "\u016A": 'U',
+  "\u016C": 'U',
+  "\u016E": 'U',
+  "\u0170": 'U',
+  "\u0172": 'U',
+  "\u0169": 'u',
+  "\u016B": 'u',
+  "\u016D": 'u',
+  "\u016F": 'u',
+  "\u0171": 'u',
+  "\u0173": 'u',
+  "\u0174": 'W',
+  "\u0175": 'w',
+  "\u0176": 'Y',
+  "\u0177": 'y',
+  "\u0178": 'Y',
+  "\u0179": 'Z',
+  "\u017B": 'Z',
+  "\u017D": 'Z',
+  "\u017A": 'z',
+  "\u017C": 'z',
+  "\u017E": 'z',
+  "\u0132": 'IJ',
+  "\u0133": 'ij',
+  "\u0152": 'Oe',
+  "\u0153": 'oe',
+  "\u0149": "'n",
+  "\u017F": 's'
 };
 /**
  * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
@@ -23793,8 +23999,8 @@ var stringEscapes = {
   "'": "'",
   '\n': 'n',
   '\r': 'r',
-  '\u2028': 'u2028',
-  '\u2029': 'u2029'
+  "\u2028": 'u2028',
+  "\u2029": 'u2029'
 };
 /**
  * Used by `_.template` to escape characters for inclusion in compiled string literals.
@@ -23852,8 +24058,10 @@ function flatRest(func) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+/* WEBPACK VAR INJECTION */(function(global) {function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = (typeof global === "undefined" ? "undefined" : _typeof(global)) == 'object' && global && global.Object === Object && global;
 /* harmony default export */ __webpack_exports__["default"] = (freeGlobal);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./build-tooling/global.js */ "./build-tooling/global.js")))
 
@@ -24333,7 +24541,7 @@ var dataViewCtorString = Object(_toSource_js__WEBPACK_IMPORTED_MODULE_6__["defau
 var getTag = _baseGetTag_js__WEBPACK_IMPORTED_MODULE_5__["default"]; // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
 
 if (_DataView_js__WEBPACK_IMPORTED_MODULE_0__["default"] && getTag(new _DataView_js__WEBPACK_IMPORTED_MODULE_0__["default"](new ArrayBuffer(1))) != dataViewTag || _Map_js__WEBPACK_IMPORTED_MODULE_1__["default"] && getTag(new _Map_js__WEBPACK_IMPORTED_MODULE_1__["default"]()) != mapTag || _Promise_js__WEBPACK_IMPORTED_MODULE_2__["default"] && getTag(_Promise_js__WEBPACK_IMPORTED_MODULE_2__["default"].resolve()) != promiseTag || _Set_js__WEBPACK_IMPORTED_MODULE_3__["default"] && getTag(new _Set_js__WEBPACK_IMPORTED_MODULE_3__["default"]()) != setTag || _WeakMap_js__WEBPACK_IMPORTED_MODULE_4__["default"] && getTag(new _WeakMap_js__WEBPACK_IMPORTED_MODULE_4__["default"]()) != weakMapTag) {
-  getTag = function (value) {
+  getTag = function getTag(value) {
     var result = Object(_baseGetTag_js__WEBPACK_IMPORTED_MODULE_5__["default"])(value),
         Ctor = result == objectTag ? value.constructor : undefined,
         ctorString = Ctor ? Object(_toSource_js__WEBPACK_IMPORTED_MODULE_6__["default"])(Ctor) : '';
@@ -24548,15 +24756,15 @@ function hasPath(object, path, hasFunc) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+var rsAstralRange = "\\ud800-\\udfff",
+    rsComboMarksRange = "\\u0300-\\u036f",
+    reComboHalfMarksRange = "\\ufe20-\\ufe2f",
+    rsComboSymbolsRange = "\\u20d0-\\u20ff",
     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
+    rsVarRange = "\\ufe0e\\ufe0f";
 /** Used to compose unicode capture groups. */
 
-var rsZWJ = '\\u200d';
+var rsZWJ = "\\u200d";
 /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
 
 var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange + rsComboRange + rsVarRange + ']');
@@ -25026,6 +25234,8 @@ function isFlattenable(value) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
 /** Used to detect unsigned integer values. */
@@ -25041,7 +25251,8 @@ var reIsUint = /^(?:0|[1-9]\d*)$/;
  */
 
 function isIndex(value, length) {
-  var type = typeof value;
+  var type = _typeof(value);
+
   length = length == null ? MAX_SAFE_INTEGER : length;
   return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
 }
@@ -25063,6 +25274,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isArrayLike.js */ "./node_modules/lodash-es/isArrayLike.js");
 /* harmony import */ var _isIndex_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_isIndex.js */ "./node_modules/lodash-es/_isIndex.js");
 /* harmony import */ var _isObject_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isObject.js */ "./node_modules/lodash-es/isObject.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 
@@ -25083,7 +25296,7 @@ function isIterateeCall(value, index, object) {
     return false;
   }
 
-  var type = typeof index;
+  var type = _typeof(index);
 
   if (type == 'number' ? Object(_isArrayLike_js__WEBPACK_IMPORTED_MODULE_1__["default"])(object) && Object(_isIndex_js__WEBPACK_IMPORTED_MODULE_2__["default"])(index, object.length) : type == 'string' && index in object) {
     return Object(_eq_js__WEBPACK_IMPORTED_MODULE_0__["default"])(object[index], value);
@@ -25107,6 +25320,8 @@ function isIterateeCall(value, index, object) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isArray.js */ "./node_modules/lodash-es/isArray.js");
 /* harmony import */ var _isSymbol_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isSymbol.js */ "./node_modules/lodash-es/isSymbol.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 /** Used to match property names within property paths. */
@@ -25127,7 +25342,7 @@ function isKey(value, object) {
     return false;
   }
 
-  var type = typeof value;
+  var type = _typeof(value);
 
   if (type == 'number' || type == 'symbol' || type == 'boolean' || value == null || Object(_isSymbol_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value)) {
     return true;
@@ -25149,6 +25364,8 @@ function isKey(value, object) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * Checks if `value` is suitable for use as unique object key.
  *
@@ -25157,7 +25374,8 @@ __webpack_require__.r(__webpack_exports__);
  * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
  */
 function isKeyable(value) {
-  var type = typeof value;
+  var type = _typeof(value);
+
   return type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean' ? value !== '__proto__' : value === null;
 }
 
@@ -26162,13 +26380,15 @@ function nativeKeysIn(object) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _freeGlobal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_freeGlobal.js */ "./node_modules/lodash-es/_freeGlobal.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 /** Detect free variable `exports`. */
 
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+var freeExports = (typeof exports === "undefined" ? "undefined" : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
 /** Detect free variable `module`. */
 
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+var freeModule = freeExports && ( false ? undefined : _typeof(module)) == 'object' && module && !module.nodeType && module;
 /** Detect the popular CommonJS extension `module.exports`. */
 
 var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -26496,10 +26716,12 @@ function replaceHolders(array, placeholder) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _freeGlobal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_freeGlobal.js */ "./node_modules/lodash-es/_freeGlobal.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 /** Detect free variable `self`. */
 
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+var freeSelf = (typeof self === "undefined" ? "undefined" : _typeof(self)) == 'object' && self && self.Object === Object && self;
 /** Used as a reference to the global object. */
 
 var root = _freeGlobal_js__WEBPACK_IMPORTED_MODULE_0__["default"] || freeSelf || Function('return this')();
@@ -27295,22 +27517,22 @@ var unescapeHtmlChar = Object(_basePropertyOf_js__WEBPACK_IMPORTED_MODULE_0__["d
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+var rsAstralRange = "\\ud800-\\udfff",
+    rsComboMarksRange = "\\u0300-\\u036f",
+    reComboHalfMarksRange = "\\ufe20-\\ufe2f",
+    rsComboSymbolsRange = "\\u20d0-\\u20ff",
     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
+    rsVarRange = "\\ufe0e\\ufe0f";
 /** Used to compose unicode capture groups. */
 
 var rsAstral = '[' + rsAstralRange + ']',
     rsCombo = '[' + rsComboRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsFitz = "\\ud83c[\\udffb-\\udfff]",
     rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
     rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsZWJ = '\\u200d';
+    rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}",
+    rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]",
+    rsZWJ = "\\u200d";
 /** Used to compose unicode regexes. */
 
 var reOptMod = rsModifier + '?',
@@ -27353,22 +27575,22 @@ function unicodeSize(string) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+var rsAstralRange = "\\ud800-\\udfff",
+    rsComboMarksRange = "\\u0300-\\u036f",
+    reComboHalfMarksRange = "\\ufe20-\\ufe2f",
+    rsComboSymbolsRange = "\\u20d0-\\u20ff",
     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
+    rsVarRange = "\\ufe0e\\ufe0f";
 /** Used to compose unicode capture groups. */
 
 var rsAstral = '[' + rsAstralRange + ']',
     rsCombo = '[' + rsComboRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsFitz = "\\ud83c[\\udffb-\\udfff]",
     rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
     rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsZWJ = '\\u200d';
+    rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}",
+    rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]",
+    rsZWJ = "\\u200d";
 /** Used to compose unicode regexes. */
 
 var reOptMod = rsModifier + '?',
@@ -27405,19 +27627,19 @@ function unicodeToArray(string) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+var rsAstralRange = "\\ud800-\\udfff",
+    rsComboMarksRange = "\\u0300-\\u036f",
+    reComboHalfMarksRange = "\\ufe20-\\ufe2f",
+    rsComboSymbolsRange = "\\u20d0-\\u20ff",
     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsDingbatRange = '\\u2700-\\u27bf',
+    rsDingbatRange = "\\u2700-\\u27bf",
     rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
     rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
     rsNonCharRange = '\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf',
-    rsPunctuationRange = '\\u2000-\\u206f',
-    rsSpaceRange = ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
+    rsPunctuationRange = "\\u2000-\\u206f",
+    rsSpaceRange = " \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000",
     rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
-    rsVarRange = '\\ufe0e\\ufe0f',
+    rsVarRange = "\\ufe0e\\ufe0f",
     rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
 /** Used to compose unicode capture groups. */
 
@@ -27428,13 +27650,13 @@ var rsApos = "['\u2019]",
     rsDingbat = '[' + rsDingbatRange + ']',
     rsLower = '[' + rsLowerRange + ']',
     rsMisc = '[^' + rsAstralRange + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
+    rsFitz = "\\ud83c[\\udffb-\\udfff]",
     rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
     rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
+    rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}",
+    rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]",
     rsUpper = '[' + rsUpperRange + ']',
-    rsZWJ = '\\u200d';
+    rsZWJ = "\\u200d";
 /** Used to compose unicode regexes. */
 
 var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
@@ -30409,9 +30631,9 @@ __webpack_require__.r(__webpack_exports__);
 var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
 /** Used to compose unicode character classes. */
 
-var rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
+var rsComboMarksRange = "\\u0300-\\u036f",
+    reComboHalfMarksRange = "\\ufe20-\\ufe2f",
+    rsComboSymbolsRange = "\\u20d0-\\u20ff",
     rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
 /** Used to compose unicode capture groups. */
 
@@ -34260,14 +34482,16 @@ function isBoolean(value) {
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _root_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_root.js */ "./node_modules/lodash-es/_root.js");
 /* harmony import */ var _stubFalse_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stubFalse.js */ "./node_modules/lodash-es/stubFalse.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 /** Detect free variable `exports`. */
 
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+var freeExports = (typeof exports === "undefined" ? "undefined" : _typeof(exports)) == 'object' && exports && !exports.nodeType && exports;
 /** Detect free variable `module`. */
 
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+var freeModule = freeExports && ( false ? undefined : _typeof(module)) == 'object' && module && !module.nodeType && module;
 /** Detect the popular CommonJS extension `module.exports`. */
 
 var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -35211,6 +35435,8 @@ function isNumber(value) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * Checks if `value` is the
  * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -35237,7 +35463,8 @@ __webpack_require__.r(__webpack_exports__);
  * // => false
  */
 function isObject(value) {
-  var type = typeof value;
+  var type = _typeof(value);
+
   return value != null && (type == 'object' || type == 'function');
 }
 
@@ -35254,6 +35481,8 @@ function isObject(value) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * Checks if `value` is object-like. A value is object-like if it's not `null`
  * and has a `typeof` result of "object".
@@ -35279,7 +35508,7 @@ __webpack_require__.r(__webpack_exports__);
  * // => false
  */
 function isObjectLike(value) {
-  return value != null && typeof value == 'object';
+  return value != null && _typeof(value) == 'object';
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (isObjectLike);
@@ -35552,6 +35781,8 @@ function isString(value) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _baseGetTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseGetTag.js */ "./node_modules/lodash-es/_baseGetTag.js");
 /* harmony import */ var _isObjectLike_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isObjectLike.js */ "./node_modules/lodash-es/isObjectLike.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 /** `Object#toString` result references. */
@@ -35576,7 +35807,7 @@ var symbolTag = '[object Symbol]';
  */
 
 function isSymbol(value) {
-  return typeof value == 'symbol' || Object(_isObjectLike_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value) && Object(_baseGetTag_js__WEBPACK_IMPORTED_MODULE_0__["default"])(value) == symbolTag;
+  return _typeof(value) == 'symbol' || Object(_isObjectLike_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value) && Object(_baseGetTag_js__WEBPACK_IMPORTED_MODULE_0__["default"])(value) == symbolTag;
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (isSymbol);
@@ -37153,7 +37384,7 @@ Object(_baseForOwn_js__WEBPACK_IMPORTED_MODULE_16__["default"])(_LazyWrapper_js_
         iteratee = args[0],
         useLazy = isLazy || Object(_isArray_js__WEBPACK_IMPORTED_MODULE_23__["default"])(value);
 
-    var interceptor = function (value) {
+    var interceptor = function interceptor(value) {
       var result = lodashFunc.apply(_wrapperLodash_js__WEBPACK_IMPORTED_MODULE_35__["default"], Object(_arrayPush_js__WEBPACK_IMPORTED_MODULE_15__["default"])([value], args));
       return isTaker && chainAll ? result[0] : result;
     };
@@ -39358,7 +39589,7 @@ function memoize(func, resolver) {
     throw new TypeError(FUNC_ERROR_TEXT);
   }
 
-  var memoized = function () {
+  var memoized = function memoized() {
     var args = arguments,
         key = resolver ? resolver.apply(this, args) : args[0],
         cache = memoized.cache;
@@ -39967,7 +40198,7 @@ __webpack_require__.r(__webpack_exports__);
  * // => Logs the number of milliseconds it took for the deferred invocation.
  */
 
-var now = function () {
+var now = function now() {
   return _root_js__WEBPACK_IMPORTED_MODULE_0__["default"].Date.now();
 };
 
@@ -47617,7 +47848,7 @@ var wrapperAt = Object(_flatRest_js__WEBPACK_IMPORTED_MODULE_3__["default"])(fun
   var length = paths.length,
       start = length ? paths[0] : 0,
       value = this.__wrapped__,
-      interceptor = function (object) {
+      interceptor = function interceptor(object) {
     return Object(_baseAt_js__WEBPACK_IMPORTED_MODULE_2__["default"])(object, paths);
   };
 
@@ -48270,7 +48501,9 @@ var zipWith = Object(_baseRest_js__WEBPACK_IMPORTED_MODULE_0__["default"])(funct
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*
 * loglevel - https://github.com/pimterry/loglevel
 *
 * Copyright (c) 2013 Tim Perry
@@ -48289,7 +48522,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 })(this, function () {
   "use strict"; // Slightly dubious tricks to cut down minimized file size
 
-  var noop = function () {};
+  var noop = function noop() {};
 
   var undefinedType = "undefined";
   var logMethods = ["trace", "debug", "info", "warn", "error"]; // Cross-browser bind equivalent that works at least back to IE6
@@ -48318,7 +48551,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
       methodName = 'log';
     }
 
-    if (typeof console === undefinedType) {
+    if ((typeof console === "undefined" ? "undefined" : _typeof(console)) === undefinedType) {
       return false; // No method possible, for now - fixed later by enableLoggingWhenConsoleArrives
     } else if (console[methodName] !== undefined) {
       return bindMethod(console, methodName);
@@ -48345,7 +48578,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 
   function enableLoggingWhenConsoleArrives(methodName, level, loggerName) {
     return function () {
-      if (typeof console !== undefinedType) {
+      if ((typeof console === "undefined" ? "undefined" : _typeof(console)) !== undefinedType) {
         replaceLoggingMethods.call(this, level, loggerName);
         this[methodName].apply(this, arguments);
       }
@@ -48370,7 +48603,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 
     function persistLevelIfPossible(levelNum) {
       var levelName = (logMethods[levelNum] || 'silent').toUpperCase();
-      if (typeof window === undefinedType) return; // Use localStorage if available
+      if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === undefinedType) return; // Use localStorage if available
 
       try {
         window.localStorage[storageKey] = levelName;
@@ -48385,14 +48618,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 
     function getPersistedLevel() {
       var storedLevel;
-      if (typeof window === undefinedType) return;
+      if ((typeof window === "undefined" ? "undefined" : _typeof(window)) === undefinedType) return;
 
       try {
         storedLevel = window.localStorage[storageKey];
       } catch (ignore) {} // Fallback to cookies if local storage gives us nothing
 
 
-      if (typeof storedLevel === undefinedType) {
+      if (_typeof(storedLevel) === undefinedType) {
         try {
           var cookie = window.document.cookie;
           var location = cookie.indexOf(encodeURIComponent(storageKey) + "=");
@@ -48447,7 +48680,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
 
         replaceLoggingMethods.call(self, level, name);
 
-        if (typeof console === undefinedType && level < self.levels.SILENT) {
+        if ((typeof console === "undefined" ? "undefined" : _typeof(console)) === undefinedType && level < self.levels.SILENT) {
           return "No console available for logging";
         }
       } else {
@@ -48503,10 +48736,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
   }; // Grab the current global log variable in case of overwrite
 
 
-  var _log = typeof window !== undefinedType ? window.log : undefined;
+  var _log = (typeof window === "undefined" ? "undefined" : _typeof(window)) !== undefinedType ? window.log : undefined;
 
   defaultLogger.noConflict = function () {
-    if (typeof window !== undefinedType && window.log === defaultLogger) {
+    if ((typeof window === "undefined" ? "undefined" : _typeof(window)) !== undefinedType && window.log === defaultLogger) {
       window.log = _log;
     }
 
@@ -48536,18 +48769,52 @@ module.exports = function (originalModule) {
     if (!module.children) module.children = [];
     Object.defineProperty(module, "loaded", {
       enumerable: true,
-      get: function () {
+      get: function get() {
         return module.l;
       }
     });
     Object.defineProperty(module, "id", {
       enumerable: true,
-      get: function () {
+      get: function get() {
         return module.i;
       }
     });
     Object.defineProperty(module, "exports", {
       enumerable: true
+    });
+    module.webpackPolyfill = 1;
+  }
+
+  return module;
+};
+
+/***/ }),
+
+/***/ "./node_modules/webpack/buildin/module.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (module) {
+  if (!module.webpackPolyfill) {
+    module.deprecate = function () {};
+
+    module.paths = []; // module.parent = undefined by default
+
+    if (!module.children) module.children = [];
+    Object.defineProperty(module, "loaded", {
+      enumerable: true,
+      get: function get() {
+        return module.l;
+      }
+    });
+    Object.defineProperty(module, "id", {
+      enumerable: true,
+      get: function get() {
+        return module.i;
+      }
     });
     module.webpackPolyfill = 1;
   }

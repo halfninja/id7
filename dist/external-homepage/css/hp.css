@@ -335,10 +335,10 @@ html.safari .id7-utility-masthead {
   background: none;
 }
 .carousel-nav ul.nav > li i.fa:before {
-  content: "\F111";
+  content: "\f111";
 }
 .carousel-nav ul.nav > li.active i.fa:before {
-  content: "\F192";
+  content: "\f192";
 }
 .carousel-nav ul.nav > li.active .title {
   font-weight: bold;
