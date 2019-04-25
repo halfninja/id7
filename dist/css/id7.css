@@ -732,12 +732,27 @@ a {
 }
 a .new-window-link,
 a .insecure-link {
+  text-rendering: auto;
+  line-height: 1;
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
   font-size: 12px;
   padding-left: 3px;
   margin-right: 2px;
   transition: color 0.3s linear;
+}
+a .new-window-link.fa-pull-left,
+a .insecure-link.fa-pull-left {
+  margin-right: 0.3em;
+}
+a .new-window-link.fa-pull-right,
+a .insecure-link.fa-pull-right {
+  margin-left: 0.3em;
 }
 a .new-window-link {
   color: #777777;
@@ -7260,8 +7275,6 @@ html.safari .id7-masthead {
 .id7-masthead .id7-logo-row nav {
   display: none;
   margin-left: 180px;
-  filter: alpha(opacity=0);
-  opacity: 0;
   transition: opacity 0.15s linear;
   font-size: 85%;
   margin-top: 57.66666667px;
@@ -7270,6 +7283,10 @@ html.safari .id7-masthead {
   .id7-masthead .id7-logo-row nav {
     display: block;
   }
+}
+.id7-masthead .id7-logo-row nav :not(:focus-within) {
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
 .id7-masthead .id7-logo-row nav ul {
   padding-left: 0;
