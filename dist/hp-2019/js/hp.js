@@ -260,23 +260,7 @@ function () {
       var expand = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.proxy(this.expand, this);
       var contract = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.proxy(this.contract, this);
       var onReflow = jquery__WEBPACK_IMPORTED_MODULE_0___default.a.proxy(this.onReflow, this); // Expand when the trigger is clicked or the search box is focused
-
-      $trigger.on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (!_this.isExpanded()) {
-          _this.expand(); // Wait for the animation to complete before focusing to avoid the page
-          // shifting to see the focus
-
-
-          setTimeout(function () {
-            return $target.find('input[type="search"]').first().focus();
-          }, 300);
-        }
-
-        return false;
-      }); // Expand faster
+      // Expand faster by looking for touchstart rather than click
 
       if ('ontouchstart' in document.documentElement && 'addEventListener' in document) {
         $trigger.each(function (i, el) {
@@ -288,11 +272,33 @@ function () {
 
               setTimeout(function () {
                 return $target.find('input[type="search"]').first().focus();
-              }, 300);
+              }, 150);
             }
           }, {
             passive: true
           });
+        });
+        $trigger.on('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        });
+      } else {
+        $trigger.on('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (!_this.isExpanded()) {
+            _this.expand(); // Wait for the animation to complete before focusing to avoid the page
+            // shifting to see the focus
+
+
+            setTimeout(function () {
+              return $target.find('input[type="search"]').first().focus();
+            }, 150);
+          }
+
+          return false;
         });
       }
 
