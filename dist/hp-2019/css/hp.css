@@ -13822,9 +13822,9 @@ html.safari .id7-masthead {
     overflow: hidden;
   }
   .id7-masthead {
-    transition: -webkit-transform linear 0.15s;
-    transition: transform linear 0.15s;
-    transition: transform linear 0.15s, -webkit-transform linear 0.15s;
+    transition: 150ms -webkit-transform;
+    transition: 150ms transform;
+    transition: 150ms transform, 150ms -webkit-transform;
   }
   .id7-masthead .id7-search-column {
     left: 100%;
@@ -14621,6 +14621,7 @@ html.js .course-search .radio.focused {
   background-color: #63686e;
   border-color: white;
   color: white !important;
+  transition: 300ms background-color;
   border-radius: 0;
 }
 .course-search .btn-brand:focus,
