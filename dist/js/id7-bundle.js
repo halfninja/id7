@@ -261,7 +261,7 @@ function () {
         }
       }); // Smaller screens get the old popover
 
-      var onReflow = jquery__WEBPACK_IMPORTED_MODULE_2___default.a.proxy(function (e, o) {
+      var onReflow = jquery__WEBPACK_IMPORTED_MODULE_2___default.a.proxy(function (e, screenConfig) {
         _this.options.useMwIframe = _this.options.useMwIframe && screenConfig.name !== 'xs' && jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).height() >= 580 && AccountPopover.isMwFeatureAvailable();
         $trigger.find('.id7-notifications-badge').toggle(_this.options.useMwIframe);
 

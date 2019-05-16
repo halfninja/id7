@@ -13817,6 +13817,9 @@ html.safari .id7-masthead {
     background-image: url("../../images/masthead-logo-bleed-descriptor-sm@3x.png");
   }
 }
+.id7-utility-masthead {
+  overflow: hidden;
+}
 @media (max-width: 767px) {
   .id7-masthead {
     transition: -webkit-transform linear 0.15s;
@@ -13894,6 +13897,18 @@ html.safari .id7-masthead {
   .id7-masthead .id7-logo-row nav ul > li.search-trigger,
   .id7-masthead .id7-logo-row nav ul > li.more-links-trigger {
     display: inline-block;
+  }
+}
+@media (max-width: 991px) {
+  .id7-masthead .id7-logo-row nav ul > li .more-links-hint {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
   }
 }
 .id7-masthead .id7-logo-row nav:not(:focus-within) {
