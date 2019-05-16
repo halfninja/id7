@@ -209,6 +209,150 @@ function () {
 
 /***/ }),
 
+/***/ "./js/hp-2019/course-search.jquery.js":
+/*!********************************************!*\
+  !*** ./js/hp-2019/course-search.jquery.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_es_escape__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash-es/escape */ "./node_modules/lodash-es/escape.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _feature_detect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../feature-detect */ "./js/feature-detect.js");
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/* eslint-env browser */
+
+
+var Config = {
+  Defaults: {
+    delay: 200,
+    changeInputOnSelect: false,
+    changeInputOnMove: false,
+    selectOnBlur: false,
+    showHintOnFocus: true,
+    fitToElement: true
+  }
+};
+
+var CourseSearch =
+/*#__PURE__*/
+function () {
+  function CourseSearch(options) {
+    _classCallCheck(this, CourseSearch);
+
+    var o = jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend({}, Config.Defaults, options);
+    this.$form = o.form;
+    this.options = o;
+    this.init();
+  }
+
+  _createClass(CourseSearch, [{
+    key: "init",
+    value: function init() {
+      var $form = this.$form,
+          options = this.options; // Replace the radio buttons with FontAwesome icons
+
+      var $radios = $form.find('input[type=radio]');
+      var $infos = $radios.closest('.radio');
+      $radios.each(function (i, el) {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).after(jquery__WEBPACK_IMPORTED_MODULE_1___default()('<i />').addClass('fal fa-fw fa-circle'), jquery__WEBPACK_IMPORTED_MODULE_1___default()('<i />').addClass('far fa-fw fa-dot-circle'));
+      });
+
+      var updateRadios = function updateRadios() {
+        $infos.each(function (index, info) {
+          var $info = jquery__WEBPACK_IMPORTED_MODULE_1___default()(info);
+          var checked = $info.find('input[type=radio]').is(':checked');
+          $info.toggleClass('selected', checked);
+        });
+      };
+
+      $radios.on('change', updateRadios);
+      $radios.on('focus blur', function (e) {
+        jquery__WEBPACK_IMPORTED_MODULE_1___default()(e.target).closest('.radio').toggleClass('focused', e.target.focused);
+      });
+      updateRadios();
+      var $search = $form.find('input[type="search"]'); // ID-89 On xs, set the min length to 3, not 2, and only show 10 results
+
+      var minLength = 3;
+      var maxResults = 10;
+
+      if (_feature_detect__WEBPACK_IMPORTED_MODULE_2__["default"].mq('only all and (min-width: 768px)')) {
+        minLength = 2;
+        maxResults = 20;
+      }
+
+      $search.typeahead(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend({}, options, {
+        name: 'course',
+        minLength: minLength,
+        source: function source(query, sync, async) {
+          var searchQuery = encodeURIComponent("(title:".concat(query, ")OR(keywords:").concat(query, ")OR(title:").concat(query, "*)OR(keywords:").concat(query, "*)")); // SBTWO-8712 Search under multiple locations for undergraduate course information
+
+          var pathQueries = jquery__WEBPACK_IMPORTED_MODULE_1___default.a.map($radios.filter(':checked').data('paths').split(','), function (path) {
+            return "path:".concat(path.replace(/\//g, '\\/'), "\\/*");
+          });
+          var pathQuery = encodeURIComponent("(".concat(pathQueries.join(' OR '), ")"));
+          jquery__WEBPACK_IMPORTED_MODULE_1___default.a.getJSON("//warwick.ac.uk/ajax/lvsch/query.json?resultsPerPage=".concat(maxResults, "&pagenumber=1&q=(").concat(searchQuery, ")%20AND%20").concat(pathQuery, "&fileFormat=text%2Fhtml&callback=?"), function (results) {
+            return async(results.results);
+          });
+        },
+        matcher: function matcher() {
+          return true;
+        },
+        // All data received from the server matches the query
+        displayText: function displayText(o) {
+          return "<div><p class=\"title\">".concat(Object(lodash_es_escape__WEBPACK_IMPORTED_MODULE_0__["default"])(o.title), "</p></div>");
+        },
+        highlighter: function highlighter(html) {
+          return html;
+        },
+        followLinkOnSelect: true,
+        itemLink: function itemLink(result) {
+          if (result) {
+            return result.link;
+          }
+
+          return undefined;
+        },
+        afterSelect: function afterSelect() {
+          return $search.trigger('blur');
+        }
+      }));
+    }
+  }]);
+
+  return CourseSearch;
+}();
+
+jquery__WEBPACK_IMPORTED_MODULE_1___default.a.fn.courseSearch = function initPlugin() {
+  var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  function attach(i, element) {
+    var $form = jquery__WEBPACK_IMPORTED_MODULE_1___default()(element);
+    var courseSearch = new CourseSearch(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend({}, $form.data(), o, {
+      form: $form
+    }));
+    $form.data('id7.course-search', courseSearch);
+  }
+
+  return this.each(attach);
+};
+
+jquery__WEBPACK_IMPORTED_MODULE_1___default()(function () {
+  jquery__WEBPACK_IMPORTED_MODULE_1___default()('form.course-search-form').courseSearch();
+});
+
+/***/ }),
+
 /***/ "./js/hp-2019/expanding-search-bar.jquery.js":
 /*!***************************************************!*\
   !*** ./js/hp-2019/expanding-search-bar.jquery.js ***!
@@ -382,7 +526,9 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _more_links_popover_jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./more-links-popover.jquery */ "./js/hp-2019/more-links-popover.jquery.js");
 /* harmony import */ var _expanding_search_bar_jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./expanding-search-bar.jquery */ "./js/hp-2019/expanding-search-bar.jquery.js");
+/* harmony import */ var _course_search_jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./course-search.jquery */ "./js/hp-2019/course-search.jquery.js");
 /* eslint-env browser */
+
 
 
 
@@ -442,17 +588,14 @@ function () {
       var $trigger = this.$trigger,
           options = this.options;
       $trigger.on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (!_feature_detect__WEBPACK_IMPORTED_MODULE_1__["default"].cssSupports('display', 'flex') || Object(_screen_sizes__WEBPACK_IMPORTED_MODULE_3__["default"])().name === 'xs') {
-          // Scroll the page to more links
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-            scrollTop: jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).offset().top
-          }, 'slow');
+        if (_feature_detect__WEBPACK_IMPORTED_MODULE_1__["default"].cssSupports('display', 'flex') && Object(_screen_sizes__WEBPACK_IMPORTED_MODULE_3__["default"])().name !== 'xs') {
+          // Prevent the default behaviour because we're opening a popover
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
         }
 
-        return false;
+        return true;
       }).popover({
         container: options.container,
         content: jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).html(),
@@ -484,14 +627,8 @@ function () {
         }
       }); // Back to top link
 
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).on('click', '.back-to-top-link', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $trigger.popover('hide');
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-          scrollTop: 0
-        }, 'slow');
-        return false;
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).on('click', '.back-to-top-link', function () {
+        return $trigger.popover('hide');
       });
     }
   }]);
@@ -1968,6 +2105,32 @@ function basePropertyDeep(path) {
 
 /***/ }),
 
+/***/ "./node_modules/lodash-es/_basePropertyOf.js":
+/*!***************************************************!*\
+  !*** ./node_modules/lodash-es/_basePropertyOf.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * The base implementation of `_.propertyOf` without support for deep paths.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Function} Returns the new accessor function.
+ */
+function basePropertyOf(object) {
+  return function (key) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (basePropertyOf);
+
+/***/ }),
+
 /***/ "./node_modules/lodash-es/_baseTimes.js":
 /*!**********************************************!*\
   !*** ./node_modules/lodash-es/_baseTimes.js ***!
@@ -2539,6 +2702,39 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (equalObjects);
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/_escapeHtmlChar.js":
+/*!***************************************************!*\
+  !*** ./node_modules/lodash-es/_escapeHtmlChar.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _basePropertyOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_basePropertyOf.js */ "./node_modules/lodash-es/_basePropertyOf.js");
+
+/** Used to map characters to HTML entities. */
+
+var htmlEscapes = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+/**
+ * Used by `_.escape` to convert characters to HTML entities.
+ *
+ * @private
+ * @param {string} chr The matched character to escape.
+ * @returns {string} Returns the escaped character.
+ */
+
+var escapeHtmlChar = Object(_basePropertyOf_js__WEBPACK_IMPORTED_MODULE_0__["default"])(htmlEscapes);
+/* harmony default export */ __webpack_exports__["default"] = (escapeHtmlChar);
 
 /***/ }),
 
@@ -4348,6 +4544,61 @@ function eq(value, other) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (eq);
+
+/***/ }),
+
+/***/ "./node_modules/lodash-es/escape.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash-es/escape.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _escapeHtmlChar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_escapeHtmlChar.js */ "./node_modules/lodash-es/_escapeHtmlChar.js");
+/* harmony import */ var _toString_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toString.js */ "./node_modules/lodash-es/toString.js");
+
+
+/** Used to match HTML entities and HTML characters. */
+
+var reUnescapedHtml = /[&<>"']/g,
+    reHasUnescapedHtml = RegExp(reUnescapedHtml.source);
+/**
+ * Converts the characters "&", "<", ">", '"', and "'" in `string` to their
+ * corresponding HTML entities.
+ *
+ * **Note:** No other characters are escaped. To escape additional
+ * characters use a third-party library like [_he_](https://mths.be/he).
+ *
+ * Though the ">" character is escaped for symmetry, characters like
+ * ">" and "/" don't need escaping in HTML and have no special meaning
+ * unless they're part of a tag or unquoted attribute value. See
+ * [Mathias Bynens's article](https://mathiasbynens.be/notes/ambiguous-ampersands)
+ * (under "semi-related fun fact") for more details.
+ *
+ * When working with HTML you should always
+ * [quote attribute values](http://wonko.com/post/html-escaping) to reduce
+ * XSS vectors.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category String
+ * @param {string} [string=''] The string to escape.
+ * @returns {string} Returns the escaped string.
+ * @example
+ *
+ * _.escape('fred, barney, & pebbles');
+ * // => 'fred, barney, &amp; pebbles'
+ */
+
+function escape(string) {
+  string = Object(_toString_js__WEBPACK_IMPORTED_MODULE_1__["default"])(string);
+  return string && reHasUnescapedHtml.test(string) ? string.replace(reUnescapedHtml, _escapeHtmlChar_js__WEBPACK_IMPORTED_MODULE_0__["default"]) : string;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (escape);
 
 /***/ }),
 
