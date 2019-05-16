@@ -291,7 +291,7 @@ function () {
         maxResults = 20;
       }
 
-      $search.typeahead(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend({}, options, {
+      $search.attr('autocomplete', 'off').typeahead(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend({}, options, {
         name: 'course',
         minLength: minLength,
         source: function source(query, sync, async) {
