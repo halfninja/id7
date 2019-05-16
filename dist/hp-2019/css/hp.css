@@ -14576,7 +14576,13 @@ html.js .course-search .radio label {
 }
 html.js .course-search .radio .fa-circle {
   display: inline;
+  transition: 300ms opacity;
+  filter: alpha(opacity=50);
   opacity: 0.5;
+}
+html.js .course-search .radio:hover .fa-circle {
+  filter: alpha(opacity=100);
+  opacity: 1;
 }
 html.js .course-search .radio .fa-dot-circle {
   display: none;
