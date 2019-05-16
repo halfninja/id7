@@ -1222,8 +1222,6 @@ function SearchSuggest(options) {
     minLength: o.minLength,
     source: o.source,
     displayText: o.displayText,
-    appendTo: o.appendTo !== undefined ? jquery__WEBPACK_IMPORTED_MODULE_1___default()(o.appendTo) : undefined,
-    fitToElement: o.fitToElement,
     matcher: function matcher() {
       return true;
     },
@@ -1295,7 +1293,7 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default.a.fn.goSearchSuggest = function goSe
     }
 
     var $trigger = jquery__WEBPACK_IMPORTED_MODULE_1___default()(el);
-    $trigger.searchSuggest(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend(options, $trigger.data(), {
+    jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).searchSuggest(jquery__WEBPACK_IMPORTED_MODULE_1___default.a.extend(options, $trigger.data(), {
       source: function source(query, callback) {
         jquery__WEBPACK_IMPORTED_MODULE_1___default.a.getJSON("//sitebuilder.warwick.ac.uk/sitebuilder2/api/go/redirects.json?maxResults=".concat(maxResults, "&prefix=").concat(encodeURIComponent(query), "&callback=?"), callback);
       },
@@ -1311,8 +1309,8 @@ jquery__WEBPACK_IMPORTED_MODULE_1___default.a.fn.goSearchSuggest = function goSe
       }
     })); // ID-145
 
-    if ($trigger.width() < 88) {
-      $trigger.attr('placeholder', 'Search');
+    if (jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).width() < 88) {
+      jquery__WEBPACK_IMPORTED_MODULE_1___default()(el).attr('placeholder', 'Search');
     }
   }
 

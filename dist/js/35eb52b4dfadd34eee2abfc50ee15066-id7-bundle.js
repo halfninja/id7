@@ -1223,7 +1223,6 @@ function SearchSuggest(options) {
     source: o.source,
     displayText: o.displayText,
     appendTo: o.appendTo !== undefined ? jquery__WEBPACK_IMPORTED_MODULE_1___default()(o.appendTo) : undefined,
-    fitToElement: o.fitToElement,
     matcher: function matcher() {
       return true;
     },
