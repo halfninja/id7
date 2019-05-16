@@ -13818,7 +13818,7 @@ html.safari .id7-masthead {
   }
 }
 .id7-utility-masthead {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 @media (max-width: 767px) {
   .id7-masthead {
