@@ -14557,6 +14557,9 @@ h2,
   .course-search .radio:first-child {
     margin-top: -15px;
   }
+  .course-search .radio:last-child {
+    margin-bottom: -15px;
+  }
 }
 html.js .course-search .radio input {
   border: 0;
