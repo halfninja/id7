@@ -13818,13 +13818,9 @@ html.safari .id7-masthead {
   }
 }
 @media (max-width: 767px) {
-  .id7-utility-masthead {
-    overflow: hidden;
-  }
   .id7-masthead {
-    transition: 150ms -webkit-transform;
-    transition: 150ms transform;
-    transition: 150ms transform, 150ms -webkit-transform;
+    position: relative;
+    overflow: hidden;
   }
   .id7-masthead .id7-search-column {
     left: 100%;
@@ -13844,7 +13840,16 @@ html.safari .id7-masthead {
     font-size: inherit;
     line-height: inherit;
   }
+  .id7-masthead .id7-masthead-contents {
+    margin: 0 -20px;
+    transition: 150ms background-position, 150ms -webkit-transform;
+    transition: 150ms transform, 150ms background-position;
+    transition: 150ms transform, 150ms background-position, 150ms -webkit-transform;
+  }
   .id7-masthead.search-expanded {
+    background-position-x: 100%;
+  }
+  .id7-masthead.search-expanded .id7-masthead-contents {
     -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
   }
@@ -13907,7 +13912,7 @@ html.safari .id7-masthead {
 .id7-masthead .id7-logo-row nav {
   display: block;
   float: right;
-  margin: 0;
+  margin: 0 10px;
 }
 .id7-masthead .id7-logo-row nav i.fa,
 .id7-masthead .id7-logo-row nav i.fas,
@@ -13920,8 +13925,7 @@ html.safari .id7-masthead {
 @media (min-width: 768px) {
   .id7-masthead .id7-logo-row nav {
     float: none;
-    margin-left: 165px;
-    margin-top: 50px;
+    margin: 50px 0 0 165px;
     font-size: 11.5px;
     font-weight: 600;
     letter-spacing: 1px;
