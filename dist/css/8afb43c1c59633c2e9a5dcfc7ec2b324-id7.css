@@ -529,11 +529,11 @@ a.text-success:focus {
   color: #202712;
 }
 .text-info {
-  color: #1a716b;
+  color: #145753;
 }
 a.text-info:hover,
 a.text-info:focus {
-  color: #104844;
+  color: #0a2e2b;
 }
 .text-warning {
   color: #AC4E2E;
@@ -565,11 +565,11 @@ a.bg-success:focus {
   background-color: #cadaab;
 }
 .bg-info {
-  background-color: #dff8f6;
+  background-color: #c5f2ef;
 }
 a.bg-info:hover,
 a.bg-info:focus {
-  background-color: #b5eeea;
+  background-color: #9be9e3;
 }
 .bg-warning {
   background-color: #fcdbcd;
@@ -1938,14 +1938,14 @@ th {
 .table > thead > tr.info > th,
 .table > tbody > tr.info > th,
 .table > tfoot > tr.info > th {
-  background-color: #dff8f6;
+  background-color: #c5f2ef;
 }
 .table-hover > tbody > tr > td.info:hover,
 .table-hover > tbody > tr > th.info:hover,
 .table-hover > tbody > tr.info:hover > td,
 .table-hover > tbody > tr:hover > .info,
 .table-hover > tbody > tr.info:hover > th {
-  background-color: #caf3f0;
+  background-color: #b0ede9;
 }
 .table > thead > tr > td.warning,
 .table > tbody > tr > td.warning,
@@ -2782,28 +2782,28 @@ fieldset[disabled] .btn-success.focus {
 }
 .btn-info {
   color: #fff;
-  background-color: #239b92;
-  border-color: #1e867e;
+  background-color: #1d817a;
+  border-color: #186c66;
   color: #fff !important;
 }
 .btn-info:focus,
 .btn-info.focus {
   color: #fff;
-  background-color: #1a716b;
-  border-color: #071e1c;
+  background-color: #145753;
+  border-color: #010404;
 }
 .btn-info:hover {
   color: #fff;
-  background-color: #1a716b;
-  border-color: #13544f;
+  background-color: #145753;
+  border-color: #0d3a37;
 }
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
   color: #fff;
-  background-color: #1a716b;
+  background-color: #145753;
   background-image: none;
-  border-color: #13544f;
+  border-color: #0d3a37;
 }
 .btn-info:active:hover,
 .btn-info.active:hover,
@@ -2815,8 +2815,8 @@ fieldset[disabled] .btn-success.focus {
 .btn-info.active.focus,
 .open > .dropdown-toggle.btn-info.focus {
   color: #fff;
-  background-color: #13544f;
-  border-color: #071e1c;
+  background-color: #0d3a37;
+  border-color: #010404;
 }
 .btn-info.disabled:hover,
 .btn-info[disabled]:hover,
@@ -2827,11 +2827,11 @@ fieldset[disabled] .btn-info:focus,
 .btn-info.disabled.focus,
 .btn-info[disabled].focus,
 fieldset[disabled] .btn-info.focus {
-  background-color: #239b92;
-  border-color: #1e867e;
+  background-color: #1d817a;
+  border-color: #186c66;
 }
 .btn-info .badge {
-  color: #239b92;
+  color: #1d817a;
   background-color: #fff;
 }
 .btn-info:not(.btn-link) {
@@ -4424,11 +4424,11 @@ a.label:focus {
   background-color: #3c4b21;
 }
 .label-info {
-  background-color: #239b92;
+  background-color: #1d817a;
 }
 .label-info[href]:hover,
 .label-info[href]:focus {
-  background-color: #1a716b;
+  background-color: #145753;
 }
 .label-warning {
   background-color: #ee510f;
@@ -4601,11 +4601,11 @@ a.thumbnail.active {
 }
 .alert-info {
   color: #383838;
-  background-color: #dff8f6;
-  border-color: #caf3e9;
+  background-color: #c5f2ef;
+  border-color: #b0eddf;
 }
 .alert-info hr {
-  border-top-color: #b5eee1;
+  border-top-color: #9be9d6;
 }
 .alert-info .alert-link {
   color: #1e1e1e;
@@ -4685,7 +4685,7 @@ a.thumbnail.active {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
-  background-color: #239b92;
+  background-color: #1d817a;
 }
 .progress-striped .progress-bar-info {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -4862,12 +4862,12 @@ button.list-group-item-success.active:focus {
   border-color: #3c4b21;
 }
 .list-group-item-info {
-  color: #1a716b;
-  background-color: #dff8f6;
+  color: #145753;
+  background-color: #c5f2ef;
 }
 a.list-group-item-info,
 button.list-group-item-info {
-  color: #1a716b;
+  color: #145753;
 }
 a.list-group-item-info .list-group-item-heading,
 button.list-group-item-info .list-group-item-heading {
@@ -4877,8 +4877,8 @@ a.list-group-item-info:hover,
 button.list-group-item-info:hover,
 a.list-group-item-info:focus,
 button.list-group-item-info:focus {
-  color: #1a716b;
-  background-color: #caf3f0;
+  color: #145753;
+  background-color: #b0ede9;
 }
 a.list-group-item-info.active,
 button.list-group-item-info.active,
@@ -4887,8 +4887,8 @@ button.list-group-item-info.active:hover,
 a.list-group-item-info.active:focus,
 button.list-group-item-info.active:focus {
   color: #fff;
-  background-color: #1a716b;
-  border-color: #1a716b;
+  background-color: #145753;
+  border-color: #145753;
 }
 .list-group-item-warning {
   color: #AC4E2E;
@@ -5245,22 +5245,22 @@ button.list-group-item-danger.active:focus {
   border-bottom-color: #dbe1bd;
 }
 .panel-info {
-  border-color: #c2f1e6;
+  border-color: #a7ebdb;
 }
 .panel-info > .panel-heading {
-  color: #1a716b;
-  background-color: #dff8f6;
-  border-color: #c2f1e6;
+  color: #145753;
+  background-color: #c5f2ef;
+  border-color: #a7ebdb;
 }
 .panel-info > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #c2f1e6;
+  border-top-color: #a7ebdb;
 }
 .panel-info > .panel-heading .badge {
-  color: #dff8f6;
-  background-color: #1a716b;
+  color: #c5f2ef;
+  background-color: #145753;
 }
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #c2f1e6;
+  border-bottom-color: #a7ebdb;
 }
 .panel-warning {
   border-color: #fabeb5;
@@ -6418,12 +6418,12 @@ label.radio-inline {
   background-color: #cadaab;
 }
 .label-info {
-  color: #104844;
-  background-color: #dff8f6;
+  color: #0a2e2b;
+  background-color: #c5f2ef;
 }
 .label-info[href]:hover,
 .label-info[href]:focus {
-  background-color: #b5eeea;
+  background-color: #9be9e3;
 }
 .label-warning {
   color: #843c23;
@@ -6450,12 +6450,12 @@ label.radio-inline {
   border-top-color: #000000;
 }
 .alert-info {
-  background-color: #dff8f6;
-  border-color: #071e1c;
-  color: #104844;
+  background-color: #c5f2ef;
+  border-color: #010404;
+  color: #0a2e2b;
 }
 .alert-info hr {
-  border-top-color: #020909;
+  border-top-color: #000000;
 }
 .alert-warning {
   background-color: #fcdbcd;
@@ -6472,6 +6472,9 @@ label.radio-inline {
 }
 .alert-danger hr {
   border-top-color: #1a0605;
+}
+html {
+  scroll-behavior: smooth;
 }
 .id7-main-content-area {
   font-weight: 300;
@@ -7282,7 +7285,7 @@ html.safari .id7-masthead {
     display: block;
   }
 }
-.id7-masthead .id7-logo-row nav :not(:focus-within) {
+.id7-masthead .id7-logo-row nav:not(:focus-within) {
   filter: alpha(opacity=0);
   opacity: 0;
 }
@@ -8860,7 +8863,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   }
 }
 /*!
- * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.8.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -10628,6 +10631,9 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
 .fa-git:before {
   content: "\f1d3";
 }
+.fa-git-alt:before {
+  content: "\f841";
+}
 .fa-git-square:before {
   content: "\f1d2";
 }
@@ -12353,6 +12359,9 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
 .fa-stack-overflow:before {
   content: "\f16c";
 }
+.fa-stackpath:before {
+  content: "\f842";
+}
 .fa-stamp:before {
   content: "\f5bf";
 }
@@ -13174,7 +13183,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   width: auto;
 }
 /*!
- * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.8.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -13190,7 +13199,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   font-weight: 400;
 }
 /*!
- * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.8.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -13207,7 +13216,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   font-weight: 900;
 }
 /*!
- * Font Awesome Free 5.8.1 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.8.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
