@@ -527,8 +527,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _more_links_popover_jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./more-links-popover.jquery */ "./js/hp-2019/more-links-popover.jquery.js");
 /* harmony import */ var _expanding_search_bar_jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./expanding-search-bar.jquery */ "./js/hp-2019/expanding-search-bar.jquery.js");
 /* harmony import */ var _course_search_jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./course-search.jquery */ "./js/hp-2019/course-search.jquery.js");
+/* harmony import */ var _site__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./site */ "./js/hp-2019/site.js");
 /* eslint-env browser */
 
+
+ // Obviously don't do this in prod
 
 
 
@@ -561,7 +564,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var Config = {
   Defaults: {
-    container: 'body',
+    container: '.id7-page-header',
     // Needed to avoid being drawn under the nav carousel which is fixed in the body
     template: "\n      <div class=\"popover megamenu-links\">\n        <div class=\"arrow\"></div>\n        <div class=\"popover-inner\">\n          <div class=\"popover-content container-fluid\"></div>\n        </div>\n      </div>".trim()
   }
@@ -585,51 +588,69 @@ function () {
   _createClass(MoreLinksPopover, [{
     key: "wireEventHandlers",
     value: function wireEventHandlers() {
+      var _this = this;
+
       var $trigger = this.$trigger,
           options = this.options;
-      $trigger.on('click', function (e) {
-        if (_feature_detect__WEBPACK_IMPORTED_MODULE_1__["default"].cssSupports('display', 'flex') && Object(_screen_sizes__WEBPACK_IMPORTED_MODULE_3__["default"])().name !== 'xs') {
-          // Prevent the default behaviour because we're opening a popover
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
+      var isPopoverEnabled = _feature_detect__WEBPACK_IMPORTED_MODULE_1__["default"].cssSupports('display', 'flex');
 
-        return true;
-      }).popover({
-        container: options.container,
-        content: jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).html(),
-        template: options.template,
-        html: true,
-        placement: 'bottom',
-        title: 'More links',
-        trigger: 'click'
-      }).on('show.bs.popover', function () {
-        $trigger.data('previous-hash', window.location.hash);
-        Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])(options.target);
-      }).on('hide.bs.popover', function () {
-        if ($trigger.data('previous-hash') && $trigger.data('previous-hash') !== '#more-links') {
-          Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])($trigger.data('previous-hash'));
+      var onReflow = function onReflow(_ignored_, screenConfig) {
+        // Handle xs -> xs transitions
+        if (_this.lastScreenConfigName === screenConfig.name) return;
+        _this.lastScreenConfigName = screenConfig.name;
+
+        if (isPopoverEnabled && screenConfig.name !== 'xs') {
+          $trigger.on('click.id7.homepage', function (e) {
+            // Prevent the default behaviour because we're opening a popover
+            e.preventDefault();
+            return false;
+          }).popover({
+            container: options.container,
+            content: jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).html(),
+            template: options.template,
+            html: true,
+            placement: 'bottom',
+            title: 'More links',
+            trigger: 'click'
+          }).on('show.bs.popover', function () {
+            $trigger.data('previous-hash', window.location.hash);
+            Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])(options.target);
+          }).on('hide.bs.popover', function () {
+            if ($trigger.data('previous-hash') && $trigger.data('previous-hash') !== '#more-links') {
+              Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])($trigger.data('previous-hash'));
+            } else {
+              Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])('');
+            }
+          });
+
+          if ($trigger.is(':visible') && window.location.hash === options.target) {
+            $trigger.popover('show');
+          } // Click away to dismiss
+
+
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').on('click.id7.homepage.popoverDismiss', function (e) {
+            // if clicking anywhere other than the popover itself
+            if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.popover').length === 0 && jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.use-more-links-popover').length === 0) {
+              $trigger.popover('hide');
+            }
+          }); // Back to top link
+
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).on('click.id7.homepage', '.back-to-top-link', function () {
+            return $trigger.popover('hide');
+          });
         } else {
-          Object(_change_location_hash__WEBPACK_IMPORTED_MODULE_2__["default"])('');
+          $trigger.off('click.id7.homepage').popover('destroy');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').off('click.id7.homepage.popoverDismiss');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).off('click.id7.homepage', '.back-to-top-link');
         }
-      });
+      };
 
-      if ($trigger.is(':visible') && window.location.hash === options.target) {
-        $trigger.popover('show');
-      } // Click away to dismiss
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('id7:reflow', onReflow); // If the document is already loaded this won't be fired as expected, so fire it manually
 
-
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html').on('click.popoverDismiss', function (e) {
-        // if clicking anywhere other than the popover itself
-        if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.popover').length === 0 && jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.use-popover').length === 0) {
-          $trigger.popover('hide');
-        }
-      }); // Back to top link
-
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()(options.target).on('click', '.back-to-top-link', function () {
-        return $trigger.popover('hide');
-      });
+      if (document.readyState === 'complete' && typeof jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).data('id7.reflow') !== 'undefined') {
+        // Call reflow immediately
+        onReflow({}, Object(_screen_sizes__WEBPACK_IMPORTED_MODULE_3__["default"])());
+      }
     }
   }]);
 
@@ -652,6 +673,30 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.moreLinksPopover = function ini
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   jquery__WEBPACK_IMPORTED_MODULE_0___default()('[data-toggle="id7:megamenu-popover"]').moreLinksPopover();
+});
+
+/***/ }),
+
+/***/ "./js/hp-2019/site.js":
+/*!****************************!*\
+  !*** ./js/hp-2019/site.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* eslint-env browser */
+
+jquery__WEBPACK_IMPORTED_MODULE_0___default()(function () {
+  var $footer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.id7-site-footer');
+  $footer.on('hover mouseover focus', '.map-location a, .map-column a', function () {
+    return $footer.addClass('hovered');
+  }).on('blur mouseout', '.map-location a, .map-column a', function () {
+    return $footer.removeClass('hovered');
+  });
 });
 
 /***/ }),
