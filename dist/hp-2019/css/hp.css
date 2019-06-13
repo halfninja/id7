@@ -212,6 +212,9 @@ fieldset[disabled] .btn-brand.focus {
 .id7-navigation .navbar-primary .navbar-text {
   color: white;
 }
+.id7-navigation .navbar-primary .navbar-nav li.dropdown ul.dropdown-menu .active::after {
+  border-left-color: #797b7e;
+}
 .id7-navigation .navbar-primary .navbar-nav > li {
   color: white;
 }
@@ -275,6 +278,7 @@ fieldset[disabled] .btn-brand.focus {
 }
 .id7-navigation .navbar-primary .navbar-nav .dropdown-menu > .active > a {
   background-color: #323538;
+  background-image: none;
 }
 .id7-navigation .navbar-primary .navbar-nav .dropdown-menu > .active > a::before {
   border-bottom-color: #797b7e;
@@ -319,6 +323,9 @@ fieldset[disabled] .id7-navigation .navbar-primary .btn-link:focus {
 }
 .navbar-secondary .navbar-text {
   color: white;
+}
+.navbar-secondary .navbar-nav li.dropdown ul.dropdown-menu .active::after {
+  border-left-color: white;
 }
 .navbar-secondary .navbar-nav > li {
   color: white;
@@ -383,6 +390,7 @@ fieldset[disabled] .id7-navigation .navbar-primary .btn-link:focus {
 }
 .navbar-secondary .navbar-nav .dropdown-menu > .active > a {
   background-color: #606264;
+  background-image: none;
 }
 .navbar-secondary .navbar-nav .dropdown-menu > .active > a::before {
   border-bottom-color: white;
@@ -437,6 +445,9 @@ fieldset[disabled] .navbar-secondary .btn-link:focus {
 }
 .navbar-tertiary .navbar-text {
   color: #383838;
+}
+.navbar-tertiary .navbar-nav li.dropdown ul.dropdown-menu .active::after {
+  border-left-color: white;
 }
 .navbar-tertiary .navbar-nav > li {
   color: #383838;
@@ -501,6 +512,7 @@ fieldset[disabled] .navbar-secondary .btn-link:focus {
 }
 .navbar-tertiary .navbar-nav .dropdown-menu > .active > a {
   background-color: #c6c6c6;
+  background-image: none;
 }
 .navbar-tertiary .navbar-nav .dropdown-menu > .active > a::before {
   border-bottom-color: white;
@@ -2671,6 +2683,11 @@ hr.spacer {
     text-decoration: underline;
     -webkit-text-decoration-color: #0073BB;
             text-decoration-color: #0073BB;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
