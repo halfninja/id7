@@ -632,6 +632,7 @@ function () {
             // if clicking anywhere other than the popover itself
             if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.popover').length === 0 && jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.use-more-links-popover').length === 0) {
               $trigger.popover('hide');
+              $trigger.data('bs.popover').inState.click = false;
             }
           }); // Back to top link
 

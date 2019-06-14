@@ -602,7 +602,7 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.dropdown.Constructor.prototype.
   if (e.which === 40) index = (index + 1) % $items.length; // down
 
   if (e.which >= 65 && e.which <= 90 && $items.length < 100) {
-    var letter = e.key.toLowerCase();
+    var letter = e.key;
     var originalIndex = $items.index(e.target); // linear search
 
     var $matches = $items.filter(function () {
