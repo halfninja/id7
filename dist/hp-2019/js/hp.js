@@ -309,6 +309,10 @@ function () {
           return true;
         },
         // All data received from the server matches the query
+        sorter: function sorter(results) {
+          return results;
+        },
+        // Don't sort
         displayText: function displayText(o) {
           return "<div><p class=\"title\">".concat(Object(lodash_es_escape__WEBPACK_IMPORTED_MODULE_0__["default"])(o.title), "</p></div>");
         },

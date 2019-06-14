@@ -7525,7 +7525,7 @@ html.safari .id7-masthead {
 }
 .id7-navigation {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
