@@ -6495,7 +6495,8 @@ label.radio-inline {
   }
 }
 .open > a:focus,
-.dropdown-menu > .active > a:focus {
+.dropdown-menu > .active > a:focus,
+.dropdown-toggle:focus {
   outline: 3px solid #ffbf47;
 }
 body {
@@ -7731,6 +7732,15 @@ html.safari .id7-masthead {
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
   border-top: 4px solid;
+}
+.id7-navigation .navbar-nav > li.dropdown > a > span.caret {
+  display: none;
+}
+@media (hover: none) {
+  .id7-navigation .navbar-nav > li.dropdown > a::after {
+    content: '';
+    display: none;
+  }
 }
 .id7-navigation .navbar-nav ul.dropdown-menu > li.active > a {
   font-weight: bold;

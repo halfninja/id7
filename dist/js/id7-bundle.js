@@ -570,6 +570,12 @@ function getParent($this) {
 
 jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.dropdown.Constructor.prototype.keydown = function (e) {
   if (/input|textarea/i.test(e.target.tagName) || !/(38|40|27|32)/.test(e.which) && (e.which < 65 || e.which > 90)) return;
+
+  if (e.ctrlKey || e.altKey) {
+    // don't hijack user's hotkeys
+    return;
+  }
+
   var $this = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this);
   e.preventDefault();
   e.stopPropagation();
@@ -1129,9 +1135,10 @@ function () {
       jquery__WEBPACK_IMPORTED_MODULE_3___default()('.dropdown-menu', this.$container).each(function (i, el) {
         var $el = jquery__WEBPACK_IMPORTED_MODULE_3___default()(el);
         var $linkElement = $el.parent().find('> a');
+        var EXPECTED_DATA_TOGGLE_VALUE = 'dropdown';
 
-        if ($linkElement.length > 0 && $linkElement.attr('data-toggle') !== 'dropdown') {
-          $linkElement.attr('data-toggle', 'dropdown-trigger');
+        if ($linkElement.length > 0 && $linkElement.attr('data-toggle') !== EXPECTED_DATA_TOGGLE_VALUE) {
+          $linkElement.attr('data-toggle', EXPECTED_DATA_TOGGLE_VALUE);
           $linkElement.dropdown(); // we added it afterwards, need to manually call dropdown()
         }
 
@@ -1145,7 +1152,10 @@ function () {
             return;
           }
 
-          window.location = $linkElement.attr('href');
+          if (typeof $linkElement.attr('href') !== 'undefined') {
+            window.location = $linkElement.attr('href');
+          }
+
           ev.stopPropagation();
         });
       });
