@@ -6931,7 +6931,6 @@ body {
 }
 .id7-utility-bar .popover.account-information .popover-content .account-info,
 .id7-utility-bar .popover.my-warwick .popover-content .account-info {
-  height: 100%;
   flex: 1;
 }
 .id7-utility-bar .popover.account-information .popover-content .account-info iframe,

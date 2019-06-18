@@ -263,7 +263,7 @@ function () {
       }); // Smaller screens get the old popover
 
       var onReflow = jquery__WEBPACK_IMPORTED_MODULE_2___default.a.proxy(function (e, screenConfig) {
-        _this.options.useMwIframe = _this.options.useMwIframe && screenConfig.name !== 'xs' && jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).height() >= 580 && AccountPopover.isMwFeatureAvailable();
+        _this.options.useMwIframe = _this.options.useMwIframe && screenConfig.name !== 'xs' && jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).height() >= 512 && AccountPopover.isMwFeatureAvailable();
         $trigger.find('.id7-notifications-badge').toggle(_this.options.useMwIframe);
 
         if ($trigger.data('bs.popover') !== undefined) {
@@ -1244,6 +1244,23 @@ jquery__WEBPACK_IMPORTED_MODULE_3___default()(function () {
 
   if (!document.body.hasAttribute('id')) {
     document.body.setAttribute('id', 'top');
+  } // add jump to navigation link if site author hasn't updated template
+
+
+  var DEFAULT_NAV_ID = 'primary-nav';
+  var $skipToContent = jquery__WEBPACK_IMPORTED_MODULE_3___default()('.sr-only.sr-only-focusable[href="#main"]');
+  var $mainNav = jquery__WEBPACK_IMPORTED_MODULE_3___default()('.id7-navigation').first();
+  var hasSkipToContent = $skipToContent.length === 1;
+  var hasPrimaryNav = $mainNav.length === 1;
+  var doesNotHaveSkipToNav = jquery__WEBPACK_IMPORTED_MODULE_3___default()(".sr-only.sr-only-focusable[href=\"#".concat(DEFAULT_NAV_ID, "\"]")).length === 0;
+
+  if (hasPrimaryNav && $mainNav.attr('id') === undefined) {
+    $mainNav.attr('id', DEFAULT_NAV_ID);
+  }
+
+  if (doesNotHaveSkipToNav && hasSkipToContent && hasPrimaryNav) {
+    var $link = jquery__WEBPACK_IMPORTED_MODULE_3___default()('<a>').addClass('sr-only').addClass('sr-only-focusable').attr('href', "#".concat($mainNav.attr('id'))).text('Skip to navigation');
+    $skipToContent.after($link);
   } // jump to a tab if specified
 
 
