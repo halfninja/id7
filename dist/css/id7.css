@@ -6496,8 +6496,39 @@ label.radio-inline {
 }
 .open > a:focus,
 .dropdown-menu > .active > a:focus,
-.dropdown-toggle:focus {
+.dropdown-toggle:focus,
+[role="button"]:focus {
   outline: 3px solid #ffbf47;
+}
+.floating-label {
+  position: relative;
+  display: flex;
+  flex-flow: column-reverse;
+}
+.floating-label label,
+.floating-label input {
+  transition: opacity 0.2s;
+}
+.floating-label label {
+  position: absolute;
+  left: 5px;
+  top: -26px;
+  visibility: visible;
+  opacity: 1;
+}
+.floating-label input:placeholder-shown ~ label {
+  -webkit-transform-origin: left bottom;
+          transform-origin: left bottom;
+  -webkit-transform: translate(0, 1.5rem) scale(1.5);
+          transform: translate(0, 1.5rem) scale(1.5);
+  visibility: hidden;
+  opacity: 0;
+}
+@media (max-width: 768px) {
+  .floating-label label {
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 body {
   width: 100%;
@@ -7209,8 +7240,8 @@ html.safari .id7-masthead {
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: 30px;
-  margin: 0;
-  padding: 12px 0;
+  margin: 0 0 0 -5px;
+  padding: 12px 0 12px 5px;
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
 }
@@ -7783,6 +7814,7 @@ html.safari .id7-masthead {
 }
 .id7-main-content-area {
   background: white;
+  word-break: break-word;
 }
 @media (max-width: 767px) {
   .id7-main-content-area {

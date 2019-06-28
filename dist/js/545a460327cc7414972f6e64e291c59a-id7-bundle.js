@@ -1101,6 +1101,8 @@ function () {
         if (arrowRight && primaryNavItemInFocus) {
           if ($li.next().length > 0 && $li.next().children().length > 0) {
             $li.next().children().first().focus();
+          } else {
+            Navigation.tryNextNav($focus);
           }
         } else if (arrowRight && dropdownItemInFocus) {
           // We're inside a dropdown
@@ -1118,6 +1120,8 @@ function () {
         if (arrowLeft && primaryNavItemInFocus) {
           if ($li.prev().length > 0 && $li.prev().children().length > 0) {
             $li.prev().children().first().focus();
+          } else {
+            Navigation.tryPrevNav($focus);
           }
         } else if (arrowLeft && dropdownItemInFocus) {
           // We're inside a dropdown
@@ -1219,6 +1223,33 @@ function () {
       } else {
         $nextNav.find('> a').focus();
       }
+    }
+  }, {
+    key: "tryNextNav",
+    value: function tryNextNav($focus) {
+      Navigation.tryNextPrevNav($focus.parents('.navbar'), true);
+    }
+  }, {
+    key: "tryPrevNav",
+    value: function tryPrevNav($focus) {
+      Navigation.tryNextPrevNav($focus.parents('.navbar'), false);
+    }
+  }, {
+    key: "tryNextPrevNav",
+    value: function tryNextPrevNav($el, next) {
+      var $subsequentNav = next ? $el.next('.navbar') : $el.prev('.navbar');
+      var $visibleLinks = $subsequentNav.find('a:visible');
+
+      if ($subsequentNav.length > 0 && $visibleLinks.length > 0) {
+        var $elementToFocus = next ? $visibleLinks.first() : $visibleLinks.last();
+        $elementToFocus.focus();
+      }
+
+      if ($subsequentNav.length > 0) {
+        return this.tryNextPrevNav($subsequentNav.first(), next); // recurse
+      }
+
+      return undefined;
     }
   }]);
 
@@ -5388,7 +5419,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /*!
- * jQuery JavaScript Library v3.4.0
+ * jQuery JavaScript Library v3.4.1
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -5398,7 +5429,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2019-04-10T19:48Z
+ * Date: 2019-05-01T21:04Z
  */
 (function (global, factory) {
   "use strict";
@@ -5505,7 +5536,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   // unguarded in another place, it seems safer to define global only for this module
 
 
-  var version = "3.4.0",
+  var version = "3.4.1",
       // Define a local copy of jQuery
   jQuery = function jQuery(selector, context) {
     // The jQuery object is actually just the init constructor 'enhanced'
@@ -9297,10 +9328,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   },
       composed = {
     composed: true
-  }; // Check attachment across shadow DOM boundaries when possible (gh-3504)
+  }; // Support: IE 9 - 11+, Edge 12 - 18+, iOS 10.0 - 10.2 only
+  // Check attachment across shadow DOM boundaries when possible (gh-3504)
+  // Support: iOS 10.0-10.2 only
+  // Early iOS 10 versions support `attachShadow` but not `getRootNode`,
+  // leading to errors. We need to check for `getRootNode`.
 
 
-  if (documentElement.attachShadow) {
+  if (documentElement.getRootNode) {
     isAttached = function isAttached(elem) {
       return jQuery.contains(elem.ownerDocument, elem) || elem.getRootNode(composed) === elem.ownerDocument;
     };
@@ -10086,7 +10121,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           // `|| data` is dead code meant only to preserve the variable through minification.
           var el = this || data; // Claim the first handler
 
-          if (rcheckableType.test(el.type) && el.click && nodeName(el, "input") && dataPriv.get(el, "click") === undefined) {
+          if (rcheckableType.test(el.type) && el.click && nodeName(el, "input")) {
             // dataPriv.set( el, "click", ... )
             leverageNative(el, "click", returnTrue);
           } // Return false to allow normal processing in the caller
@@ -10099,7 +10134,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           // `|| data` is dead code meant only to preserve the variable through minification.
           var el = this || data; // Force setup before triggering a click
 
-          if (rcheckableType.test(el.type) && el.click && nodeName(el, "input") && dataPriv.get(el, "click") === undefined) {
+          if (rcheckableType.test(el.type) && el.click && nodeName(el, "input")) {
             leverageNative(el, "click");
           } // Return non-false to allow normal event-path propagation
 
@@ -10131,7 +10166,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   function leverageNative(el, type, expectSync) {
     // Missing expectSync indicates a trigger call, which must force setup through jQuery.event.add
     if (!expectSync) {
-      jQuery.event.add(el, type, returnTrue);
+      if (dataPriv.get(el, type) === undefined) {
+        jQuery.event.add(el, type, returnTrue);
+      }
+
       return;
     } // Register the controller as a special universal handler for all event namespaces
 
@@ -10146,8 +10184,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
         if (event.isTrigger & 1 && this[type]) {
           // Interrupt processing of the outer synthetic .trigger()ed event
-          if (!saved) {
+          // Saved data should be false in such cases, but might be a leftover capture object
+          // from an async native handler (gh-4350)
+          if (!saved.length) {
             // Store arguments for use when handling the inner native event
+            // There will always be at least one argument (an event object), so this array
+            // will not be confused with a leftover capture object.
             saved = _slice.call(arguments);
             dataPriv.set(this, type, saved); // Trigger the native event and capture its result
             // Support: IE <=9 - 11+
@@ -10160,14 +10202,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             if (saved !== result || notAsync) {
               dataPriv.set(this, type, false);
             } else {
-              result = undefined;
+              result = {};
             }
 
             if (saved !== result) {
               // Cancel the outer synthetic event
               event.stopImmediatePropagation();
               event.preventDefault();
-              return result;
+              return result.value;
             } // If this is an inner synthetic event for an event with a bubbling surrogate
             // (focus or blur), assume that the surrogate already propagated from triggering the
             // native event and prevent that from happening again here.
@@ -10180,11 +10222,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           } // If this is a native event triggered above, everything is now in order
           // Fire an inner synthetic event with the original arguments
 
-        } else if (saved) {
+        } else if (saved.length) {
           // ...and capture the result
-          dataPriv.set(this, type, jQuery.event.trigger( // Support: IE <=9 - 11+
-          // Extend with the prototype to reset the above stopImmediatePropagation()
-          jQuery.extend(saved.shift(), jQuery.Event.prototype), saved, this)); // Abort handling of the native event
+          dataPriv.set(this, type, {
+            value: jQuery.event.trigger( // Support: IE <=9 - 11+
+            // Extend with the prototype to reset the above stopImmediatePropagation()
+            jQuery.extend(saved[0], jQuery.Event.prototype), saved.slice(1), this)
+          }); // Abort handling of the native event
 
           event.stopImmediatePropagation();
         }
