@@ -1617,7 +1617,8 @@ var Config = {
     popout: function popout() {
       return _feature_detect__WEBPACK_IMPORTED_MODULE_1__["default"].mq('only all and (min-width: 768px)');
     },
-    doublescroll: true
+    doublescroll: true,
+    namespace: 'id7:table-responsive'
   }
 };
 /**
@@ -1720,6 +1721,19 @@ jquery__WEBPACK_IMPORTED_MODULE_0___default.a.fn.wideTables = function wideTable
       container: $container
     }));
     $container.data('id7.wide-tables', wideTables);
+  }
+
+  if (!(navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1)) {
+    if (navigator.platform === 'MacIntel') {
+      // show scroll bar on non-safari browsers on mac
+      // otherwise mac user would not be able to scroll horizontally
+      // because the double scroll element might not be visible
+      // (and macgic mouse/trackpad horizontal scroll would not work unless on safari.)
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.table-responsive').css('overflow-x', 'scroll');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('body').trigger("non-safari-mac-post-init.".concat(Config.Defaults.namespace));
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.table-responsive').css('overflow-x', 'hidden');
+    }
   }
 
   return this.each(attach);
