@@ -1179,11 +1179,11 @@ fieldset[disabled] .navbar-tertiary .btn-link:focus {
   color: #3F4246;
 }
 .pagination > li.active > a,
-.pagination > li.active > span,
+.pagination > li.active > span:not(.sr-only),
 .pagination > li.active > a:hover,
-.pagination > li.active > span:hover,
+.pagination > li.active > span:not(.sr-only):hover,
 .pagination > li.active > a:focus,
-.pagination > li.active > span:focus {
+.pagination > li.active > span:not(.sr-only):focus {
   background-color: #3F4246;
   border-color: #3F4246;
   color: white;

@@ -185,11 +185,13 @@ function () {
         return window.CSS.supports(property, value);
       }
 
-      if ('suportsCSS' in window) {
-        return window.suportsCSS("".concat(property, ":").concat(value));
-      }
+      if ('supportsCSS' in window) {
+        return window.supportsCSS("".concat(property, ":").concat(value));
+      } // As IE11 doesn't support CSS.supports but its flexbox implementation is just
+      // about good-enough, special-case it
 
-      return false;
+
+      return property === 'display' && value === 'flex' && /rv:11.0/i.test(window.navigator.userAgent);
     }
   }, {
     key: "toggleClasses",
