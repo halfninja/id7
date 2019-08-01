@@ -8925,13 +8925,14 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   }
 }
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
 .fas,
 .far,
 .fal,
+.fad,
 .fab {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -10020,6 +10021,9 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
 }
 .fa-copyright:before {
   content: "\f1f9";
+}
+.fa-cotton-bureau:before {
+  content: "\f89e";
 }
 .fa-couch:before {
   content: "\f4b8";
@@ -13302,7 +13306,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   width: auto;
 }
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -13318,7 +13322,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   font-weight: 400;
 }
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -13335,7 +13339,7 @@ footer .id7-app-footer .id7-footer-utility ul > li:first-child:before {
   font-weight: 900;
 }
 /*!
- * Font Awesome Free 5.9.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.10.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
