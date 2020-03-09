@@ -67,6 +67,7 @@ validation-status.json
 bower_components
 node_modules
 /vendor
+/.parcel-cache
 
 # Generated resources
 /docs/dist
