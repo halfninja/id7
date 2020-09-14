@@ -103,9 +103,12 @@ const extractCSS = ({ resolverPaths } = {}) => ({
           {
             loader: 'less-loader',
             options: {
-              paths: resolverPaths,
-              relativeUrls: false,
               sourceMap: true,
+              lessOptions: {
+                paths: resolverPaths,
+                relativeUrls: false,
+                strictUnits: true,
+              },
             },
           },
         ],
