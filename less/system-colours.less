@@ -1,0 +1,385 @@
+// Overrides to ID7 colours to force using system colours instead
+.canvas-system-colours() {
+  color: CanvasText;
+  background: Canvas;
+}
+
+.canvas-link-colours() {
+  a, a:link {
+    color: LinkText;
+  }
+
+  a:visited {
+    color: VisitedText;
+  }
+
+  a:hover, a:focus, a:active {
+    color: ActiveText;
+  }
+
+  .link-decoration(underline, underline);
+}
+
+.canvas-nav-colours() {
+  .canvas-system-colours();
+  .canvas-link-colours();
+
+  &.navbar-primary.navbar-wrapped > .navbar-nav > li {
+    color: GrayText;
+
+    &.active,
+    &:hover {
+      color: GrayText;
+    }
+  }
+
+  .navbar-text {
+    color: inherit;
+  }
+
+  .navbar-nav li.dropdown ul.dropdown-menu .active::after {
+    border-left-color: CanvasText;
+  }
+
+  .navbar-nav {
+    > li {
+      color: LinkText;
+
+      &:hover,
+      &:focus {
+        color: HighlightText;
+        background-color: Highlight;
+      }
+
+      > a {
+        &,
+        &:hover,
+        &:focus {
+          color: inherit;
+          background: none;
+        }
+      }
+    }
+
+    > li.active {
+      &.next-secondary::before,
+      &.next-tertiary::before,
+      &::before {
+        border-bottom-color: CanvasText;
+      }
+    }
+
+    > .disabled {
+      &,
+      &:hover,
+      &:focus {
+        color: GrayText;
+        background-color: inherit;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    border: none;
+    color: LinkText;
+
+    &:hover,
+    &:focus {
+      color: HighlightText;
+      background-color: Highlight;
+    }
+  }
+
+  // Dropdowns
+  .navbar-nav {
+    > .open {
+      &,
+      &:hover,
+      &:focus {
+        color: HighlightText;
+        background-color: Highlight;
+      }
+    }
+
+    // Dropdowns get custom display
+    .dropdown-menu {
+      background-color: Canvas;
+
+      > .dropdown-header {
+        border-color: Highlight;
+      }
+
+      .divider {
+        background-color: Highlight;
+      }
+
+      > li > a {
+        color: LinkText;
+
+        &:hover,
+        &:focus {
+          color: HighlightText;
+          background-color: Highlight;
+        }
+      }
+      > .active > a {
+        background: none;
+
+        &::before {
+          border-bottom-color: CanvasText;
+        }
+      }
+      > .disabled > a {
+        &,
+        &:hover,
+        &:focus {
+          color: GrayText;
+          background: none;
+        }
+      }
+    }
+  }
+
+  .navbar-link {
+    color: LinkText;
+    &:hover {
+      color: ActiveText;
+    }
+  }
+
+  .btn-link {
+    color: LinkText;
+    &:hover,
+    &:focus {
+      color: ActiveText;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: GrayText;
+      }
+    }
+  }
+}
+
+.force-system-colours() {
+  body {
+    .canvas-system-colours();
+  }
+
+  .header-colour(inherit);
+
+  blockquote.quotes {
+    color: inherit;
+
+    &::before {
+      color: inherit;
+    }
+  }
+
+  .brand-bg,
+  .brand-text {
+    background: none;
+    color: inherit;
+    .canvas-link-colours() !important;
+  }
+
+  .brand-border { border-color: inherit; }
+
+  .id7-fixed-width-container,
+  .id7-main-content-area {
+    background: inherit;
+  }
+
+  .canvas-link-colours();
+
+  .btn {
+    color: ButtonText;
+    background-color: ButtonFace;
+    border-color: Highlight;
+  }
+
+  label {
+    color: inherit;
+  }
+
+  .form-control {
+    background-color: Field;
+    color: FieldText;
+
+    &, &:focus {
+      border-color: Highlight;
+    }
+
+    &::selection {
+      background-color: Highlight;
+      color: HighlightText;
+    }
+  }
+
+  mark,
+  code,
+  pre {
+    // Reset these to inherit first, because Windows 10 doesn't support Mark and MarkText
+    background-color: inherit;
+    color: inherit;
+    border-color: CanvasText;
+
+    background-color: Mark;
+    color: MarkText;
+    border-color: MarkText;
+  }
+
+  // An inoffensive contrasting colour to the body content
+  .id7-utility-masthead,
+  .id7-left-border,
+  .id7-right-border {
+    background: none;
+  }
+
+  // Change masthead to be a mask-image (NOTE: no IE11 support, so can't make this change in ID7 generally yet)
+  .id7-masthead {
+    background-image: none;
+    @media (min-width: @grid-float-breakpoint) {
+      background-image: none;
+    }
+
+    // Put a mask on the ::before so it doesn't mask the contents of the div
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: @id7-masthead-bleed-height;
+      bottom: 0;
+
+      background-color: CanvasText;
+      mask-image: url("@{id7-image-root-dir}/masthead-logo-mask-xs.svg");
+      mask-repeat: no-repeat;
+
+      @media (min-width: @grid-float-breakpoint) {
+        mask-image: url("@{id7-image-root-dir}/masthead-logo-mask-sm.svg");
+      }
+    }
+
+    .id7-header-text {
+      .canvas-link-colours();
+
+      h1.affix {
+        background-color: Canvas;
+      }
+    }
+  }
+
+  // Masked "WARWICK" colour, just bin it off, it's handled above
+  .id7-utility-masthead::after {
+    content: none;
+    display: none;
+  }
+
+  // Remove all navigation styling and instead style them as normal links
+  .id7-navigation .navbar-primary,
+  .navbar-primary .navbar-brand,
+  .navbar-secondary,
+  .navbar-tertiary {
+    .canvas-nav-colours();
+  }
+
+  // Footer
+  .id7-page-footer {
+    .id7-app-footer {
+      border-top: 1px solid CanvasText;
+      padding-top: 0;
+
+      background: inherit;
+      color: inherit;
+      .header-colour(inherit);
+      .canvas-link-colours();
+    }
+
+    .id7-horizontal-divider .divider {
+      stroke: CanvasText;
+    }
+
+    &.id7-footer-divider {
+      .id7-site-footer {
+        background: inherit;
+      }
+
+      .id7-app-footer {
+        .id7-logo-bleed {
+          &::before, &::after {
+            border: none;
+          }
+        }
+      }
+    }
+
+    &.id7-footer-coloured {
+      .id7-site-footer {
+        border-top: 1px solid CanvasText;
+
+        background: inherit;
+        color: inherit;
+        .header-colour(inherit);
+        .canvas-link-colours();
+      }
+
+      .id7-app-footer {
+        .id7-logo-bleed {
+          &::before, &::after {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+  // Form controls
+  .id7-search {
+    .fa, .fas {
+      color: inherit;
+    }
+
+    .form-control:hover + .fa, .typeahead:hover + .fa, .fa:hover,
+    .form-control:hover + .fas, .typeahead:hover + .fas, .fas:hover {
+      color: inherit;
+    }
+
+    .typeahead.dropdown-menu {
+      background: Canvas;
+      border-color: Highlight;
+
+      > li.active > a {
+        background: Highlight;
+        color: HighlightText;
+      }
+    }
+  }
+
+  // Carousel
+
+  // Box styles
+
+  // Pagination
+
+  // Navs
+
+  // List groups
+
+  // Koan spinner
+}
+
+// Enabled by cookie and JS injection of class on <html>
+html.id7-system-colours {
+  .force-system-colours();
+}
+
+// Windows 10 High Contrast mode will activate this
+@media (forced-colors: active) {
+  html {
+    .force-system-colours();
+  }
+}

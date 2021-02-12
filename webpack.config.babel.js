@@ -56,27 +56,27 @@ const commonConfig = basePath => merge([
         $: 'jquery',
       }),
       new PlayFingerprintsPlugin(),
-      new RemovePlugin({
-        before: {
-          root: paths.ROOT,
-          allowRootAndOutside: true,
-          include: [basePath],
-          log: false,
-          trash: false,
-        },
-        after: {
-          root: paths.ROOT,
-          allowRootAndOutside: true,
-          test: [
-            {
-              folder: paths.ASSETS_CSS(basePath),
-              method: filePath => (new RegExp(/.*\.js.*$/, 'm').test(filePath)),
-            },
-          ],
-          log: false,
-          trash: false,
-        },
-      }),
+      // new RemovePlugin({
+      //   before: {
+      //     root: paths.ROOT,
+      //     allowRootAndOutside: true,
+      //     include: [basePath],
+      //     log: false,
+      //     trash: false,
+      //   },
+      //   after: {
+      //     root: paths.ROOT,
+      //     allowRootAndOutside: true,
+      //     test: [
+      //       {
+      //         folder: paths.ASSETS_CSS(basePath),
+      //         method: filePath => (new RegExp(/.*\.js.*$/, 'm').test(filePath)),
+      //       },
+      //     ],
+      //     log: false,
+      //     trash: false,
+      //   },
+      // }),
     ],
     resolve: {
       alias: {
@@ -259,7 +259,7 @@ module.exports = ({ production, docs } = {}) => {
   if (production) {
     mainConfig = merge(commonConfig(paths.ASSETS), productionConfig);
   } else if (docs) {
-    mainConfig = merge(commonConfig(paths.DOCS_ASSETS), productionConfig, docsConfig);
+    mainConfig = merge(commonConfig(paths.DOCS_ASSETS), developmentConfig, docsConfig);
   } else {
     mainConfig = merge(commonConfig(paths.ASSETS), developmentConfig);
   }
@@ -268,7 +268,7 @@ module.exports = ({ production, docs } = {}) => {
   if (production) {
     hp2019Config = merge(homepage2019Config(paths.ASSETS), productionConfig);
   } else if (docs) {
-    hp2019Config = merge(homepage2019Config(paths.DOCS_ASSETS), productionConfig, docsConfig);
+    hp2019Config = merge(homepage2019Config(paths.DOCS_ASSETS), developmentConfig, docsConfig);
   } else {
     hp2019Config = merge(homepage2019Config(paths.ASSETS), developmentConfig);
   }
